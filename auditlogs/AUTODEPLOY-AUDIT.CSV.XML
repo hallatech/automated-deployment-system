@@ -1,0 +1,218 @@
+<?xml-stylesheet type="text/xsl" href="AUTODEPLOY-AUDIT.xsl"?><AUDIT>
+  <ENTRY>
+    <KEY NAME="DATE" VALUE="28/10/11 11:31"/>
+    <KEY NAME="ENVIRONMENT" VALUE="Local"/>
+    <KEY NAME="APPLICATION" VALUE="LiveStoreFront"/>
+    <KEY NAME="RFC" VALUE="123"/>
+    <KEY NAME="AUTODEPLOY_VERSION" VALUE="LSpindriftAD_1.0"/>
+    <KEY NAME="ATG_CONFIG_TFS_PATH" VALUE="/Users/dodds/workspace/AutomatedDeploymentSystem/trunk/platforms/atg/templates/atgconfig"/>
+    <KEY NAME="ATG_SIT_CONFIG_PATH" VALUE="/Users/dodds/workspace/AutomatedDeploymentSystem/Input/ExampleConfig"/>
+    <KEY NAME="RELEASE_OUTPUT" VALUE="/Users/dodds/workspace/AutomatedDeploymentSystem/Release/R_47_2810"/>
+    <KEY NAME="RELEASE_INPUT" VALUE="/Users/dodds/workspace/AutomatedDeploymentSystem/Input/BuildInputs"/>
+    <KEY NAME="ACTION" VALUE="BUILD"/>
+  </ENTRY>
+  <ENTRY>
+    <KEY NAME="DATE" VALUE="28/10/11 11:31"/>
+    <KEY NAME="ENVIRONMENT" VALUE="Local"/>
+    <KEY NAME="APPLICATION" VALUE="StagingStoreFront"/>
+    <KEY NAME="RFC" VALUE="123"/>
+    <KEY NAME="AUTODEPLOY_VERSION" VALUE="LSpindriftAD_1.0"/>
+    <KEY NAME="ATG_CONFIG_TFS_PATH" VALUE="/Users/dodds/workspace/AutomatedDeploymentSystem/trunk/platforms/atg/templates/atgconfig"/>
+    <KEY NAME="ATG_SIT_CONFIG_PATH" VALUE="/Users/dodds/workspace/AutomatedDeploymentSystem/Input/ExampleConfig"/>
+    <KEY NAME="RELEASE_OUTPUT" VALUE="/Users/dodds/workspace/AutomatedDeploymentSystem/Release/R_47_2810"/>
+    <KEY NAME="RELEASE_INPUT" VALUE="/Users/dodds/workspace/AutomatedDeploymentSystem/Input/BuildInputs"/>
+    <KEY NAME="ACTION" VALUE="BUILD"/>
+  </ENTRY>
+  <ENTRY>
+    <KEY NAME="DATE" VALUE="28/10/11 11:31"/>
+    <KEY NAME="ENVIRONMENT" VALUE="Local"/>
+    <KEY NAME="APPLICATION" VALUE="ContentAdmin"/>
+    <KEY NAME="RFC" VALUE="123"/>
+    <KEY NAME="AUTODEPLOY_VERSION" VALUE="LSpindriftAD_1.0"/>
+    <KEY NAME="ATG_CONFIG_TFS_PATH" VALUE="/Users/dodds/workspace/AutomatedDeploymentSystem/trunk/platforms/atg/templates/atgconfig"/>
+    <KEY NAME="ATG_SIT_CONFIG_PATH" VALUE="/Users/dodds/workspace/AutomatedDeploymentSystem/Input/ExampleConfig"/>
+    <KEY NAME="RELEASE_OUTPUT" VALUE="/Users/dodds/workspace/AutomatedDeploymentSystem/Release/R_47_2810"/>
+    <KEY NAME="RELEASE_INPUT" VALUE="/Users/dodds/workspace/AutomatedDeploymentSystem/Input/BuildInputs"/>
+    <KEY NAME="ACTION" VALUE="BUILD"/>
+  </ENTRY>
+  <ENTRY>
+    <KEY NAME="DATE" VALUE="04/11/11 13:48"/>
+    <KEY NAME="ENVIRONMENT" VALUE="Local"/>
+    <KEY NAME="APPLICATION" VALUE="LiveStoreFront"/>
+    <KEY NAME="RFC" VALUE="123"/>
+    <KEY NAME="AUTODEPLOY_VERSION" VALUE="LSpindriftAD_1.0"/>
+    <KEY NAME="ATG_CONFIG_TFS_PATH" VALUE="/Users/dodds/workspace/AutomatedDeploymentSystem/trunk/platforms/atg/templates/atgconfig"/>
+    <KEY NAME="ATG_SIT_CONFIG_PATH" VALUE="/Users/dodds/workspace/AutomatedDeploymentSystem/Input/ExampleConfig"/>
+    <KEY NAME="RELEASE_OUTPUT" VALUE="/Users/dodds/workspace/AutomatedDeploymentSystem/Release/R_48_0411"/>
+    <KEY NAME="RELEASE_INPUT" VALUE="/Users/dodds/workspace/AutomatedDeploymentSystem/Input/BuildInputs"/>
+    <KEY NAME="ACTION" VALUE="BUILD"/>
+  </ENTRY>
+  <ENTRY>
+    <KEY NAME="DATE" VALUE="04/11/11 13:48"/>
+    <KEY NAME="ENVIRONMENT" VALUE="Local"/>
+    <KEY NAME="APPLICATION" VALUE="StagingStoreFront"/>
+    <KEY NAME="RFC" VALUE="123"/>
+    <KEY NAME="AUTODEPLOY_VERSION" VALUE="LSpindriftAD_1.0"/>
+    <KEY NAME="ATG_CONFIG_TFS_PATH" VALUE="/Users/dodds/workspace/AutomatedDeploymentSystem/trunk/platforms/atg/templates/atgconfig"/>
+    <KEY NAME="ATG_SIT_CONFIG_PATH" VALUE="/Users/dodds/workspace/AutomatedDeploymentSystem/Input/ExampleConfig"/>
+    <KEY NAME="RELEASE_OUTPUT" VALUE="/Users/dodds/workspace/AutomatedDeploymentSystem/Release/R_48_0411"/>
+    <KEY NAME="RELEASE_INPUT" VALUE="/Users/dodds/workspace/AutomatedDeploymentSystem/Input/BuildInputs"/>
+    <KEY NAME="ACTION" VALUE="BUILD"/>
+  </ENTRY>
+  <ENTRY>
+    <KEY NAME="DATE" VALUE="04/11/11 13:48"/>
+    <KEY NAME="ENVIRONMENT" VALUE="Local"/>
+    <KEY NAME="APPLICATION" VALUE="ContentAdmin"/>
+    <KEY NAME="RFC" VALUE="123"/>
+    <KEY NAME="AUTODEPLOY_VERSION" VALUE="LSpindriftAD_1.0"/>
+    <KEY NAME="ATG_CONFIG_TFS_PATH" VALUE="/Users/dodds/workspace/AutomatedDeploymentSystem/trunk/platforms/atg/templates/atgconfig"/>
+    <KEY NAME="ATG_SIT_CONFIG_PATH" VALUE="/Users/dodds/workspace/AutomatedDeploymentSystem/Input/ExampleConfig"/>
+    <KEY NAME="RELEASE_OUTPUT" VALUE="/Users/dodds/workspace/AutomatedDeploymentSystem/Release/R_48_0411"/>
+    <KEY NAME="RELEASE_INPUT" VALUE="/Users/dodds/workspace/AutomatedDeploymentSystem/Input/BuildInputs"/>
+    <KEY NAME="ACTION" VALUE="BUILD"/>
+  </ENTRY>
+  <ENTRY>
+    <KEY NAME="DATE" VALUE="04/11/11 15:24"/>
+    <KEY NAME="ENVIRONMENT" VALUE="Local"/>
+    <KEY NAME="APPLICATION" VALUE="LiveStoreFront"/>
+    <KEY NAME="RFC" VALUE="123"/>
+    <KEY NAME="AUTODEPLOY_VERSION" VALUE="LSpindriftAD_1.0"/>
+    <KEY NAME="ATG_CONFIG_TFS_PATH" VALUE="/Users/dodds/workspace/AutomatedDeploymentSystem/trunk/platforms/atg/templates/atgconfig"/>
+    <KEY NAME="ATG_SIT_CONFIG_PATH" VALUE="/Users/dodds/workspace/AutomatedDeploymentSystem/Input/ExampleConfig"/>
+    <KEY NAME="RELEASE_OUTPUT" VALUE="/Users/dodds/workspace/AutomatedDeploymentSystem/Release/R_49_0411"/>
+    <KEY NAME="RELEASE_INPUT" VALUE="/Users/dodds/workspace/AutomatedDeploymentSystem/Input/BuildInputs"/>
+    <KEY NAME="ACTION" VALUE="BUILD"/>
+  </ENTRY>
+  <ENTRY>
+    <KEY NAME="DATE" VALUE="04/11/11 15:24"/>
+    <KEY NAME="ENVIRONMENT" VALUE="Local"/>
+    <KEY NAME="APPLICATION" VALUE="StagingStoreFront"/>
+    <KEY NAME="RFC" VALUE="123"/>
+    <KEY NAME="AUTODEPLOY_VERSION" VALUE="LSpindriftAD_1.0"/>
+    <KEY NAME="ATG_CONFIG_TFS_PATH" VALUE="/Users/dodds/workspace/AutomatedDeploymentSystem/trunk/platforms/atg/templates/atgconfig"/>
+    <KEY NAME="ATG_SIT_CONFIG_PATH" VALUE="/Users/dodds/workspace/AutomatedDeploymentSystem/Input/ExampleConfig"/>
+    <KEY NAME="RELEASE_OUTPUT" VALUE="/Users/dodds/workspace/AutomatedDeploymentSystem/Release/R_49_0411"/>
+    <KEY NAME="RELEASE_INPUT" VALUE="/Users/dodds/workspace/AutomatedDeploymentSystem/Input/BuildInputs"/>
+    <KEY NAME="ACTION" VALUE="BUILD"/>
+  </ENTRY>
+  <ENTRY>
+    <KEY NAME="DATE" VALUE="04/11/11 15:24"/>
+    <KEY NAME="ENVIRONMENT" VALUE="Local"/>
+    <KEY NAME="APPLICATION" VALUE="ContentAdmin"/>
+    <KEY NAME="RFC" VALUE="123"/>
+    <KEY NAME="AUTODEPLOY_VERSION" VALUE="LSpindriftAD_1.0"/>
+    <KEY NAME="ATG_CONFIG_TFS_PATH" VALUE="/Users/dodds/workspace/AutomatedDeploymentSystem/trunk/platforms/atg/templates/atgconfig"/>
+    <KEY NAME="ATG_SIT_CONFIG_PATH" VALUE="/Users/dodds/workspace/AutomatedDeploymentSystem/Input/ExampleConfig"/>
+    <KEY NAME="RELEASE_OUTPUT" VALUE="/Users/dodds/workspace/AutomatedDeploymentSystem/Release/R_49_0411"/>
+    <KEY NAME="RELEASE_INPUT" VALUE="/Users/dodds/workspace/AutomatedDeploymentSystem/Input/BuildInputs"/>
+    <KEY NAME="ACTION" VALUE="BUILD"/>
+  </ENTRY>
+  <ENTRY>
+    <KEY NAME="DATE" VALUE="04/11/11 15:46"/>
+    <KEY NAME="ENVIRONMENT" VALUE="Local"/>
+    <KEY NAME="APPLICATION" VALUE="LiveStoreFront"/>
+    <KEY NAME="RFC" VALUE="123"/>
+    <KEY NAME="AUTODEPLOY_VERSION" VALUE="LSpindriftAD_1.0"/>
+    <KEY NAME="ATG_CONFIG_TFS_PATH" VALUE="/Users/dodds/workspace/AutomatedDeploymentSystem/trunk/platforms/atg/templates/atgconfig"/>
+    <KEY NAME="ATG_SIT_CONFIG_PATH" VALUE="/Users/dodds/workspace/AutomatedDeploymentSystem/Input/ExampleConfig"/>
+    <KEY NAME="RELEASE_OUTPUT" VALUE="/Users/dodds/workspace/AutomatedDeploymentSystem/Release/R_50_0411"/>
+    <KEY NAME="RELEASE_INPUT" VALUE="/Users/dodds/workspace/AutomatedDeploymentSystem/Input/BuildInputs"/>
+    <KEY NAME="ACTION" VALUE="BUILD"/>
+  </ENTRY>
+  <ENTRY>
+    <KEY NAME="DATE" VALUE="04/11/11 15:46"/>
+    <KEY NAME="ENVIRONMENT" VALUE="Local"/>
+    <KEY NAME="APPLICATION" VALUE="StagingStoreFront"/>
+    <KEY NAME="RFC" VALUE="123"/>
+    <KEY NAME="AUTODEPLOY_VERSION" VALUE="LSpindriftAD_1.0"/>
+    <KEY NAME="ATG_CONFIG_TFS_PATH" VALUE="/Users/dodds/workspace/AutomatedDeploymentSystem/trunk/platforms/atg/templates/atgconfig"/>
+    <KEY NAME="ATG_SIT_CONFIG_PATH" VALUE="/Users/dodds/workspace/AutomatedDeploymentSystem/Input/ExampleConfig"/>
+    <KEY NAME="RELEASE_OUTPUT" VALUE="/Users/dodds/workspace/AutomatedDeploymentSystem/Release/R_50_0411"/>
+    <KEY NAME="RELEASE_INPUT" VALUE="/Users/dodds/workspace/AutomatedDeploymentSystem/Input/BuildInputs"/>
+    <KEY NAME="ACTION" VALUE="BUILD"/>
+  </ENTRY>
+  <ENTRY>
+    <KEY NAME="DATE" VALUE="04/11/11 15:46"/>
+    <KEY NAME="ENVIRONMENT" VALUE="Local"/>
+    <KEY NAME="APPLICATION" VALUE="ContentAdmin"/>
+    <KEY NAME="RFC" VALUE="123"/>
+    <KEY NAME="AUTODEPLOY_VERSION" VALUE="LSpindriftAD_1.0"/>
+    <KEY NAME="ATG_CONFIG_TFS_PATH" VALUE="/Users/dodds/workspace/AutomatedDeploymentSystem/trunk/platforms/atg/templates/atgconfig"/>
+    <KEY NAME="ATG_SIT_CONFIG_PATH" VALUE="/Users/dodds/workspace/AutomatedDeploymentSystem/Input/ExampleConfig"/>
+    <KEY NAME="RELEASE_OUTPUT" VALUE="/Users/dodds/workspace/AutomatedDeploymentSystem/Release/R_50_0411"/>
+    <KEY NAME="RELEASE_INPUT" VALUE="/Users/dodds/workspace/AutomatedDeploymentSystem/Input/BuildInputs"/>
+    <KEY NAME="ACTION" VALUE="BUILD"/>
+  </ENTRY>
+  <ENTRY>
+    <KEY NAME="DATE" VALUE="04/11/11 16:27"/>
+    <KEY NAME="ENVIRONMENT" VALUE="Local"/>
+    <KEY NAME="APPLICATION" VALUE="LiveStoreFront"/>
+    <KEY NAME="RFC" VALUE="123"/>
+    <KEY NAME="AUTODEPLOY_VERSION" VALUE="LSpindriftAD_1.0"/>
+    <KEY NAME="ATG_CONFIG_TFS_PATH" VALUE="/Users/dodds/workspace/AutomatedDeploymentSystem/trunk/platforms/atg/templates/atgconfig"/>
+    <KEY NAME="ATG_SIT_CONFIG_PATH" VALUE="/Users/dodds/workspace/AutomatedDeploymentSystem/Input/ExampleConfig"/>
+    <KEY NAME="RELEASE_OUTPUT" VALUE="/Users/dodds/workspace/AutomatedDeploymentSystem/Release/R_51_0411"/>
+    <KEY NAME="RELEASE_INPUT" VALUE="/Users/dodds/workspace/AutomatedDeploymentSystem/Input/BuildInputs"/>
+    <KEY NAME="ACTION" VALUE="BUILD"/>
+  </ENTRY>
+  <ENTRY>
+    <KEY NAME="DATE" VALUE="04/11/11 16:27"/>
+    <KEY NAME="ENVIRONMENT" VALUE="Local"/>
+    <KEY NAME="APPLICATION" VALUE="StagingStoreFront"/>
+    <KEY NAME="RFC" VALUE="123"/>
+    <KEY NAME="AUTODEPLOY_VERSION" VALUE="LSpindriftAD_1.0"/>
+    <KEY NAME="ATG_CONFIG_TFS_PATH" VALUE="/Users/dodds/workspace/AutomatedDeploymentSystem/trunk/platforms/atg/templates/atgconfig"/>
+    <KEY NAME="ATG_SIT_CONFIG_PATH" VALUE="/Users/dodds/workspace/AutomatedDeploymentSystem/Input/ExampleConfig"/>
+    <KEY NAME="RELEASE_OUTPUT" VALUE="/Users/dodds/workspace/AutomatedDeploymentSystem/Release/R_51_0411"/>
+    <KEY NAME="RELEASE_INPUT" VALUE="/Users/dodds/workspace/AutomatedDeploymentSystem/Input/BuildInputs"/>
+    <KEY NAME="ACTION" VALUE="BUILD"/>
+  </ENTRY>
+  <ENTRY>
+    <KEY NAME="DATE" VALUE="04/11/11 16:27"/>
+    <KEY NAME="ENVIRONMENT" VALUE="Local"/>
+    <KEY NAME="APPLICATION" VALUE="ContentAdmin"/>
+    <KEY NAME="RFC" VALUE="123"/>
+    <KEY NAME="AUTODEPLOY_VERSION" VALUE="LSpindriftAD_1.0"/>
+    <KEY NAME="ATG_CONFIG_TFS_PATH" VALUE="/Users/dodds/workspace/AutomatedDeploymentSystem/trunk/platforms/atg/templates/atgconfig"/>
+    <KEY NAME="ATG_SIT_CONFIG_PATH" VALUE="/Users/dodds/workspace/AutomatedDeploymentSystem/Input/ExampleConfig"/>
+    <KEY NAME="RELEASE_OUTPUT" VALUE="/Users/dodds/workspace/AutomatedDeploymentSystem/Release/R_51_0411"/>
+    <KEY NAME="RELEASE_INPUT" VALUE="/Users/dodds/workspace/AutomatedDeploymentSystem/Input/BuildInputs"/>
+    <KEY NAME="ACTION" VALUE="BUILD"/>
+  </ENTRY>
+  <ENTRY>
+    <KEY NAME="DATE" VALUE="04/11/11 18:19"/>
+    <KEY NAME="ENVIRONMENT" VALUE="Local"/>
+    <KEY NAME="APPLICATION" VALUE="LiveStoreFront"/>
+    <KEY NAME="RFC" VALUE="123"/>
+    <KEY NAME="AUTODEPLOY_VERSION" VALUE="LSpindriftAD_1.0"/>
+    <KEY NAME="ATG_CONFIG_TFS_PATH" VALUE="/Users/dodds/workspace/AutomatedDeploymentSystem/trunk/platforms/atg/templates/atgconfig"/>
+    <KEY NAME="ATG_SIT_CONFIG_PATH" VALUE="/Users/dodds/workspace/AutomatedDeploymentSystem/Input/ExampleConfig"/>
+    <KEY NAME="RELEASE_OUTPUT" VALUE="/Users/dodds/workspace/AutomatedDeploymentSystem/Release/R_59_0411"/>
+    <KEY NAME="RELEASE_INPUT" VALUE="/Users/dodds/workspace/AutomatedDeploymentSystem/Input/BuildInputs"/>
+    <KEY NAME="ACTION" VALUE="BUILD"/>
+  </ENTRY>
+  <ENTRY>
+    <KEY NAME="DATE" VALUE="04/11/11 18:19"/>
+    <KEY NAME="ENVIRONMENT" VALUE="Local"/>
+    <KEY NAME="APPLICATION" VALUE="StagingStoreFront"/>
+    <KEY NAME="RFC" VALUE="123"/>
+    <KEY NAME="AUTODEPLOY_VERSION" VALUE="LSpindriftAD_1.0"/>
+    <KEY NAME="ATG_CONFIG_TFS_PATH" VALUE="/Users/dodds/workspace/AutomatedDeploymentSystem/trunk/platforms/atg/templates/atgconfig"/>
+    <KEY NAME="ATG_SIT_CONFIG_PATH" VALUE="/Users/dodds/workspace/AutomatedDeploymentSystem/Input/ExampleConfig"/>
+    <KEY NAME="RELEASE_OUTPUT" VALUE="/Users/dodds/workspace/AutomatedDeploymentSystem/Release/R_59_0411"/>
+    <KEY NAME="RELEASE_INPUT" VALUE="/Users/dodds/workspace/AutomatedDeploymentSystem/Input/BuildInputs"/>
+    <KEY NAME="ACTION" VALUE="BUILD"/>
+  </ENTRY>
+  <ENTRY>
+    <KEY NAME="DATE" VALUE="04/11/11 18:19"/>
+    <KEY NAME="ENVIRONMENT" VALUE="Local"/>
+    <KEY NAME="APPLICATION" VALUE="ContentAdmin"/>
+    <KEY NAME="RFC" VALUE="123"/>
+    <KEY NAME="AUTODEPLOY_VERSION" VALUE="LSpindriftAD_1.0"/>
+    <KEY NAME="ATG_CONFIG_TFS_PATH" VALUE="/Users/dodds/workspace/AutomatedDeploymentSystem/trunk/platforms/atg/templates/atgconfig"/>
+    <KEY NAME="ATG_SIT_CONFIG_PATH" VALUE="/Users/dodds/workspace/AutomatedDeploymentSystem/Input/ExampleConfig"/>
+    <KEY NAME="RELEASE_OUTPUT" VALUE="/Users/dodds/workspace/AutomatedDeploymentSystem/Release/R_59_0411"/>
+    <KEY NAME="RELEASE_INPUT" VALUE="/Users/dodds/workspace/AutomatedDeploymentSystem/Input/BuildInputs"/>
+    <KEY NAME="ACTION" VALUE="BUILD"/>
+  </ENTRY>
+</AUDIT>

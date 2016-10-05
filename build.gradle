@@ -1,0 +1,98 @@
+	apply plugin: 'eclipse'
+	
+    task version() << {
+		logger.info(Logging.QUIET, "SpindriftAD Version : ${project.VERSION}\n")
+	}
+	
+	// ===============================================================================
+	// Spindrift automated deploy system 
+	// 
+	// This is the key build file that controls automated build and deployment
+	// of ATG applications. This file should be modified by authorised personnel only.
+	// ===============================================================================
+
+	// ======================================================================================
+	// The purpose of this task is to process and generate the ATG configurations required for an environment.
+	//
+	// Scope: Public.
+	// ======================================================================================
+	task atg_process_config(dependsOn: [':platforms/atg:processATGConfig']) << {
+		logger.info(Logging.QUIET, "atg_process_config ended at " + new Date().toString() + "\n")
+	}
+	atg_process_config.description = "Generate ATG Configuration for the environments listed in Gradle.properties."
+
+
+	// ======================================================================================
+	// The purpose of this task is to build ATG applications. Before you run this task, 
+	// please review gradle.properties and ensure it has correct configurations.
+	//
+	// Scope: Public.
+	// ======================================================================================
+	task atg_build(dependsOn: [':platforms/atg:copyBuildInfo']) << {
+		logger.info(Logging.QUIET, "Build Ended at " + new Date().toString() + "\n")
+	}
+	atg_build.description = "Build ATG JBoss Clusters for a Release"
+
+
+	// ======================================================================================
+	// The purpose of this task is to deploy ATG applications to specific set of servers
+	// This task expects minimum command line parameter : Env
+	// Optional command line parameter: DeployReleaseId, if not specified, latest build is deployed
+	//
+	// Env is the environment to which the release is to be deployed.
+	// ServerGroups the server groups to which the release is to be deployed.
+	// Servers the servers to which the release is to be deployed.
+	// DeployReleaseId is the release to be deployed.	
+	//
+	// Example 1: gradle atg_deploy_release
+	// Example 1: gradle -PEnvironment=Local atg_deploy_release
+	// Example 2: gradle -PEnvironment=Local -PServerGroups=LiveStoreFront atg_deploy_release
+	// Example 3: gradle -PEnvironment=Local -PServerGroups=LiveStoreFront -PServers=NLATGDPAG01 atg_deploy_release
+	// Example 4: gradle -PEnvironment=Local -PServerGroups=LiveStoreFront -PServers=NLATGDPAG01 -PDeployReleaseId=R_492_1508 atg_deploy_release
+	// Scope: Public.
+	// ======================================================================================
+	
+	task atg_deploy_release(dependsOn: [':platforms/atg:deployRelease']) << {
+		logger.info(Logging.QUIET, "deploy release ended at " + new Date().toString() + "\n")	
+	}
+	atg_deploy_release.description = "deploy a previously built atg jboss release to target servers"
+
+	// ======================================================================================
+        // The purpose of this task is to start and stop jboss instances in target servers
+        // This task expects minimum command line parameter : Env and command
+        //
+        // Env is the environment of which the jboss instaces will be controlled
+        // ServerGroups the server groups of which the jboss instaces will be controlled
+        // Servers the servers of which the jboss instaces will be controlled
+        //
+        // Example 1: gradle -PCommand=start atg_control_jboss
+        // Example 1: gradle -PEnvironment=CI -PCommand=start atg_control_jboss
+        // Example 2: gradle -PEnvironment=CI -PCommand=stop atg_control_jboss
+        // Example 3: gradle -PEnvironment=CI -PCommand=restart atg_control_jboss
+        // Example 4: gradle -PEnvironment=CI -PServerGroups=LiveStoreFront -PCommand=start atg_control_jboss
+        // Example 5: gradle -PEnvironment=CI -PServerGroups=LiveStoreFront -PServers=NLATGDPAG01  -PCommand=start atg_control_jboss
+        // Scope: Public.
+        // ======================================================================================
+
+	task atg_control_jboss(dependsOn: [':platforms/atg:controlJboss']) << {
+		logger.info(Logging.QUIET, "Jboss control command ended at: " + new Date().toString() + "\n")	
+	}
+	atg_control_jboss.description = "Start, stops and restart jboss serers on specific servers"
+		
+	
+	// ======================================
+	// Convert the Audit Log CSV file to XML
+	// ======================================
+	task csv2xml() << {
+		def converter=new com.spindrift.autodeploy.common.Csv2Xml()
+		converter.convert(project.CSV,project.XML)
+	}
+	csv2xml.description = "Convert the auditlog CSV file to an XML file."
+	
+	// ======================================
+	// Get latest source from TFS
+	// ======================================
+    task getLatestSource(dependsOn: [':platforms/atg:getLatestSource']) << {
+            logger.info(Logging.QUIET, "Build Ended at " + new Date().toString() + "\n")
+    }
+    getLatestSource.description = "Downloads the latest source from TFS"

@@ -1,0 +1,143 @@
+<?xml version="1.0" encoding="ISO-8859-1"?>
+<applications xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="applications.xsd">
+	<application name="All">
+		<startStop>
+			<!-- restartStrategy name="OneAtATimeRestartStrategy"/-->
+			<restartStrategy name="ServerRoundRobinRestartStrategy"/>
+			<slotTypeStartupOrder default="10">
+				<slot type="LMPrimary" order="1"/>
+				<slot type="LMSecondary" order="2"/>
+				<slot type="CtrlPrimary" order="3"/>
+				<slot type="CtrlSecondary" order="4"/>
+				<slot type="PS" order="5"/>
+			</slotTypeStartupOrder>
+		</startStop>
+		
+		<buildinput>
+			<deleteFromSlot>
+				<slotItem type="folder">deploy/ROOT.war</slotItem>
+			</deleteFromSlot>
+
+			<!-- JBoss slimming -->
+			<deleteFromSlot>
+				<!-- Remove Hypersonic database -->
+				<slotItem type="file">deploy/hsqldb-ds.xml</slotItem>
+				<slotItem type="file">deploy/messaging/hsqldb-persistence-service.xml</slotItem>
+				<!-- Remove EJB3 services -->
+				<slotItem type="file">deploy/ejb3-connectors-jboss-beans.xml</slotItem>
+				<slotItem type="file">deploy/ejb3-container-jboss-beans.xml</slotItem>
+				<slotItem type="file">deploy/ejb3-interceptors-aop.xml</slotItem>
+				<slotItem type="file">deploy/ejb3-timerservice-jboss-beans.xml</slotItem>
+				<slotItem type="file">deployers/jboss-ejb3-endpoint-deployer.jar</slotItem>
+				<slotItem type="file">deployers/ejb3-deployers-jboss-beans.xml</slotItem>
+				<!-- Remove EJB2 services -->
+				<slotItem type="file">deploy/ejb2-container-jboss-beans.xml</slotItem>
+				<!-- slotItem type="file">deploy/ejb2-timer-service.xml</slotItem-->
+				<!-- Remove UUID Key Generator -->
+				<slotItem type="folder">deploy/uuid-key-generator.sar</slotItem>
+				<!-- Remove JUDDI -->
+				<slotItem type="folder">deploy/juddi-service.sar</slotItem>
+				<!-- Remove JBoss Mail -->
+				<slotItem type="file">deploy/mail-service.xml</slotItem>
+				<slotItem type="folder">deploy/mail-ra.rar</slotItem>
+				<!-- Remove JBoss Scheduling -->
+				<slotItem type="file">deploy/schedule-manager-service.xml</slotItem>
+				<slotItem type="file">deploy/scheduler-service.xml</slotItem>
+				<!-- Remove Bsh Deployer-->
+				<slotItem type="folder">deployers/bsh.deployer</slotItem>
+				<!-- Remove JBossWS -->
+				<slotItem type="file">conf/jax-ws-catalog.xml</slotItem>
+				<slotItem type="file">conf/props/jbossws-roles.properties</slotItem>
+				<slotItem type="file">conf/props/jbossws-users.properties</slotItem>
+				<slotItem type="folder">deploy/jbossws.sar</slotItem>
+				<slotItem type="folder">deployers/jbossws.deployer</slotItem>
+				<!-- Remove Seam -->
+				<slotItem type="folder">deploy/admin-console.war</slotItem>
+				<slotItem type="folder">deployers/seam.deployer</slotItem>
+				<!-- Remove IIOP/Corba -->
+				<slotItem type="file">conf/jacorb.properties</slotItem>
+				<slotItem type="file">deploy/iiop-service.xml</slotItem>
+				<slotItem type="file">deployers/ejb3.deployer/META-INF/ejb3-iiop-deployers-jboss-beans.xml</slotItem>
+				<slotItem type="file">lib/jacorb.jar</slotItem>
+			</deleteFromSlot>
+			
+			<deleteFromServer>
+				<!-- Update CGLib -->
+				<serverItem type="file">common/lib/cglib.jar</serverItem>
+			</deleteFromServer>
+			
+		</buildinput>
+	</application>
+	<application name="LiveStoreFront" type="FRONT">
+		<buildinput>
+			<item slotType="PS">
+				<source type="file">deploy/LiveStoreFront.ear</source>
+				<destination type="folder" receiver="slot">deploy</destination>
+			</item>
+			<item slotType="CtrlPrimary">
+				<source type="file">deploy/LiveStoreFront.ear</source>
+				<destination type="folder" receiver="slot">deploy</destination>
+			</item>
+			<item slotType="CtrlSecondary">
+				<source type="file">deploy/LiveStoreFront.ear</source>
+				<destination type="folder" receiver="slot">deploy</destination>
+			</item>
+			<item slotType="LMPrimary">
+				<source type="file">deploy/Minimal.ear</source>
+				<destination type="folder" receiver="slot">deploy</destination>
+			</item>
+			<item slotType="LMSecondary">
+				<source type="file">deploy/Minimal.ear</source>
+				<destination type="folder" receiver="slot">deploy</destination>
+			</item>
+		</buildinput>
+	</application>
+	<application name="StagingStoreFront" type="BACK">
+		<buildinput>
+			<item slotType="PS">
+				<source type="file">deploy/StagingStoreFront.ear</source>
+				<destination type="folder" receiver="slot">deploy</destination>
+			</item>
+			<item slotType="CtrlPrimary">
+				<source type="file">deploy/StagingStoreFront.ear</source>
+				<destination type="folder" receiver="slot">deploy</destination>
+			</item>
+			<item slotType="CtrlSecondary">
+				<source type="file">deploy/StagingStoreFront.ear</source>
+				<destination type="folder" receiver="slot">deploy</destination>
+			</item>
+			<item slotType="LMPrimary">
+				<source type="file">deploy/Minimal.ear</source>
+				<destination type="folder" receiver="slot">deploy</destination>
+			</item>
+			<item slotType="LMSecondary">
+				<source type="file">deploy/Minimal.ear</source>
+				<destination type="folder" receiver="slot">deploy</destination>
+			</item>
+		</buildinput>
+	</application>
+	<application name="ContentAdmin" type="BACK">
+		<buildinput>
+			<item slotType="PS">
+				<source type="file">deploy/ContentAdmin.ear</source>
+				<destination type="folder" receiver="slot">deploy</destination>
+			</item>
+			<item slotType="CtrlPrimary">
+				<source type="file">deploy/ContentAdmin.ear</source>
+				<destination type="folder" receiver="slot">deploy</destination>
+			</item>
+			<item slotType="CtrlSecondary">
+				<source type="file">deploy/ContentAdmin.ear</source>
+				<destination type="folder" receiver="slot">deploy</destination>
+			</item>
+			<item slotType="LMPrimary">
+				<source type="file">deploy/Minimal.ear</source>
+				<destination type="folder" receiver="slot">deploy</destination>
+			</item>
+			<item slotType="LMSecondary">
+				<source type="file">deploy/Minimal.ear</source>
+				<destination type="folder" receiver="slot">deploy</destination>
+			</item>
+		</buildinput>
+	</application>
+</applications>

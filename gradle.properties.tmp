@@ -1,0 +1,97 @@
+//===============================================
+//The root folder for Spindrift Automation
+//===============================================
+//ADROOT= This is defined inside the Initializer.grrovy
+
+//===============================================
+//The home folder for Spindrift Automation relative ADROOT
+//Code from the Automation source control is located here
+//===============================================
+ADHOME=/SpindriftAD-TRUNK
+
+//===============================================
+//The ATG Gradle sub-project relative from ADHOME
+//===============================================
+AtgHome=/platforms/atg
+
+//==========================================================
+// The folder where ATG BuildInput files are located relative from ADROOT
+//==========================================================
+AtgEarFiles=/Input/BuildInputs
+
+//=====================================================
+//Folder where ATG Example Configuration is kept relative ADROOT
+//=====================================================
+AtgExampleConfig=/Input/ExampleConfig
+
+//=====================================================
+//Folder where ATG Configuration templates are kept
+//=====================================================
+AtgTemplates=/templates/atgconfig
+
+//=====================================================
+//TFS connection properties
+//===============================================
+TfsServer=http://vm018024:8080 
+TfsWorkspaceName=AUTOMATION_WS
+
+//===============================================
+// The folder where Releases will be generated
+//===============================================
+ReleaseFolder=/Release
+
+//===============================================
+//List of applications to build as comma seperated values.
+//eg: Applications=LiveStoreFront,ContentAdministration
+//===============================================
+AtgApplications=LiveStoreFront,StagingStoreFront,ContentAdmin
+
+//===============================================
+//The environment into which the applications should be deployed. eg Environment=CI
+//===============================================
+Environment=CI
+
+//=======================================
+//Specify the version of jboss templates to be used for this build
+//=======================================
+JbossTemplates=jboss
+//================================================================
+// A folder for storing temp working files
+//================================================================
+AtgConfigTemp=/Output/AllConfig
+
+//=======================================================
+// The age in days to keep Releases when the deleteReleases task is run.
+//=======================================================
+Age=5
+
+//========================================================================
+// The default value of release to be deployed. If latest, then the deployment 
+// process will find the latest available build 
+//========================================================================
+DeployReleaseId=latest
+
+//========================================================================
+// The deployment directory in remote machine
+//========================================================================
+DEPLOYHOME=/usr/local/Deployments
+
+//========================================================================
+// The user account to use for deployment
+//========================================================================
+UserAccount=jboss
+
+//========================================================================
+// Additional Applications for workers.properties
+//========================================================================
+AdditionalWorkerApps=InternalUserAdmin
+
+//========================================================================
+// Root folder for smoke test scripts (absolute path)
+//========================================================================
+smokeTestRoot=/opt/smokeTests
+
+//========================================================================
+// Folder for smoke test scripts within a specific release folder (relative path)
+//========================================================================
+releaseSmokeTestsFolder=buildInfo/smokeTests

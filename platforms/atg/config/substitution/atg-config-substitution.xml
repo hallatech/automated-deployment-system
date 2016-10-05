@@ -1,0 +1,313 @@
+<?xml version="1.0" encoding="ISO-8859-1"?>
+<substitutions xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="atg-config-substitution.xsd">
+	<envsubstitutions application="LiveStoreFront">
+		<substitution filepath="localconfig/atg/search/routing/Configuration.properties" type="modify">
+			<property name="engineDir">
+				<env name="LOCAL">/opt/ATG/ATG10.0.2/Search10.0.2/SearchEngine</env>
+			</property>
+			<property name="deployShare">
+				<env name="LOCAL">/opt/ATG/ATG10.0.2/Search10.0.2/deployshare</env>
+			</property>
+		</substitution>
+		<substitution filepath="localconfig/atg/search/routing/Configuration.properties" type="delete" env="CI,TEST,ACCEPTANCE,PRODUCTION"/>
+		
+		<substitution filepath="localconfig/atg/dynamo/service/ClientLockManager.properties" type="modify">
+			<property name="lockServerAddress">
+				<env name="CI">NLATGDPAG01.OTRA-INT.COM</env>
+				<env name="TEST">NLATGTPAG01.OTRA-INT.COM</env>
+				<env name="ACCEPTANCE">NLATGAPAG01.OTRA-INT.COM,NLATGAPAG02.OTRA-INT.COM</env>
+				<env name="PRODUCTION">NLATGPPAG01.OTRA-INT.COM,NLATGPPAG02.OTRA-INT.COM</env>
+			</property>
+			<property name="lockServerPort">
+				<env name="ACCEPTANCE">9010,9010</env>
+				<env name="PRODUCTION">9010,9010</env>
+			</property>
+		</substitution>
+		<substitution filepath="localconfig/atg/dynamo/Configuration.properties" type="modify">
+			<property name="siteHttpServerName">
+				<env name="CI">live.ci.technischeunie.com</env>
+				<env name="TEST">live.test.technischeunie.com</env>
+				<env name="ACCEPTANCE">live.accept.technischeunie.com</env>
+				<env name="PRODUCTION">live.production.technischeunie.com</env>
+			</property>
+		</substitution>		
+	</envsubstitutions>
+	<envsubstitutions application="StagingStoreFront">
+		<substitution filepath="localconfig/atg/dynamo/service/ClientLockManager.properties" type="modify">
+			<property name="lockServerAddress">
+				<env name="CI">NLATGDSTG01.OTRA-INT.COM</env>
+				<env name="TEST">NLATGTSTG01.OTRA-INT.COM</env>
+				<env name="ACCEPTANCE">NLATGASTG01.OTRA-INT.COM,NLATGASTG02.OTRA-INT.COM</env>
+				<env name="PRODUCTION">NLATGPSTG01.OTRA-INT.COM,NLATGPSTG02.OTRA-INT.COM</env>
+			</property>
+			<property name="lockServerPort">
+				<env name="ACCEPTANCE">9010,9010</env>
+				<env name="PRODUCTION">9010,9010</env>
+			</property>
+		</substitution>
+		<substitution filepath="localconfig/atg/dynamo/Configuration.properties" type="modify">
+			<property name="siteHttpServerName">
+				<env name="CI">stage.ci.technischeunie.com</env>
+				<env name="TEST">stage.test.technischeunie.com</env>
+				<env name="ACCEPTANCE">stage.accept.technischeunie.com</env>
+				<env name="PRODUCTION">stage.production.technischeunie.com</env>
+			</property>
+		</substitution>		
+	</envsubstitutions>
+	<envsubstitutions application="ContentAdmin">
+		<substitution filepath="localconfig/atg/dynamo/service/ClientLockManager.properties" type="modify">
+			<property name="lockServerAddress">
+				<env name="CI">NLATGDCAD01.OTRA-INT.COM</env>
+				<env name="TEST">NLATGTCAD01.OTRA-INT.COM</env>
+				<env name="ACCEPTANCE">NLATGACAD01.OTRA-INT.COM,NLATGACAD02.OTRA-INT.COM</env>
+				<env name="PRODUCTION">NLATGPCAD01.OTRA-INT.COM,NLATGPCAD02.OTRA-INT.COM</env>
+			</property>
+			<property name="lockServerPort">
+				<env name="ACCEPTANCE">9010,9010</env>
+				<env name="PRODUCTION">9010,9010</env>
+			</property>
+		</substitution>
+		<substitution filepath="localconfig/atg/dynamo/service/ClientLockManager_production.properties" type="modify">
+			<property name="lockServerAddress">
+				<env name="CI">NLATGDPAG01.OTRA-INT.COM</env>
+				<env name="TEST">NLATGTPAG01.OTRA-INT.COM</env>
+				<env name="ACCEPTANCE">NLATGAPAG01.OTRA-INT.COM,NLATGAPAG02.OTRA-INT.COM</env>
+				<env name="PRODUCTION">NLATGPPAG01.OTRA-INT.COM,NLATGPPAG02.OTRA-INT.COM</env>
+			</property>
+			<property name="lockServerPort">
+				<env name="ACCEPTANCE">9010,9010</env>
+				<env name="PRODUCTION">9010,9010</env>
+			</property>
+		</substitution>
+        <substitution filepath="localconfig/atg/dynamo/service/ClientLockManager_staging.properties" type="modify">
+            <property name="lockServerAddress">
+                <env name="CI">NLATGDSTG01.OTRA-INT.COM</env>
+                <env name="TEST">NLATGTSTG01.OTRA-INT.COM</env>
+                <env name="ACCEPTANCE">NLATGASTG01.OTRA-INT.COM,NLATGASTG02.OTRA-INT.COM</env>
+                <env name="PRODUCTION">NLATGPSTG01.OTRA-INT.COM,NLATGPSTG02.OTRA-INT.COM</env>
+            </property>
+            <property name="lockServerPort">
+                <env name="ACCEPTANCE">9010,9010</env>
+                <env name="PRODUCTION">9010,9010</env>
+            </property>
+        </substitution>
+		<substitution filepath="localconfig/atg/dynamo/Configuration.properties" type="modify">
+			<property name="siteHttpServerName">
+				<env name="CI">ca.ci.technischeunie.com</env>
+				<env name="TEST">ca.test.technischeunie.com</env>
+				<env name="ACCEPTANCE">ca.accept.technischeunie.com</env>
+				<env name="PRODUCTION">ca.production.technischeunie.com</env>
+			</property>
+		</substitution>        
+	</envsubstitutions>
+	
+	<slotsubstitutions>
+		<substitution filepath="localconfig/atg/dynamo/Configuration.properties" type="modify">
+			<property name="adminPort">
+				<slot name="slot1">8180</slot>
+				<slot name="slot2">8280</slot>
+				<slot name="slot3">8380</slot>
+				<slot name="slot4">8480</slot>
+				<slot name="slot5">8580</slot>
+				<slot name="slot6">8680</slot>
+			</property>
+			<property name="drpPort">
+				<slot name="slot1">10150</slot>
+				<slot name="slot2">10250</slot>
+				<slot name="slot3">10350</slot>
+				<slot name="slot4">10450</slot>
+				<slot name="slot5">10550</slot>
+				<slot name="slot6">10650</slot>
+			</property>
+			<property name="fileDeploymentPort">
+				<slot name="slot1">10110</slot>
+				<slot name="slot2">10210</slot>
+				<slot name="slot3">10310</slot>
+				<slot name="slot4">10410</slot>
+				<slot name="slot5">10510</slot>
+				<slot name="slot6">10610</slot>
+			</property>
+			<property name="httpPort">
+				<slot name="slot1">80</slot>
+				<slot name="slot2">80</slot>
+				<slot name="slot3">80</slot>
+				<slot name="slot4">80</slot>
+				<slot name="slot5">80</slot>
+				<slot name="slot6">80</slot>
+			</property>
+			<property name="httpsPort">
+				<slot name="slot1">443</slot>
+				<slot name="slot2">443</slot>
+				<slot name="slot3">443</slot>
+				<slot name="slot4">443</slot>
+				<slot name="slot5">443</slot>
+				<slot name="slot6">443</slot>
+			</property>
+			<property name="rmiPort">
+				<slot name="slot1">10160</slot>
+				<slot name="slot2">10260</slot>
+				<slot name="slot3">10360</slot>
+				<slot name="slot4">10460</slot>
+				<slot name="slot5">10560</slot>
+				<slot name="slot6">10660</slot>
+			</property>
+			<property name="siteHttpServerPort">
+				<slot name="slot1">80</slot>
+				<slot name="slot2">80</slot>
+				<slot name="slot3">80</slot>
+				<slot name="slot4">80</slot>
+				<slot name="slot5">80</slot>
+				<slot name="slot6">80</slot>
+			</property>
+		</substitution>
+		<substitution filepath="localconfig/atg/epub/file/synchronization/FileSynchronizationDeployServer.properties" type="modify">
+			<property name="port">
+				<slot name="slot1">10115</slot>
+				<slot name="slot2">10215</slot>
+				<slot name="slot3">10315</slot>
+				<slot name="slot4">10415</slot>
+				<slot name="slot5">10515</slot>
+				<slot name="slot6">10615</slot>
+			</property>
+		</substitution>
+	</slotsubstitutions>
+	
+	<slottypesubstitutions>
+		<substitution filepath="localconfig/atg/dynamo/service/Initial.properties" type="modify">
+			<property name="initialServices+">
+				<slottype name="LMPrimary">/atg/dynamo/service/ServerLockManager</slottype>
+				<slottype name="LMSecondary">/atg/dynamo/service/ServerLockManager</slottype>
+			</property>
+		</substitution>
+		<substitution filepath="localconfig/atg/dynamo/service/jdbc/DirectJTDataSource.properties" type="modify">
+			<property name="JNDIName">
+				<slottype name="LMPrimary">java:/liverw</slottype>
+				<slottype name="LMSecondary">java:/liverw</slottype>
+			</property>
+		</substitution>
+		<substitution filepath="localconfig/atg/dynamo/service/jdbc/SwitchingDataSourceA.properties" type="modify">
+			<property name="JNDIName">
+				<slottype name="LMPrimary">java:/livea</slottype>
+				<slottype name="LMSecondary">java:/livea</slottype>
+			</property>
+		</substitution>
+		<substitution filepath="localconfig/atg/dynamo/service/jdbc/SwitchingDataSourceB.properties" type="modify">
+			<property name="JNDIName">
+				<slottype name="LMPrimary">java:/liveb</slottype>
+				<slottype name="LMSecondary">java:/liveb</slottype>
+			</property>
+		</substitution>
+		<substitution filepath="localconfig/atg/multisite/SiteRepository.properties" type="modify">
+			<property name="dataSource">
+				<slottype name="LMPrimary">/atg/dynamo/service/jdbc/SwitchingDataSource</slottype>
+				<slottype name="LMSecondary">/atg/dynamo/service/jdbc/SwitchingDataSource</slottype>
+			</property>
+		</substitution>
+		<substitution filepath="localconfig/atg/userprofiling/PersonalizationRepository.properties" type="modify">
+			<property name="dataSource">
+				<slottype name="LMPrimary">/atg/dynamo/service/jdbc/SwitchingDataSource</slottype>
+				<slottype name="LMSecondary">/atg/dynamo/service/jdbc/SwitchingDataSource</slottype>
+			</property>
+		</substitution>
+		<substitution filepath="localconfig/atg/dynamo/service/Initial.properties" type="delete" slottype="PS,CtrlPrimary,CtrlSecondary,InternalUserAdmin"/>
+		<substitution filepath="localconfig/atg/dynamo/service/ServerLockManager.properties" type="delete" slottype="PS,CtrlPrimary,CtrlSecondary,InternalUserAdmin"/>
+		<substitution filepath="localconfig/atg/dynamo/service/jdbc/DirectJTDataSource.properties" type="delete" slottype="PS,CtrlPrimary,CtrlSecondary,InternalUserAdmin"/>
+		<substitution filepath="localconfig/atg/dynamo/service/jdbc/SwitchingDataSourceA.properties" type="delete" slottype="PS,CtrlPrimary,CtrlSecondary,InternalUserAdmin"/>
+		<substitution filepath="localconfig/atg/dynamo/service/jdbc/SwitchingDataSourceB.properties" type="delete" slottype="PS,CtrlPrimary,CtrlSecondary,InternalUserAdmin"/>
+		<substitution filepath="localconfig/atg/multisite/SiteRepository.properties" type="delete" slottype="PS,CtrlPrimary,CtrlSecondary,InternalUserAdmin"/>
+		<substitution filepath="localconfig/atg/userprofiling/PersonalizationRepository.properties" type="delete" slottype="PS,CtrlPrimary,CtrlSecondary,InternalUserAdmin"/>
+		<substitution filepath="localconfig/atg/search/routing/Configuration.properties" type="delete" slottype="LMPrimary,LMSecondary"/>
+	</slottypesubstitutions>
+	
+	<keysubstitutions>
+		<!-- A generic XML structure to hold key value pairs for entities in the build system -->
+		<envsubstitutions application="ALL">
+		</envsubstitutions>
+		<!-- We might need to add AdminPages substitutions as well. -->
+		<envsubstitutions application="LiveStoreFront">
+			<key name="atg.dynamo.scenario.scenarioManager.ProcessEditorServer">
+				<env name="CI">NLATGDPAG01.OTRA-INT.COM:10250</env>
+				<env name="TEST">NLATGTPAG01.OTRA-INT.COM:10250</env>
+				<env name="ACCEPTANCE">NLATGAPAG01.OTRA-INT.COM:10250</env>
+				<env name="PRODUCTION">NLATGPPAG01.OTRA-INT.COM:10250</env>
+			</key>
+			<key name="atg.dynamo.scenario.scenarioManager.GlobalScenarioServer1">
+				<env name="CI">NLATGDPAG01.OTRA-INT.COM:10250</env>
+				<env name="TEST">NLATGTPAG01.OTRA-INT.COM:10250</env>
+				<env name="ACCEPTANCE">NLATGAPAG01.OTRA-INT.COM:10250</env>
+				<env name="PRODUCTION">NLATGPPAG01.OTRA-INT.COM:10250</env>
+			</key>
+			<key name="atg.dynamo.scenario.scenarioManager.GlobalScenarioServer2">
+				<env name="CI">NLATGDPAG01.OTRA-INT.COM:10250</env>
+				<env name="TEST">NLATGTPAG01.OTRA-INT.COM:10250</env>
+				<env name="ACCEPTANCE">NLATGAPAG02.OTRA-INT.COM:10250</env>
+				<env name="PRODUCTION">NLATGPPAG02.OTRA-INT.COM:10250</env>
+			</key>
+		</envsubstitutions>
+		<envsubstitutions application="StagingStoreFront">
+			<key name="atg.dynamo.scenario.scenarioManager.ProcessEditorServer">
+				<env name="CI">NLATGDSTG01.OTRA-INT.COM:10250</env>
+				<env name="TEST">NLATGTPAG01.OTRA-INT.COM:10250</env>
+				<env name="ACCEPTANCE">NLATGASTG01.OTRA-INT.COM:10250</env>
+				<env name="PRODUCTION">NLATGPSTG01.OTRA-INT.COM:10250</env>
+			</key>
+			<key name="atg.dynamo.scenario.scenarioManager.GlobalScenarioServer1">
+				<env name="CI">NLATGDSTG01.OTRA-INT.COM:10250</env>
+				<env name="TEST">NLATGTSTG01.OTRA-INT.COM:10250</env>
+				<env name="ACCEPTANCE">NLATGASTG01.OTRA-INT.COM:10250</env>
+				<env name="PRODUCTION">NLATGPSTG01.OTRA-INT.COM:10250</env>
+			</key>
+			<key name="atg.dynamo.scenario.scenarioManager.GlobalScenarioServer2">
+				<env name="CI">NLATGDSTG02.OTRA-INT.COM:10250</env>
+				<env name="TEST">NLATGTSTG02.OTRA-INT.COM:10250</env>
+				<env name="ACCEPTANCE">NLATGASTG02.OTRA-INT.COM:10250</env>
+				<env name="PRODUCTION">NLATGPSTG02.OTRA-INT.COM:10250</env>
+			</key>
+		</envsubstitutions>
+		<envsubstitutions application="ContentAdmin">
+			<key name="atg.epub.workflow.process.workflowProcessManager.ProcessEditorServer">
+				<env name="CI">NLATGDCAD01.OTRA-INT.COM:10250</env>
+				<env name="TEST">NLATGTCAD01.OTRA-INT.COM:10250</env>
+				<env name="ACCEPTANCE">NLATGACAD01.OTRA-INT.COM:10250</env>
+				<env name="PRODUCTION">NLATGPCAD01.OTRA-INT.COM:10250</env>
+			</key>
+			<key name="atg.dynamo.scenario.scenarioManager.ProcessEditorServer">
+				<env name="CI">NLATGDCAD01.OTRA-INT.COM:10250</env>
+				<env name="TEST">NLATGTCAD01.OTRA-INT.COM:10250</env>
+				<env name="ACCEPTANCE">NLATGACAD01.OTRA-INT.COM:10250</env>
+				<env name="PRODUCTION">NLATGPCAD01.OTRA-INT.COM:10250</env>
+			</key>
+			<key name="atg.dynamo.scenario.scenarioManager.GlobalScenarioServer1">
+				<env name="CI">NLATGDCAD01.OTRA-INT.COM:10250</env>
+				<env name="TEST">NLATGTCAD01.OTRA-INT.COM:10250</env>
+				<env name="ACCEPTANCE">NLATGACAD01.OTRA-INT.COM:10250</env>
+				<env name="PRODUCTION">NLATGPCAD01.OTRA-INT.COM:10250</env>
+			</key>
+			<key name="atg.dynamo.scenario.scenarioManager.GlobalScenarioServer2">
+				<env name="CI">NLATGDCAD01.OTRA-INT.COM:10250</env>
+				<env name="TEST">NLATGTCAD01.OTRA-INT.COM:10250</env>
+				<env name="ACCEPTANCE">NLATGACAD02.OTRA-INT.COM:10250</env>
+				<env name="PRODUCTION">NLATGPCAD02.OTRA-INT.COM:10250</env>
+			</key>
+			<key name="atg.dynamo.scenario.InternalScenarioManager.ProcessEditorServer">
+				<env name="CI">NLATGDCAD01.OTRA-INT.COM:10250</env>
+				<env name="TEST">NLATGTCAD01.OTRA-INT.COM:10250</env>
+				<env name="ACCEPTANCE">NLATGACAD01.OTRA-INT.COM:10250</env>
+				<env name="PRODUCTION">NLATGPCAD01.OTRA-INT.COM:10250</env>
+			</key>
+			<key name="atg.dynamo.scenario.InternalScenarioManager.GlobalScenarioServer1">
+				<env name="CI">NLATGDCAD01.OTRA-INT.COM:10250</env>
+				<env name="TEST">NLATGTCAD01.OTRA-INT.COM:10250</env>
+				<env name="ACCEPTANCE">NLATGACAD01.OTRA-INT.COM:10250</env>
+				<env name="PRODUCTION">NLATGPCAD01.OTRA-INT.COM:10250</env>
+			</key>
+			<key name="atg.dynamo.scenario.InternalScenarioManager.GlobalScenarioServer2">
+				<env name="CI">NLATGDCAD01.OTRA-INT.COM:10250</env>
+				<env name="TEST">NLATGTCAD01.OTRA-INT.COM:10250</env>
+				<env name="ACCEPTANCE">NLATGACAD02.OTRA-INT.COM:10250</env>
+				<env name="PRODUCTION">NLATGPCAD02.OTRA-INT.COM:10250</env>
+			</key>
+		</envsubstitutions>
+	</keysubstitutions>
+</substitutions>
+

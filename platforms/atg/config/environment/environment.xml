@@ -1,0 +1,400 @@
+<?xml version="1.0" encoding="ISO-8859-1"?>
+<spindrift xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="environment.xsd">
+
+<environment name="LOCAL">
+	<servergroup application="LiveStoreFront" jbossCluster="ATG_LIVE_LOCAL">
+		<server name="locallive1">
+			<slot name="slot1" type="LMPrimary" jbossDomain="LM1" logFileRetentionDays="20" jbossClusterMCastAddr="239.255.1.10">
+				<jvm_opts>-server -Xms384M -Xmx768M -XX:PermSize=128m -XX:MaxPermSize=128m -Dsun.rmi.dgc.client.gcInterval=3600000 -Dsun.rmi.dgc.server.gcInterval=3600000 -XX:+PrintGC -XX:+PrintGCDateStamps -XX:+PrintGCDetails -Xloggc:\\\${JBOSS_HOME}/server/SLOT_NAME/log/gc.log -Djboss.platform.mbeanserver</jvm_opts>
+			</slot>
+			<slot name="slot2" type="PS" jbossDomain="A1" logFileRetentionDays="20" jbossClusterMCastAddr="239.255.1.11">
+				<jvm_opts>-server -Xms1024M -Xmx1024M -XX:PermSize=128m -XX:MaxPermSize=256m -Dsun.rmi.dgc.client.gcInterval=3600000 -Dsun.rmi.dgc.server.gcInterval=3600000 -XX:+PrintGC -XX:+PrintGCDateStamps -XX:+PrintGCDetails -Xloggc:\\\${JBOSS_HOME}/server/SLOT_NAME/log/gc.log -Djboss.platform.mbeanserver</jvm_opts>
+			</slot>
+		</server>
+	</servergroup>
+	<servergroup application="ContentAdmin" jbossCluster="ATG_CA_LOCAL">
+		<server name="localca1">
+			<slot name="slot1" type="LMPrimary" jbossDomain="LM1" logFileRetentionDays="20" jbossClusterMCastAddr="239.255.1.12">
+				<jvm_opts>-server -Xms1024M -Xmx1024M -XX:PermSize=128m -XX:MaxPermSize=256m -Dsun.rmi.dgc.client.gcInterval=3600000 -Dsun.rmi.dgc.server.gcInterval=3600000 -XX:+PrintGC -XX:+PrintGCDateStamps -XX:+PrintGCDetails -Xloggc:\\\${JBOSS_HOME}/server/SLOT_NAME/log/gc.log -Djboss.platform.mbeanserver</jvm_opts>
+			</slot>
+			<slot name="slot2" type="PS" jbossDomain="A1" logFileRetentionDays="20" jbossClusterMCastAddr="239.255.1.13">
+				<jvm_opts>-server -Xms1024M -Xmx1024M -XX:PermSize=128m -XX:MaxPermSize=256m -Dsun.rmi.dgc.client.gcInterval=3600000 -Dsun.rmi.dgc.server.gcInterval=3600000 -XX:+PrintGC -XX:+PrintGCDateStamps -XX:+PrintGCDetails -Xloggc:\\\${JBOSS_HOME}/server/SLOT_NAME/log/gc.log -Djboss.platform.mbeanserver</jvm_opts>
+			</slot>
+		</server>
+	</servergroup>
+</environment>
+
+
+<environment name="AVE">
+	<servergroup application="LiveStoreFront" jbossCluster="ATG_LIVE_AVE">
+		<server name="ssf-ave-4">
+			<slot name="slot1" type="LMPrimary" jbossDomain="LM1" jbossClusterMCastAddr="239.255.2.10" logFileRetentionDays="20">
+				<jvm_opts>-server -Xms1024M -Xmx1024M -XX:PermSize=128m -XX:MaxPermSize=256m -Dsun.rmi.dgc.client.gcInterval=3600000 -Dsun.rmi.dgc.server.gcInterval=3600000 -XX:+PrintGC -XX:+PrintGCDateStamps -XX:+PrintGCDetails -Xloggc:\\\${JBOSS_HOME}/server/SLOT_NAME/log/gc.log -Datg.dynamo.layers=ave -Djboss.platform.mbeanserver</jvm_opts>
+			</slot>
+			<slot name="slot2" type="CtrlPrimary" jbossDomain="CTRL1" jbossClusterMCastAddr="239.255.2.11" logFileRetentionDays="20">
+				<jvm_opts>-server -Xms1024M -Xmx1024M -XX:PermSize=128m -XX:MaxPermSize=256m -Dsun.rmi.dgc.client.gcInterval=3600000 -Dsun.rmi.dgc.server.gcInterval=3600000 -XX:+PrintGC -XX:+PrintGCDateStamps -XX:+PrintGCDetails -Xloggc:\\\${JBOSS_HOME}/server/SLOT_NAME/log/gc.log -Datg.dynamo.layers=ave -Djboss.platform.mbeanserver</jvm_opts>
+			</slot>
+			<slot name="slot3" type="PS" jbossDomain="A1" jbossClusterMCastAddr="239.255.2.12" logFileRetentionDays="5">
+				<jvm_opts>-server -Xms1024M -Xmx1024M -XX:PermSize=128m -XX:MaxPermSize=256m -Dsun.rmi.dgc.client.gcInterval=3600000 -Dsun.rmi.dgc.server.gcInterval=3600000 -XX:+PrintGC -XX:+PrintGCDateStamps -XX:+PrintGCDetails -Xloggc:\\\${JBOSS_HOME}/server/SLOT_NAME/log/gc.log -Datg.dynamo.layers=ave -Djboss.platform.mbeanserver</jvm_opts>
+			</slot>
+			<slot name="slot4" type="PS" jbossDomain="A1" jbossClusterMCastAddr="239.255.2.12" logFileRetentionDays="5">
+				<jvm_opts>-server -Xms1024M -Xmx1024M -XX:PermSize=128m -XX:MaxPermSize=256m -Dsun.rmi.dgc.client.gcInterval=3600000 -Dsun.rmi.dgc.server.gcInterval=3600000 -XX:+PrintGC -XX:+PrintGCDateStamps -XX:+PrintGCDetails -Xloggc:\\\${JBOSS_HOME}/server/SLOT_NAME/log/gc.log -Datg.dynamo.layers=ave -Djboss.platform.mbeanserver</jvm_opts>
+			</slot>
+		</server>
+	</servergroup>
+	
+	<servergroup application="StagingStoreFront" jbossCluster="ATG_STAGE_AVE">
+		<server name="ssf-ave-9">
+			<slot name="slot1" type="LMPrimary" jbossDomain="LM1" jbossClusterMCastAddr="239.255.2.13" logFileRetentionDays="20">
+				<jvm_opts>-server -Xms1024M -Xmx1024M -XX:PermSize=128m -XX:MaxPermSize=256m -Dsun.rmi.dgc.client.gcInterval=3600000 -Dsun.rmi.dgc.server.gcInterval=3600000 -XX:+PrintGC -XX:+PrintGCDateStamps -XX:+PrintGCDetails -Xloggc:\\\${JBOSS_HOME}/server/SLOT_NAME/log/gc.log -Datg.dynamo.layers=ave -Djboss.platform.mbeanserver</jvm_opts>
+			</slot>
+			<slot name="slot2" type="CtrlPrimary" jbossDomain="CTRL1" jbossClusterMCastAddr="239.255.2.14" logFileRetentionDays="20">
+				<jvm_opts>-server -Xms1024M -Xmx1024M -XX:PermSize=128m -XX:MaxPermSize=256m -Dsun.rmi.dgc.client.gcInterval=3600000 -Dsun.rmi.dgc.server.gcInterval=3600000 -XX:+PrintGC -XX:+PrintGCDateStamps -XX:+PrintGCDetails -Xloggc:\\\${JBOSS_HOME}/server/SLOT_NAME/log/gc.log -Datg.dynamo.layers=ave -Djboss.platform.mbeanserver</jvm_opts>
+			</slot>
+			<slot name="slot3" type="PS" jbossDomain="A1" jbossClusterMCastAddr="239.255.2.15" logFileRetentionDays="5">
+				<jvm_opts>-server -Xms1024M -Xmx1024M -XX:PermSize=128m -XX:MaxPermSize=256m -Dsun.rmi.dgc.client.gcInterval=3600000 -Dsun.rmi.dgc.server.gcInterval=3600000 -XX:+PrintGC -XX:+PrintGCDateStamps -XX:+PrintGCDetails -Xloggc:\\\${JBOSS_HOME}/server/SLOT_NAME/log/gc.log -Datg.dynamo.layers=ave -Djboss.platform.mbeanserver</jvm_opts>
+			</slot>
+			<slot name="slot4" type="PS" jbossDomain="A1" jbossClusterMCastAddr="239.255.2.15" logFileRetentionDays="5">
+				<jvm_opts>-server -Xms1024M -Xmx1024M -XX:PermSize=128m -XX:MaxPermSize=256m -Dsun.rmi.dgc.client.gcInterval=3600000 -Dsun.rmi.dgc.server.gcInterval=3600000 -XX:+PrintGC -XX:+PrintGCDateStamps -XX:+PrintGCDetails -Xloggc:\\\${JBOSS_HOME}/server/SLOT_NAME/log/gc.log -Datg.dynamo.layers=ave -Djboss.platform.mbeanserver</jvm_opts>
+			</slot>
+		</server>
+	</servergroup>
+</environment>
+
+
+<environment name="CI">
+	<servergroup application="LiveStoreFront" jbossCluster="ATG_LIVE_CI">
+		<server name="NLATGDPAG01">
+			<slot name="slot1" type="LMPrimary" jbossDomain="LM1" logFileRetentionDays="20" jbossClusterMCastAddr="239.255.3.10">
+				<jvm_opts>-server -Xms1536M -Xmx1536M -XX:PermSize=256m -XX:MaxPermSize=512m -Dsun.rmi.dgc.client.gcInterval=3600000 -Dsun.rmi.dgc.server.gcInterval=3600000 -XX:+PrintGC -XX:+PrintGCDateStamps -XX:+PrintGCDetails -Xloggc:\\\${JBOSS_HOME}/server/SLOT_NAME/log/gc.log -Datg.dynamo.layers=ci -Djboss.platform.mbeanserver</jvm_opts>
+			</slot>
+			<slot name="slot2" type="CtrlPrimary" jbossDomain="CTRL1" logFileRetentionDays="20" jbossClusterMCastAddr="239.255.3.11">
+				<jvm_opts>-server -Xms1536M -Xmx1536M -XX:PermSize=256m -XX:MaxPermSize=512m -Dsun.rmi.dgc.client.gcInterval=3600000 -Dsun.rmi.dgc.server.gcInterval=3600000 -XX:+PrintGC -XX:+PrintGCDateStamps -XX:+PrintGCDetails -Xloggc:\\\${JBOSS_HOME}/server/SLOT_NAME/log/gc.log -Datg.dynamo.layers=ci -Djboss.platform.mbeanserver</jvm_opts>
+			</slot>
+			<slot name="slot3" type="PS" jbossDomain="A1" logFileRetentionDays="5" jbossClusterMCastAddr="239.255.3.12">
+				<jvm_opts>-server -Xms1536M -Xmx1536M -XX:PermSize=256m -XX:MaxPermSize=512m -Dsun.rmi.dgc.client.gcInterval=3600000 -Dsun.rmi.dgc.server.gcInterval=3600000 -XX:+PrintGC -XX:+PrintGCDateStamps -XX:+PrintGCDetails -Xloggc:\\\${JBOSS_HOME}/server/SLOT_NAME/log/gc.log -Datg.dynamo.layers=ci -Djboss.platform.mbeanserver</jvm_opts>
+			</slot>
+			<slot name="slot4" type="PS" jbossDomain="A1" logFileRetentionDays="5" jbossClusterMCastAddr="239.255.3.12">
+				<jvm_opts>-server -Xms1536M -Xmx1536M -XX:PermSize=256m -XX:MaxPermSize=512m -Dsun.rmi.dgc.client.gcInterval=3600000 -Dsun.rmi.dgc.server.gcInterval=3600000 -XX:+PrintGC -XX:+PrintGCDateStamps -XX:+PrintGCDetails -Xloggc:\\\${JBOSS_HOME}/server/SLOT_NAME/log/gc.log -Datg.dynamo.layers=ci -Djboss.platform.mbeanserver</jvm_opts>
+			</slot>
+		</server>
+	</servergroup>
+	
+	<servergroup application="StagingStoreFront" jbossCluster="ATG_STAGE_CI">
+		<server name="NLATGDSTG01">
+			<slot name="slot1" type="LMPrimary" jbossDomain="LM1" logFileRetentionDays="20" jbossClusterMCastAddr="239.255.3.13">
+				<jvm_opts>-server -Xms1024M -Xmx1024M -XX:PermSize=128m -XX:MaxPermSize=256m -Dsun.rmi.dgc.client.gcInterval=3600000 -Dsun.rmi.dgc.server.gcInterval=3600000 -XX:+PrintGC -XX:+PrintGCDateStamps -XX:+PrintGCDetails -Xloggc:\\\${JBOSS_HOME}/server/SLOT_NAME/log/gc.log -Datg.dynamo.layers=ci -Djboss.platform.mbeanserver</jvm_opts>
+			</slot>
+			<slot name="slot2" type="CtrlPrimary" jbossDomain="CTRL1" logFileRetentionDays="20" jbossClusterMCastAddr="239.255.3.14">
+				<jvm_opts>-server -Xms1024M -Xmx1024M -XX:PermSize=128m -XX:MaxPermSize=256m -Dsun.rmi.dgc.client.gcInterval=3600000 -Dsun.rmi.dgc.server.gcInterval=3600000 -XX:+PrintGC -XX:+PrintGCDateStamps -XX:+PrintGCDetails -Xloggc:\\\${JBOSS_HOME}/server/SLOT_NAME/log/gc.log -Datg.dynamo.layers=ci -Djboss.platform.mbeanserver</jvm_opts>
+			</slot>
+			<slot name="slot3" type="PS" jbossDomain="A1" logFileRetentionDays="5" jbossClusterMCastAddr="239.255.3.15">
+				<jvm_opts>-server -Xms1024M -Xmx1024M -XX:PermSize=128m -XX:MaxPermSize=256m -Dsun.rmi.dgc.client.gcInterval=3600000 -Dsun.rmi.dgc.server.gcInterval=3600000 -XX:+PrintGC -XX:+PrintGCDateStamps -XX:+PrintGCDetails -Xloggc:\\\${JBOSS_HOME}/server/SLOT_NAME/log/gc.log -Datg.dynamo.layers=ci -Djboss.platform.mbeanserver</jvm_opts>
+			</slot>
+			<slot name="slot4" type="PS" jbossDomain="A1" logFileRetentionDays="5" jbossClusterMCastAddr="239.255.3.15">
+				<jvm_opts>-server -Xms1024M -Xmx1024M -XX:PermSize=128m -XX:MaxPermSize=256m -Dsun.rmi.dgc.client.gcInterval=3600000 -Dsun.rmi.dgc.server.gcInterval=3600000 -XX:+PrintGC -XX:+PrintGCDateStamps -XX:+PrintGCDetails -Xloggc:\\\${JBOSS_HOME}/server/SLOT_NAME/log/gc.log -Datg.dynamo.layers=ci -Djboss.platform.mbeanserver</jvm_opts>
+			</slot>
+		</server>
+	</servergroup>
+	
+	<servergroup application="ContentAdmin" jbossCluster="ATG_CA_CI">
+		<server name="NLATGDCAD01">
+			<slot name="slot1" type="LMPrimary" jbossDomain="LM1" logFileRetentionDays="20" jbossClusterMCastAddr="239.255.3.16">
+				<jvm_opts>-server -Xms1024M -Xmx1024M -XX:PermSize=128m -XX:MaxPermSize=256m -Dsun.rmi.dgc.client.gcInterval=3600000 -Dsun.rmi.dgc.server.gcInterval=3600000 -XX:+PrintGC -XX:+PrintGCDateStamps -XX:+PrintGCDetails -Xloggc:\\\${JBOSS_HOME}/server/SLOT_NAME/log/gc.log -Datg.dynamo.layers=ci -Djboss.platform.mbeanserver</jvm_opts>
+			</slot>
+			<slot name="slot2" type="CtrlPrimary" jbossDomain="CTRL1" logFileRetentionDays="20" jbossClusterMCastAddr="239.255.3.17">
+				<jvm_opts>-server -Xms1024M -Xmx1024M -XX:PermSize=128m -XX:MaxPermSize=256m -Dsun.rmi.dgc.client.gcInterval=3600000 -Dsun.rmi.dgc.server.gcInterval=3600000 -XX:+PrintGC -XX:+PrintGCDateStamps -XX:+PrintGCDetails -Xloggc:\\\${JBOSS_HOME}/server/SLOT_NAME/log/gc.log -Datg.dynamo.layers=ci -Djboss.platform.mbeanserver</jvm_opts>
+			</slot>
+			<slot name="slot3" type="PS" jbossDomain="A1" logFileRetentionDays="5" jbossClusterMCastAddr="239.255.3.18">
+				<jvm_opts>-server -Xms1024M -Xmx1024M -XX:PermSize=128m -XX:MaxPermSize=256m -Dsun.rmi.dgc.client.gcInterval=3600000 -Dsun.rmi.dgc.server.gcInterval=3600000 -XX:+PrintGC -XX:+PrintGCDateStamps -XX:+PrintGCDetails -Xloggc:\\\${JBOSS_HOME}/server/SLOT_NAME/log/gc.log -Datg.dynamo.layers=ci -Djboss.platform.mbeanserver</jvm_opts>
+			</slot>
+			<slot name="slot4" type="PS" jbossDomain="A1" logFileRetentionDays="5" jbossClusterMCastAddr="239.255.3.18">
+				<jvm_opts>-server -Xms1024M -Xmx1024M -XX:PermSize=128m -XX:MaxPermSize=256m -Dsun.rmi.dgc.client.gcInterval=3600000 -Dsun.rmi.dgc.server.gcInterval=3600000 -XX:+PrintGC -XX:+PrintGCDateStamps -XX:+PrintGCDetails -Xloggc:\\\${JBOSS_HOME}/server/SLOT_NAME/log/gc.log -Datg.dynamo.layers=ci -Djboss.platform.mbeanserver</jvm_opts>
+			</slot>
+		</server>
+	</servergroup>
+</environment>
+
+
+<environment name="TEST">
+	<servergroup application="LiveStoreFront" jbossCluster="ATG_LIVE_TEST">
+		<server name="NLATGTPAG01">
+			<slot name="slot1" type="LMPrimary" jbossDomain="LM1" logFileRetentionDays="20" jbossClusterMCastAddr="239.255.4.10">
+				<jvm_opts>-server -Xms1536M -Xmx1536M -XX:PermSize=256m -XX:MaxPermSize=512m -Dsun.rmi.dgc.client.gcInterval=3600000 -Dsun.rmi.dgc.server.gcInterval=3600000 -XX:+PrintGC -XX:+PrintGCDateStamps -XX:+PrintGCDetails -Xloggc:\\\${JBOSS_HOME}/server/SLOT_NAME/log/gc.log -Datg.dynamo.layers=test -Djboss.platform.mbeanserver</jvm_opts>
+			</slot>
+			<slot name="slot2" type="CtrlPrimary" jbossDomain="CTRL1" logFileRetentionDays="20" jbossClusterMCastAddr="239.255.4.11">
+				<jvm_opts>-server -Xms1536M -Xmx1536M -XX:PermSize=256m -XX:MaxPermSize=512m -Dsun.rmi.dgc.client.gcInterval=3600000 -Dsun.rmi.dgc.server.gcInterval=3600000 -XX:+PrintGC -XX:+PrintGCDateStamps -XX:+PrintGCDetails -Xloggc:\\\${JBOSS_HOME}/server/SLOT_NAME/log/gc.log -Datg.dynamo.layers=test -Djboss.platform.mbeanserver</jvm_opts>
+			</slot>
+			<slot name="slot3" type="PS" jbossDomain="A1" logFileRetentionDays="5" jbossClusterMCastAddr="239.255.4.12">
+				<jvm_opts>-server -Xms1536M -Xmx1536M -XX:PermSize=256m -XX:MaxPermSize=512m -Dsun.rmi.dgc.client.gcInterval=3600000 -Dsun.rmi.dgc.server.gcInterval=3600000 -XX:+PrintGC -XX:+PrintGCDateStamps -XX:+PrintGCDetails -Xloggc:\\\${JBOSS_HOME}/server/SLOT_NAME/log/gc.log -Datg.dynamo.layers=test -Djboss.platform.mbeanserver</jvm_opts>
+			</slot>
+			<slot name="slot4" type="PS" jbossDomain="A1" logFileRetentionDays="5" jbossClusterMCastAddr="239.255.4.12">
+				<jvm_opts>-server -Xms1536M -Xmx1536M -XX:PermSize=256m -XX:MaxPermSize=512m -Dsun.rmi.dgc.client.gcInterval=3600000 -Dsun.rmi.dgc.server.gcInterval=3600000 -XX:+PrintGC -XX:+PrintGCDateStamps -XX:+PrintGCDetails -Xloggc:\\\${JBOSS_HOME}/server/SLOT_NAME/log/gc.log -Datg.dynamo.layers=test -Djboss.platform.mbeanserver</jvm_opts>
+			</slot>
+		</server>
+	</servergroup>
+	
+	<servergroup application="StagingStoreFront" jbossCluster="ATG_STAGE_TEST">
+		<server name="NLATGTSTG01">
+			<slot name="slot1" type="LMPrimary" jbossDomain="LM1" logFileRetentionDays="20" jbossClusterMCastAddr="239.255.4.13">
+				<jvm_opts>-server -Xms1024M -Xmx1024M -XX:PermSize=128m -XX:MaxPermSize=256m -Dsun.rmi.dgc.client.gcInterval=3600000 -Dsun.rmi.dgc.server.gcInterval=3600000 -XX:+PrintGC -XX:+PrintGCDateStamps -XX:+PrintGCDetails -Xloggc:\\\${JBOSS_HOME}/server/SLOT_NAME/log/gc.log -Datg.dynamo.layers=test -Djboss.platform.mbeanserver</jvm_opts>
+			</slot>
+			<slot name="slot2" type="CtrlPrimary" jbossDomain="CTRL1" logFileRetentionDays="20" jbossClusterMCastAddr="239.255.4.14">
+				<jvm_opts>-server -Xms1024M -Xmx1024M -XX:PermSize=128m -XX:MaxPermSize=256m -Dsun.rmi.dgc.client.gcInterval=3600000 -Dsun.rmi.dgc.server.gcInterval=3600000 -XX:+PrintGC -XX:+PrintGCDateStamps -XX:+PrintGCDetails -Xloggc:\\\${JBOSS_HOME}/server/SLOT_NAME/log/gc.log -Datg.dynamo.layers=test -Djboss.platform.mbeanserver</jvm_opts>
+			</slot>
+			<slot name="slot3" type="PS" jbossDomain="A1" logFileRetentionDays="5" jbossClusterMCastAddr="239.255.4.15">
+				<jvm_opts>-server -Xms1024M -Xmx1024M -XX:PermSize=128m -XX:MaxPermSize=256m -Dsun.rmi.dgc.client.gcInterval=3600000 -Dsun.rmi.dgc.server.gcInterval=3600000 -XX:+PrintGC -XX:+PrintGCDateStamps -XX:+PrintGCDetails -Xloggc:\\\${JBOSS_HOME}/server/SLOT_NAME/log/gc.log -Datg.dynamo.layers=test -Djboss.platform.mbeanserver</jvm_opts>
+			</slot>
+			<slot name="slot4" type="PS" jbossDomain="A1" logFileRetentionDays="5" jbossClusterMCastAddr="239.255.4.15">
+				<jvm_opts>-server -Xms1024M -Xmx1024M -XX:PermSize=128m -XX:MaxPermSize=256m -Dsun.rmi.dgc.client.gcInterval=3600000 -Dsun.rmi.dgc.server.gcInterval=3600000 -XX:+PrintGC -XX:+PrintGCDateStamps -XX:+PrintGCDetails -Xloggc:\\\${JBOSS_HOME}/server/SLOT_NAME/log/gc.log -Datg.dynamo.layers=test -Djboss.platform.mbeanserver</jvm_opts>
+			</slot>
+		</server>
+	</servergroup>
+	
+	<servergroup application="ContentAdmin" jbossCluster="ATG_CA_TEST">
+		<server name="NLATGTCAD01">
+			<slot name="slot1" type="LMPrimary" jbossDomain="LM1" logFileRetentionDays="20" jbossClusterMCastAddr="239.255.4.16">
+				<jvm_opts>-server -Xms1024M -Xmx1024M -XX:PermSize=128m -XX:MaxPermSize=256m -Dsun.rmi.dgc.client.gcInterval=3600000 -Dsun.rmi.dgc.server.gcInterval=3600000 -XX:+PrintGC -XX:+PrintGCDateStamps -XX:+PrintGCDetails -Xloggc:\\\${JBOSS_HOME}/server/SLOT_NAME/log/gc.log -Datg.dynamo.layers=test -Djboss.platform.mbeanserver</jvm_opts>
+			</slot>
+			<slot name="slot2" type="CtrlPrimary" jbossDomain="CTRL1" logFileRetentionDays="20" jbossClusterMCastAddr="239.255.4.17">
+				<jvm_opts>-server -Xms1024M -Xmx1024M -XX:PermSize=128m -XX:MaxPermSize=256m -Dsun.rmi.dgc.client.gcInterval=3600000 -Dsun.rmi.dgc.server.gcInterval=3600000 -XX:+PrintGC -XX:+PrintGCDateStamps -XX:+PrintGCDetails -Xloggc:\\\${JBOSS_HOME}/server/SLOT_NAME/log/gc.log -Datg.dynamo.layers=test -Djboss.platform.mbeanserver</jvm_opts>
+			</slot>
+			<slot name="slot3" type="PS" jbossDomain="A1" logFileRetentionDays="5" jbossClusterMCastAddr="239.255.4.18">
+				<jvm_opts>-server -Xms1024M -Xmx1024M -XX:PermSize=128m -XX:MaxPermSize=256m -Dsun.rmi.dgc.client.gcInterval=3600000 -Dsun.rmi.dgc.server.gcInterval=3600000 -XX:+PrintGC -XX:+PrintGCDateStamps -XX:+PrintGCDetails -Xloggc:\\\${JBOSS_HOME}/server/SLOT_NAME/log/gc.log -Datg.dynamo.layers=test -Djboss.platform.mbeanserver</jvm_opts>
+			</slot>
+			<slot name="slot4" type="PS" jbossDomain="A1" logFileRetentionDays="5" jbossClusterMCastAddr="239.255.4.18">
+				<jvm_opts>-server -Xms1024M -Xmx1024M -XX:PermSize=128m -XX:MaxPermSize=256m -Dsun.rmi.dgc.client.gcInterval=3600000 -Dsun.rmi.dgc.server.gcInterval=3600000 -XX:+PrintGC -XX:+PrintGCDateStamps -XX:+PrintGCDetails -Xloggc:\\\${JBOSS_HOME}/server/SLOT_NAME/log/gc.log -Datg.dynamo.layers=test -Djboss.platform.mbeanserver</jvm_opts>
+			</slot>
+		</server>
+	</servergroup>
+</environment>
+
+
+<environment name="ACCEPTANCE">
+	<servergroup application="LiveStoreFront" jbossCluster="ATG_LIVE_ACCEPTANCE">
+		<server name="NLATGAPAG01">
+			<slot name="slot1" type="LMPrimary" jbossDomain="LM1" logFileRetentionDays="20" jbossClusterMCastAddr="239.255.5.10">
+				<jvm_opts>-server -Xms1536M -Xmx1536M -XX:PermSize=256m -XX:MaxPermSize=512m -Dsun.rmi.dgc.client.gcInterval=3600000 -Dsun.rmi.dgc.server.gcInterval=3600000 -XX:+PrintGC -XX:+PrintGCDateStamps -XX:+PrintGCDetails -Xloggc:\\\${JBOSS_HOME}/server/SLOT_NAME/log/gc.log -Datg.dynamo.layers=act -Djboss.platform.mbeanserver</jvm_opts>
+			</slot>
+			<slot name="slot2" type="CtrlPrimary" jbossDomain="CTRL1" logFileRetentionDays="20" jbossClusterMCastAddr="239.255.5.11">
+				<jvm_opts>-server -Xms1536M -Xmx1536M -XX:PermSize=256m -XX:MaxPermSize=512m -Dsun.rmi.dgc.client.gcInterval=3600000 -Dsun.rmi.dgc.server.gcInterval=3600000 -XX:+PrintGC -XX:+PrintGCDateStamps -XX:+PrintGCDetails -Xloggc:\\\${JBOSS_HOME}/server/SLOT_NAME/log/gc.log -Datg.dynamo.layers=act -Djboss.platform.mbeanserver</jvm_opts>
+			</slot>
+			<slot name="slot3" type="PS" jbossDomain="A1" logFileRetentionDays="20" jbossClusterMCastAddr="239.255.5.14">
+				<jvm_opts>-server -Xms2048M -Xmx2048M -XX:PermSize=256m -XX:MaxPermSize=512m -Dsun.rmi.dgc.client.gcInterval=3600000 -Dsun.rmi.dgc.server.gcInterval=3600000 -XX:+PrintGC -XX:+PrintGCDateStamps -XX:+PrintGCDetails -Xloggc:\\\${JBOSS_HOME}/server/SLOT_NAME/log/gc.log -Datg.dynamo.layers=act -Djboss.platform.mbeanserver</jvm_opts>
+			</slot>
+			<slot name="slot4" type="PS" jbossDomain="A1" logFileRetentionDays="20" jbossClusterMCastAddr="239.255.5.14">
+				<jvm_opts>-server -Xms2048M -Xmx2048M -XX:PermSize=256m -XX:MaxPermSize=512m -Dsun.rmi.dgc.client.gcInterval=3600000 -Dsun.rmi.dgc.server.gcInterval=3600000 -XX:+PrintGC -XX:+PrintGCDateStamps -XX:+PrintGCDetails -Xloggc:\\\${JBOSS_HOME}/server/SLOT_NAME/log/gc.log -Datg.dynamo.layers=act -Djboss.platform.mbeanserver</jvm_opts>
+			</slot>
+		</server>
+		
+		<server name="NLATGAPAG02">
+			<slot name="slot1" type="LMSecondary" jbossDomain="LM2" logFileRetentionDays="20" jbossClusterMCastAddr="239.255.5.12">
+				<jvm_opts>-server -Xms1536M -Xmx1536M -XX:PermSize=256m -XX:MaxPermSize=512m -Dsun.rmi.dgc.client.gcInterval=3600000 -Dsun.rmi.dgc.server.gcInterval=3600000 -XX:+PrintGC -XX:+PrintGCDateStamps -XX:+PrintGCDetails -Xloggc:\\\${JBOSS_HOME}/server/SLOT_NAME/log/gc.log -Datg.dynamo.layers=act -Djboss.platform.mbeanserver</jvm_opts>
+			</slot>
+			<slot name="slot2" type="CtrlSecondary" jbossDomain="CTRL2" logFileRetentionDays="20" jbossClusterMCastAddr="239.255.5.13">
+				<jvm_opts>-server -Xms1536M -Xmx1536M -XX:PermSize=256m -XX:MaxPermSize=512m -Dsun.rmi.dgc.client.gcInterval=3600000 -Dsun.rmi.dgc.server.gcInterval=3600000 -XX:+PrintGC -XX:+PrintGCDateStamps -XX:+PrintGCDetails -Xloggc:\\\${JBOSS_HOME}/server/SLOT_NAME/log/gc.log -Datg.dynamo.layers=act -Djboss.platform.mbeanserver</jvm_opts>
+			</slot>
+			<slot name="slot3" type="PS" jbossDomain="A1" logFileRetentionDays="20" jbossClusterMCastAddr="239.255.5.14">
+				<jvm_opts>-server -Xms2048M -Xmx2048M -XX:PermSize=256m -XX:MaxPermSize=512m -Dsun.rmi.dgc.client.gcInterval=3600000 -Dsun.rmi.dgc.server.gcInterval=3600000 -XX:+PrintGC -XX:+PrintGCDateStamps -XX:+PrintGCDetails -Xloggc:\\\${JBOSS_HOME}/server/SLOT_NAME/log/gc.log -Datg.dynamo.layers=act -Djboss.platform.mbeanserver</jvm_opts>
+			</slot>
+			<slot name="slot4" type="PS" jbossDomain="A1" logFileRetentionDays="20" jbossClusterMCastAddr="239.255.5.14">
+				<jvm_opts>-server -Xms2048M -Xmx2048M -XX:PermSize=256m -XX:MaxPermSize=512m -Dsun.rmi.dgc.client.gcInterval=3600000 -Dsun.rmi.dgc.server.gcInterval=3600000 -XX:+PrintGC -XX:+PrintGCDateStamps -XX:+PrintGCDetails -Xloggc:\\\${JBOSS_HOME}/server/SLOT_NAME/log/gc.log -Datg.dynamo.layers=act -Djboss.platform.mbeanserver</jvm_opts>
+			</slot>
+		</server>
+		
+		<server name="NLATGAPAG03">
+			<slot name="slot1" type="PS" jbossDomain="A1" logFileRetentionDays="20" jbossClusterMCastAddr="239.255.5.14">
+				<jvm_opts>-server -Xms2048M -Xmx2048M -XX:PermSize=256m -XX:MaxPermSize=512m -Dsun.rmi.dgc.client.gcInterval=3600000 -Dsun.rmi.dgc.server.gcInterval=3600000 -XX:+PrintGC -XX:+PrintGCDateStamps -XX:+PrintGCDetails -Xloggc:\\\${JBOSS_HOME}/server/SLOT_NAME/log/gc.log -Datg.dynamo.layers=act -Djboss.platform.mbeanserver</jvm_opts>
+			</slot>
+			<slot name="slot2" type="PS" jbossDomain="A1" logFileRetentionDays="20" jbossClusterMCastAddr="239.255.5.14">
+				<jvm_opts>-server -Xms2048M -Xmx2048M -XX:PermSize=256m -XX:MaxPermSize=512m -Dsun.rmi.dgc.client.gcInterval=3600000 -Dsun.rmi.dgc.server.gcInterval=3600000 -XX:+PrintGC -XX:+PrintGCDateStamps -XX:+PrintGCDetails -Xloggc:\\\${JBOSS_HOME}/server/SLOT_NAME/log/gc.log -Datg.dynamo.layers=act -Djboss.platform.mbeanserver</jvm_opts>
+			</slot>
+			<slot name="slot3" type="PS" jbossDomain="A1" logFileRetentionDays="20" jbossClusterMCastAddr="239.255.5.14">
+				<jvm_opts>-server -Xms2048M -Xmx2048M -XX:PermSize=256m -XX:MaxPermSize=512m -Dsun.rmi.dgc.client.gcInterval=3600000 -Dsun.rmi.dgc.server.gcInterval=3600000 -XX:+PrintGC -XX:+PrintGCDateStamps -XX:+PrintGCDetails -Xloggc:\\\${JBOSS_HOME}/server/SLOT_NAME/log/gc.log -Datg.dynamo.layers=act -Djboss.platform.mbeanserver</jvm_opts>
+			</slot>
+			<slot name="slot4" type="PS" jbossDomain="A1" logFileRetentionDays="20" jbossClusterMCastAddr="239.255.5.14">
+				<jvm_opts>-server -Xms2048M -Xmx2048M -XX:PermSize=256m -XX:MaxPermSize=512m -Dsun.rmi.dgc.client.gcInterval=3600000 -Dsun.rmi.dgc.server.gcInterval=3600000 -XX:+PrintGC -XX:+PrintGCDateStamps -XX:+PrintGCDetails -Xloggc:\\\${JBOSS_HOME}/server/SLOT_NAME/log/gc.log -Datg.dynamo.layers=act -Djboss.platform.mbeanserver</jvm_opts>
+			</slot>
+		</server>
+	</servergroup>
+	
+	<servergroup application="StagingStoreFront" jbossCluster="ATG_STAGE_ACCEPTANCE">
+		<server name="NLATGASTG01">
+			<slot name="slot1" type="LMPrimary" jbossDomain="LM1" logFileRetentionDays="20" jbossClusterMCastAddr="239.255.5.15">
+				<jvm_opts>-server -Xms1024M -Xmx1024M -XX:PermSize=128m -XX:MaxPermSize=256m -Dsun.rmi.dgc.client.gcInterval=3600000 -Dsun.rmi.dgc.server.gcInterval=3600000 -XX:+PrintGC -XX:+PrintGCDateStamps -XX:+PrintGCDetails -Xloggc:\\\${JBOSS_HOME}/server/SLOT_NAME/log/gc.log -Datg.dynamo.layers=act -Djboss.platform.mbeanserver</jvm_opts>
+			</slot>
+			<slot name="slot2" type="CtrlPrimary" jbossDomain="CTRL1" logFileRetentionDays="20" jbossClusterMCastAddr="239.255.5.16">
+				<jvm_opts>-server -Xms1024M -Xmx1024M -XX:PermSize=128m -XX:MaxPermSize=256m -Dsun.rmi.dgc.client.gcInterval=3600000 -Dsun.rmi.dgc.server.gcInterval=3600000 -XX:+PrintGC -XX:+PrintGCDateStamps -XX:+PrintGCDetails -Xloggc:\\\${JBOSS_HOME}/server/SLOT_NAME/log/gc.log -Datg.dynamo.layers=act -Djboss.platform.mbeanserver</jvm_opts>
+			</slot>
+			<slot name="slot3" type="PS" jbossDomain="A1" logFileRetentionDays="20" jbossClusterMCastAddr="239.255.5.19">
+				<jvm_opts>-server -Xms1024M -Xmx1024M -XX:PermSize=128m -XX:MaxPermSize=256m -Dsun.rmi.dgc.client.gcInterval=3600000 -Dsun.rmi.dgc.server.gcInterval=3600000 -XX:+PrintGC -XX:+PrintGCDateStamps -XX:+PrintGCDetails -Xloggc:\\\${JBOSS_HOME}/server/SLOT_NAME/log/gc.log -Datg.dynamo.layers=act -Djboss.platform.mbeanserver</jvm_opts>
+			</slot>
+			<slot name="slot4" type="PS" jbossDomain="A1" logFileRetentionDays="20" jbossClusterMCastAddr="239.255.5.19">
+				<jvm_opts>-server -Xms1024M -Xmx1024M -XX:PermSize=128m -XX:MaxPermSize=256m -Dsun.rmi.dgc.client.gcInterval=3600000 -Dsun.rmi.dgc.server.gcInterval=3600000 -XX:+PrintGC -XX:+PrintGCDateStamps -XX:+PrintGCDetails -Xloggc:\\\${JBOSS_HOME}/server/SLOT_NAME/log/gc.log -Datg.dynamo.layers=act -Djboss.platform.mbeanserver</jvm_opts>
+			</slot>
+		</server>
+		
+		<server name="NLATGASTG02">
+			<slot name="slot1" type="LMSecondary" jbossDomain="LM2" logFileRetentionDays="20" jbossClusterMCastAddr="239.255.5.17">
+				<jvm_opts>-server -Xms1024M -Xmx1024M -XX:PermSize=128m -XX:MaxPermSize=256m -Dsun.rmi.dgc.client.gcInterval=3600000 -Dsun.rmi.dgc.server.gcInterval=3600000 -XX:+PrintGC -XX:+PrintGCDateStamps -XX:+PrintGCDetails -Xloggc:\\\${JBOSS_HOME}/server/SLOT_NAME/log/gc.log -Datg.dynamo.layers=act -Djboss.platform.mbeanserver</jvm_opts>
+			</slot>
+			<slot name="slot2" type="CtrlSecondary" jbossDomain="CTRL2" logFileRetentionDays="20" jbossClusterMCastAddr="239.255.5.18">
+				<jvm_opts>-server -Xms1024M -Xmx1024M -XX:PermSize=128m -XX:MaxPermSize=256m -Dsun.rmi.dgc.client.gcInterval=3600000 -Dsun.rmi.dgc.server.gcInterval=3600000 -XX:+PrintGC -XX:+PrintGCDateStamps -XX:+PrintGCDetails -Xloggc:\\\${JBOSS_HOME}/server/SLOT_NAME/log/gc.log -Datg.dynamo.layers=act -Djboss.platform.mbeanserver</jvm_opts>
+			</slot>
+			<slot name="slot3" type="PS" jbossDomain="A1" logFileRetentionDays="20" jbossClusterMCastAddr="239.255.5.19">
+				<jvm_opts>-server -Xms1024M -Xmx1024M -XX:PermSize=128m -XX:MaxPermSize=256m -Dsun.rmi.dgc.client.gcInterval=3600000 -Dsun.rmi.dgc.server.gcInterval=3600000 -XX:+PrintGC -XX:+PrintGCDateStamps -XX:+PrintGCDetails -Xloggc:\\\${JBOSS_HOME}/server/SLOT_NAME/log/gc.log -Datg.dynamo.layers=act -Djboss.platform.mbeanserver</jvm_opts>
+			</slot>
+			<slot name="slot4" type="PS" jbossDomain="A1" logFileRetentionDays="20" jbossClusterMCastAddr="239.255.5.19">
+				<jvm_opts>-server -Xms1024M -Xmx1024M -XX:PermSize=128m -XX:MaxPermSize=256m -Dsun.rmi.dgc.client.gcInterval=3600000 -Dsun.rmi.dgc.server.gcInterval=3600000 -XX:+PrintGC -XX:+PrintGCDateStamps -XX:+PrintGCDetails -Xloggc:\\\${JBOSS_HOME}/server/SLOT_NAME/log/gc.log -Datg.dynamo.layers=act -Djboss.platform.mbeanserver</jvm_opts>
+			</slot>
+		</server>
+	</servergroup>
+	
+	<servergroup application="ContentAdmin" jbossCluster="ATG_CA_ACCEPTANCE">
+		<server name="NLATGACAD01">
+			<slot name="slot1" type="LMPrimary" jbossDomain="LM1" logFileRetentionDays="20" jbossClusterMCastAddr="239.255.5.20">
+				<jvm_opts>-server -Xms2048M -Xmx2048M -XX:PermSize=512m -XX:MaxPermSize=512m -Dsun.rmi.dgc.client.gcInterval=3600000 -Dsun.rmi.dgc.server.gcInterval=3600000 -XX:+PrintGC -XX:+PrintGCDateStamps -XX:+PrintGCDetails -Xloggc:\\\${JBOSS_HOME}/server/SLOT_NAME/log/gc.log -Datg.dynamo.layers=act -Djboss.platform.mbeanserver</jvm_opts>
+			</slot>
+			<slot name="slot2" type="CtrlPrimary" jbossDomain="CTRL1" logFileRetentionDays="20" jbossClusterMCastAddr="239.255.5.21">
+				<jvm_opts>-server -Xms2048M -Xmx2048M -XX:PermSize=512m -XX:MaxPermSize=512m -Dsun.rmi.dgc.client.gcInterval=3600000 -Dsun.rmi.dgc.server.gcInterval=3600000 -XX:+PrintGC -XX:+PrintGCDateStamps -XX:+PrintGCDetails -Xloggc:\\\${JBOSS_HOME}/server/SLOT_NAME/log/gc.log -Datg.dynamo.layers=act -Djboss.platform.mbeanserver</jvm_opts>
+			</slot>
+			<slot name="slot3" type="PS" jbossDomain="A1" logFileRetentionDays="5" jbossClusterMCastAddr="239.255.5.24">
+				<jvm_opts>-server -Xms2048M -Xmx2048M -XX:PermSize=512m -XX:MaxPermSize=512m -Dsun.rmi.dgc.client.gcInterval=3600000 -Dsun.rmi.dgc.server.gcInterval=3600000 -XX:+PrintGC -XX:+PrintGCDateStamps -XX:+PrintGCDetails -Xloggc:\\\${JBOSS_HOME}/server/SLOT_NAME/log/gc.log -Datg.dynamo.layers=act -Djboss.platform.mbeanserver</jvm_opts>
+			</slot>
+			<slot name="slot4" type="PS" jbossDomain="A1" logFileRetentionDays="5" jbossClusterMCastAddr="239.255.5.24">
+				<jvm_opts>-server -Xms2048M -Xmx2048M -XX:PermSize=512m -XX:MaxPermSize=512m -Dsun.rmi.dgc.client.gcInterval=3600000 -Dsun.rmi.dgc.server.gcInterval=3600000 -XX:+PrintGC -XX:+PrintGCDateStamps -XX:+PrintGCDetails -Xloggc:\\\${JBOSS_HOME}/server/SLOT_NAME/log/gc.log -Datg.dynamo.layers=act -Djboss.platform.mbeanserver</jvm_opts>
+			</slot>
+		</server>
+		
+		<server name="NLATGACAD02">
+			<slot name="slot1" type="LMSecondary" jbossDomain="LM2" logFileRetentionDays="20" jbossClusterMCastAddr="239.255.5.22">
+				<jvm_opts>-server -Xms2048M -Xmx2048M -XX:PermSize=512m -XX:MaxPermSize=512m -Dsun.rmi.dgc.client.gcInterval=3600000 -Dsun.rmi.dgc.server.gcInterval=3600000 -XX:+PrintGC -XX:+PrintGCDateStamps -XX:+PrintGCDetails -Xloggc:\\\${JBOSS_HOME}/server/SLOT_NAME/log/gc.log -Datg.dynamo.layers=act -Djboss.platform.mbeanserver</jvm_opts>
+			</slot>
+			<slot name="slot2" type="CtrlSecondary" jbossDomain="CTRL2" logFileRetentionDays="20" jbossClusterMCastAddr="239.255.5.23">
+				<jvm_opts>-server -Xms2048M -Xmx2048M -XX:PermSize=512m -XX:MaxPermSize=512m -Dsun.rmi.dgc.client.gcInterval=3600000 -Dsun.rmi.dgc.server.gcInterval=3600000 -XX:+PrintGC -XX:+PrintGCDateStamps -XX:+PrintGCDetails -Xloggc:\\\${JBOSS_HOME}/server/SLOT_NAME/log/gc.log -Datg.dynamo.layers=act -Djboss.platform.mbeanserver</jvm_opts>
+			</slot>
+			<slot name="slot3" type="PS" jbossDomain="A1" logFileRetentionDays="5" jbossClusterMCastAddr="239.255.5.24">
+				<jvm_opts>-server -Xms2048M -Xmx2048M -XX:PermSize=512m -XX:MaxPermSize=512m -Dsun.rmi.dgc.client.gcInterval=3600000 -Dsun.rmi.dgc.server.gcInterval=3600000 -XX:+PrintGC -XX:+PrintGCDateStamps -XX:+PrintGCDetails -Xloggc:\\\${JBOSS_HOME}/server/SLOT_NAME/log/gc.log -Datg.dynamo.layers=act -Djboss.platform.mbeanserver</jvm_opts>
+			</slot>
+			<slot name="slot4" type="PS" jbossDomain="A1" logFileRetentionDays="5" jbossClusterMCastAddr="239.255.5.24">
+				<jvm_opts>-server -Xms2048M -Xmx2048M -XX:PermSize=512m -XX:MaxPermSize=512m -Dsun.rmi.dgc.client.gcInterval=3600000 -Dsun.rmi.dgc.server.gcInterval=3600000 -XX:+PrintGC -XX:+PrintGCDateStamps -XX:+PrintGCDetails -Xloggc:\\\${JBOSS_HOME}/server/SLOT_NAME/log/gc.log -Datg.dynamo.layers=act -Djboss.platform.mbeanserver</jvm_opts>
+			</slot>
+		</server>
+	</servergroup>
+</environment>
+
+
+<environment name="PRODUCTION">
+	<servergroup application="LiveStoreFront" jbossCluster="ATG_LIVE_PRODUCTION">
+		<server name="NLATGPPAG01">
+			<slot name="slot1" type="LMPrimary" jbossDomain="LM1" logFileRetentionDays="20" jbossClusterMCastAddr="239.255.6.10">
+				<jvm_opts>-server -Xms1536M -Xmx1536M -XX:PermSize=256m -XX:MaxPermSize=512m -Dsun.rmi.dgc.client.gcInterval=3600000 -Dsun.rmi.dgc.server.gcInterval=3600000 -XX:+PrintGC -XX:+PrintGCDateStamps -XX:+PrintGCDetails -Xloggc:\\\${JBOSS_HOME}/server/SLOT_NAME/log/gc.log -Datg.dynamo.layers=prod -Djboss.platform.mbeanserver</jvm_opts>
+			</slot>
+			<slot name="slot2" type="CtrlPrimary" jbossDomain="CTRL1" logFileRetentionDays="20" jbossClusterMCastAddr="239.255.6.11">
+				<jvm_opts>-server -Xms1536M -Xmx1536M -XX:PermSize=256m -XX:MaxPermSize=512m -Dsun.rmi.dgc.client.gcInterval=3600000 -Dsun.rmi.dgc.server.gcInterval=3600000 -XX:+PrintGC -XX:+PrintGCDateStamps -XX:+PrintGCDetails -Xloggc:\\\${JBOSS_HOME}/server/SLOT_NAME/log/gc.log -Datg.dynamo.layers=prod -Djboss.platform.mbeanserver</jvm_opts>
+			</slot>
+			<slot name="slot3" type="PS" jbossDomain="A1" logFileRetentionDays="20" jbossClusterMCastAddr="239.255.6.14">
+				<jvm_opts>-server -Xms2048M -Xmx2048M -XX:PermSize=256m -XX:MaxPermSize=512m -Dsun.rmi.dgc.client.gcInterval=3600000 -Dsun.rmi.dgc.server.gcInterval=3600000 -XX:+PrintGC -XX:+PrintGCDateStamps -XX:+PrintGCDetails -Xloggc:\\\${JBOSS_HOME}/server/SLOT_NAME/log/gc.log -Datg.dynamo.layers=prod -Djboss.platform.mbeanserver</jvm_opts>
+			</slot>
+			<slot name="slot4" type="PS" jbossDomain="A1" logFileRetentionDays="20" jbossClusterMCastAddr="239.255.6.14">
+				<jvm_opts>-server -Xms2048M -Xmx2048M -XX:PermSize=256m -XX:MaxPermSize=512m -Dsun.rmi.dgc.client.gcInterval=3600000 -Dsun.rmi.dgc.server.gcInterval=3600000 -XX:+PrintGC -XX:+PrintGCDateStamps -XX:+PrintGCDetails -Xloggc:\\\${JBOSS_HOME}/server/SLOT_NAME/log/gc.log -Datg.dynamo.layers=prod -Djboss.platform.mbeanserver</jvm_opts>
+			</slot>
+		</server>
+		
+		<server name="NLATGPPAG02">
+			<slot name="slot1" type="LMSecondary" jbossDomain="LM2" logFileRetentionDays="20" jbossClusterMCastAddr="239.255.6.12">
+				<jvm_opts>-server -Xms1536M -Xmx1536M -XX:PermSize=256m -XX:MaxPermSize=512m -Dsun.rmi.dgc.client.gcInterval=3600000 -Dsun.rmi.dgc.server.gcInterval=3600000 -XX:+PrintGC -XX:+PrintGCDateStamps -XX:+PrintGCDetails -Xloggc:\\\${JBOSS_HOME}/server/SLOT_NAME/log/gc.log -Datg.dynamo.layers=prod -Djboss.platform.mbeanserver</jvm_opts>
+			</slot>
+			<slot name="slot2" type="CtrlSecondary" jbossDomain="CTRL2" logFileRetentionDays="20" jbossClusterMCastAddr="239.255.6.13">
+				<jvm_opts>-server -Xms1536M -Xmx1536M -XX:PermSize=256m -XX:MaxPermSize=512m -Dsun.rmi.dgc.client.gcInterval=3600000 -Dsun.rmi.dgc.server.gcInterval=3600000 -XX:+PrintGC -XX:+PrintGCDateStamps -XX:+PrintGCDetails -Xloggc:\\\${JBOSS_HOME}/server/SLOT_NAME/log/gc.log -Datg.dynamo.layers=prod -Djboss.platform.mbeanserver</jvm_opts>
+			</slot>
+			<slot name="slot3" type="PS" jbossDomain="A1" logFileRetentionDays="20" jbossClusterMCastAddr="239.255.6.14">
+				<jvm_opts>-server -Xms2048M -Xmx2048M -XX:PermSize=256m -XX:MaxPermSize=512m -Dsun.rmi.dgc.client.gcInterval=3600000 -Dsun.rmi.dgc.server.gcInterval=3600000 -XX:+PrintGC -XX:+PrintGCDateStamps -XX:+PrintGCDetails -Xloggc:\\\${JBOSS_HOME}/server/SLOT_NAME/log/gc.log -Datg.dynamo.layers=prod -Djboss.platform.mbeanserver</jvm_opts>
+			</slot>
+			<slot name="slot4" type="PS" jbossDomain="A1" logFileRetentionDays="20" jbossClusterMCastAddr="239.255.6.14">
+				<jvm_opts>-server -Xms2048M -Xmx2048M -XX:PermSize=256m -XX:MaxPermSize=512m -Dsun.rmi.dgc.client.gcInterval=3600000 -Dsun.rmi.dgc.server.gcInterval=3600000 -XX:+PrintGC -XX:+PrintGCDateStamps -XX:+PrintGCDetails -Xloggc:\\\${JBOSS_HOME}/server/SLOT_NAME/log/gc.log -Datg.dynamo.layers=prod -Djboss.platform.mbeanserver</jvm_opts>
+			</slot>
+		</server>
+		
+		<server name="NLATGPPAG03">
+			<slot name="slot1" type="PS" jbossDomain="A1" logFileRetentionDays="20" jbossClusterMCastAddr="239.255.6.14">
+				<jvm_opts>-server -Xms2048M -Xmx2048M -XX:PermSize=256m -XX:MaxPermSize=512m -Dsun.rmi.dgc.client.gcInterval=3600000 -Dsun.rmi.dgc.server.gcInterval=3600000 -XX:+PrintGC -XX:+PrintGCDateStamps -XX:+PrintGCDetails -Xloggc:\\\${JBOSS_HOME}/server/SLOT_NAME/log/gc.log -Datg.dynamo.layers=prod -Djboss.platform.mbeanserver</jvm_opts>
+			</slot>
+			<slot name="slot2" type="PS" jbossDomain="A1" logFileRetentionDays="20" jbossClusterMCastAddr="239.255.6.14">
+				<jvm_opts>-server -Xms2048M -Xmx2048M -XX:PermSize=256m -XX:MaxPermSize=512m -Dsun.rmi.dgc.client.gcInterval=3600000 -Dsun.rmi.dgc.server.gcInterval=3600000 -XX:+PrintGC -XX:+PrintGCDateStamps -XX:+PrintGCDetails -Xloggc:\\\${JBOSS_HOME}/server/SLOT_NAME/log/gc.log -Datg.dynamo.layers=prod -Djboss.platform.mbeanserver</jvm_opts>
+			</slot>
+			<slot name="slot3" type="PS" jbossDomain="A1" logFileRetentionDays="20" jbossClusterMCastAddr="239.255.6.14">
+				<jvm_opts>-server -Xms2048M -Xmx2048M -XX:PermSize=256m -XX:MaxPermSize=512m -Dsun.rmi.dgc.client.gcInterval=3600000 -Dsun.rmi.dgc.server.gcInterval=3600000 -XX:+PrintGC -XX:+PrintGCDateStamps -XX:+PrintGCDetails -Xloggc:\\\${JBOSS_HOME}/server/SLOT_NAME/log/gc.log -Datg.dynamo.layers=prod -Djboss.platform.mbeanserver</jvm_opts>
+			</slot>
+			<slot name="slot4" type="PS" jbossDomain="A1" logFileRetentionDays="20" jbossClusterMCastAddr="239.255.6.14">
+				<jvm_opts>-server -Xms2048M -Xmx2048M -XX:PermSize=256m -XX:MaxPermSize=512m -Dsun.rmi.dgc.client.gcInterval=3600000 -Dsun.rmi.dgc.server.gcInterval=3600000 -XX:+PrintGC -XX:+PrintGCDateStamps -XX:+PrintGCDetails -Xloggc:\\\${JBOSS_HOME}/server/SLOT_NAME/log/gc.log -Datg.dynamo.layers=prod -Djboss.platform.mbeanserver</jvm_opts>
+			</slot>
+		</server>
+	</servergroup>
+	
+	<servergroup application="StagingStoreFront" jbossCluster="ATG_STAGE_PRODUCTION">
+		<server name="NLATGPSTG01">
+			<slot name="slot1" type="LMPrimary" jbossDomain="LM1" logFileRetentionDays="20" jbossClusterMCastAddr="239.255.6.15">
+				<jvm_opts>-server -Xms1024M -Xmx1024M -XX:PermSize=128m -XX:MaxPermSize=256m -Dsun.rmi.dgc.client.gcInterval=3600000 -Dsun.rmi.dgc.server.gcInterval=3600000 -XX:+PrintGC -XX:+PrintGCDateStamps -XX:+PrintGCDetails -Xloggc:\\\${JBOSS_HOME}/server/SLOT_NAME/log/gc.log -Datg.dynamo.layers=prod -Djboss.platform.mbeanserver</jvm_opts>
+			</slot>
+			<slot name="slot2" type="CtrlPrimary" jbossDomain="CTRL1" logFileRetentionDays="20" jbossClusterMCastAddr="239.255.6.16">
+				<jvm_opts>-server -Xms1024M -Xmx1024M -XX:PermSize=128m -XX:MaxPermSize=256m -Dsun.rmi.dgc.client.gcInterval=3600000 -Dsun.rmi.dgc.server.gcInterval=3600000 -XX:+PrintGC -XX:+PrintGCDateStamps -XX:+PrintGCDetails -Xloggc:\\\${JBOSS_HOME}/server/SLOT_NAME/log/gc.log -Datg.dynamo.layers=prod -Djboss.platform.mbeanserver</jvm_opts>
+			</slot>
+			<slot name="slot3" type="PS" jbossDomain="A1" logFileRetentionDays="20" jbossClusterMCastAddr="239.255.6.19">
+				<jvm_opts>-server -Xms1024M -Xmx1024M -XX:PermSize=128m -XX:MaxPermSize=256m -Dsun.rmi.dgc.client.gcInterval=3600000 -Dsun.rmi.dgc.server.gcInterval=3600000 -XX:+PrintGC -XX:+PrintGCDateStamps -XX:+PrintGCDetails -Xloggc:\\\${JBOSS_HOME}/server/SLOT_NAME/log/gc.log -Datg.dynamo.layers=prod -Djboss.platform.mbeanserver</jvm_opts>
+			</slot>
+			<slot name="slot4" type="PS" jbossDomain="A1" logFileRetentionDays="20" jbossClusterMCastAddr="239.255.6.19">
+				<jvm_opts>-server -Xms1024M -Xmx1024M -XX:PermSize=128m -XX:MaxPermSize=256m -Dsun.rmi.dgc.client.gcInterval=3600000 -Dsun.rmi.dgc.server.gcInterval=3600000 -XX:+PrintGC -XX:+PrintGCDateStamps -XX:+PrintGCDetails -Xloggc:\\\${JBOSS_HOME}/server/SLOT_NAME/log/gc.log -Datg.dynamo.layers=prod -Djboss.platform.mbeanserver</jvm_opts>
+			</slot>
+		</server>
+		
+		<server name="NLATGPSTG02">
+			<slot name="slot1" type="LMSecondary" jbossDomain="LM2" logFileRetentionDays="20" jbossClusterMCastAddr="239.255.6.17">
+				<jvm_opts>-server -Xms1024M -Xmx1024M -XX:PermSize=128m -XX:MaxPermSize=256m -Dsun.rmi.dgc.client.gcInterval=3600000 -Dsun.rmi.dgc.server.gcInterval=3600000 -XX:+PrintGC -XX:+PrintGCDateStamps -XX:+PrintGCDetails -Xloggc:\\\${JBOSS_HOME}/server/SLOT_NAME/log/gc.log -Datg.dynamo.layers=prod -Djboss.platform.mbeanserver</jvm_opts>
+			</slot>
+			<slot name="slot2" type="CtrlSecondary" jbossDomain="CTRL2" logFileRetentionDays="20" jbossClusterMCastAddr="239.255.6.18">
+				<jvm_opts>-server -Xms1024M -Xmx1024M -XX:PermSize=128m -XX:MaxPermSize=256m -Dsun.rmi.dgc.client.gcInterval=3600000 -Dsun.rmi.dgc.server.gcInterval=3600000 -XX:+PrintGC -XX:+PrintGCDateStamps -XX:+PrintGCDetails -Xloggc:\\\${JBOSS_HOME}/server/SLOT_NAME/log/gc.log -Datg.dynamo.layers=prod -Djboss.platform.mbeanserver</jvm_opts>
+			</slot>
+			<slot name="slot3" type="PS" jbossDomain="A1" logFileRetentionDays="20" jbossClusterMCastAddr="239.255.6.19">
+				<jvm_opts>-server -Xms1024M -Xmx1024M -XX:PermSize=128m -XX:MaxPermSize=256m -Dsun.rmi.dgc.client.gcInterval=3600000 -Dsun.rmi.dgc.server.gcInterval=3600000 -XX:+PrintGC -XX:+PrintGCDateStamps -XX:+PrintGCDetails -Xloggc:\\\${JBOSS_HOME}/server/SLOT_NAME/log/gc.log -Datg.dynamo.layers=prod -Djboss.platform.mbeanserver</jvm_opts>
+			</slot>
+			<slot name="slot4" type="PS" jbossDomain="A1" logFileRetentionDays="20" jbossClusterMCastAddr="239.255.6.19">
+				<jvm_opts>-server -Xms1024M -Xmx1024M -XX:PermSize=128m -XX:MaxPermSize=256m -Dsun.rmi.dgc.client.gcInterval=3600000 -Dsun.rmi.dgc.server.gcInterval=3600000 -XX:+PrintGC -XX:+PrintGCDateStamps -XX:+PrintGCDetails -Xloggc:\\\${JBOSS_HOME}/server/SLOT_NAME/log/gc.log -Datg.dynamo.layers=prod -Djboss.platform.mbeanserver</jvm_opts>
+			</slot>
+		</server>
+	</servergroup>
+	
+	<servergroup application="ContentAdmin" jbossCluster="ATG_CA_PRODUCTION">
+		<server name="NLATGPCAD01">
+			<slot name="slot1" type="LMPrimary" jbossDomain="LM1" logFileRetentionDays="20" jbossClusterMCastAddr="239.255.6.20">
+				<jvm_opts>-server -Xms2048M -Xmx2048M -XX:PermSize=512m -XX:MaxPermSize=512m -Dsun.rmi.dgc.client.gcInterval=3600000 -Dsun.rmi.dgc.server.gcInterval=3600000 -XX:+PrintGC -XX:+PrintGCDateStamps -XX:+PrintGCDetails -Xloggc:\\\${JBOSS_HOME}/server/SLOT_NAME/log/gc.log -Datg.dynamo.layers=prod -Djboss.platform.mbeanserver</jvm_opts>
+			</slot>
+			<slot name="slot2" type="CtrlPrimary" jbossDomain="CTRL1" logFileRetentionDays="20" jbossClusterMCastAddr="239.255.6.21">
+				<jvm_opts>-server -Xms2048M -Xmx2048M -XX:PermSize=512m -XX:MaxPermSize=512m -Dsun.rmi.dgc.client.gcInterval=3600000 -Dsun.rmi.dgc.server.gcInterval=3600000 -XX:+PrintGC -XX:+PrintGCDateStamps -XX:+PrintGCDetails -Xloggc:\\\${JBOSS_HOME}/server/SLOT_NAME/log/gc.log -Datg.dynamo.layers=prod -Djboss.platform.mbeanserver</jvm_opts>
+			</slot>
+			<slot name="slot3" type="PS" jbossDomain="A1" logFileRetentionDays="5" jbossClusterMCastAddr="239.255.6.24">
+				<jvm_opts>-server -Xms2048M -Xmx2048M -XX:PermSize=512m -XX:MaxPermSize=512m -Dsun.rmi.dgc.client.gcInterval=3600000 -Dsun.rmi.dgc.server.gcInterval=3600000 -XX:+PrintGC -XX:+PrintGCDateStamps -XX:+PrintGCDetails -Xloggc:\\\${JBOSS_HOME}/server/SLOT_NAME/log/gc.log -Datg.dynamo.layers=prod -Djboss.platform.mbeanserver</jvm_opts>
+			</slot>
+			<slot name="slot4" type="PS" jbossDomain="A1" logFileRetentionDays="5" jbossClusterMCastAddr="239.255.6.24">
+				<jvm_opts>-server -Xms2048M -Xmx2048M -XX:PermSize=512m -XX:MaxPermSize=512m -Dsun.rmi.dgc.client.gcInterval=3600000 -Dsun.rmi.dgc.server.gcInterval=3600000 -XX:+PrintGC -XX:+PrintGCDateStamps -XX:+PrintGCDetails -Xloggc:\\\${JBOSS_HOME}/server/SLOT_NAME/log/gc.log -Datg.dynamo.layers=prod -Djboss.platform.mbeanserver</jvm_opts>
+			</slot>
+		</server>
+		
+		<server name="NLATGPCAD02">
+			<slot name="slot1" type="LMSecondary" jbossDomain="LM2" logFileRetentionDays="20" jbossClusterMCastAddr="239.255.6.22">
+				<jvm_opts>-server -Xms2048M -Xmx2048M -XX:PermSize=512m -XX:MaxPermSize=512m -Dsun.rmi.dgc.client.gcInterval=3600000 -Dsun.rmi.dgc.server.gcInterval=3600000 -XX:+PrintGC -XX:+PrintGCDateStamps -XX:+PrintGCDetails -Xloggc:\\\${JBOSS_HOME}/server/SLOT_NAME/log/gc.log -Datg.dynamo.layers=prod -Djboss.platform.mbeanserver</jvm_opts>
+			</slot>
+			<slot name="slot2" type="CtrlSecondary" jbossDomain="CTRL2" logFileRetentionDays="20" jbossClusterMCastAddr="239.255.6.23">
+				<jvm_opts>-server -Xms2048M -Xmx2048M -XX:PermSize=512m -XX:MaxPermSize=512m -Dsun.rmi.dgc.client.gcInterval=3600000 -Dsun.rmi.dgc.server.gcInterval=3600000 -XX:+PrintGC -XX:+PrintGCDateStamps -XX:+PrintGCDetails -Xloggc:\\\${JBOSS_HOME}/server/SLOT_NAME/log/gc.log -Datg.dynamo.layers=prod -Djboss.platform.mbeanserver</jvm_opts>
+			</slot>
+			<slot name="slot3" type="PS" jbossDomain="A1" logFileRetentionDays="5" jbossClusterMCastAddr="239.255.6.24">
+				<jvm_opts>-server -Xms2048M -Xmx2048M -XX:PermSize=512m -XX:MaxPermSize=512m -Dsun.rmi.dgc.client.gcInterval=3600000 -Dsun.rmi.dgc.server.gcInterval=3600000 -XX:+PrintGC -XX:+PrintGCDateStamps -XX:+PrintGCDetails -Xloggc:\\\${JBOSS_HOME}/server/SLOT_NAME/log/gc.log -Datg.dynamo.layers=prod -Djboss.platform.mbeanserver</jvm_opts>
+			</slot>
+			<slot name="slot4" type="PS" jbossDomain="A1" logFileRetentionDays="5" jbossClusterMCastAddr="239.255.6.24">
+				<jvm_opts>-server -Xms2048M -Xmx2048M -XX:PermSize=512m -XX:MaxPermSize=512m -Dsun.rmi.dgc.client.gcInterval=3600000 -Dsun.rmi.dgc.server.gcInterval=3600000 -XX:+PrintGC -XX:+PrintGCDateStamps -XX:+PrintGCDetails -Xloggc:\\\${JBOSS_HOME}/server/SLOT_NAME/log/gc.log -Datg.dynamo.layers=prod -Djboss.platform.mbeanserver</jvm_opts>
+			</slot>
+		</server>
+	</servergroup>
+</environment>
+
+</spindrift>

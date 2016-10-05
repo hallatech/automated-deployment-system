@@ -1,0 +1,2 @@
+#Run the prune log command at 5 minutes past midnight every day
+5 0 * * *  sh /opt/Deployments/scripts/sh/pruneJbossLogs.sh

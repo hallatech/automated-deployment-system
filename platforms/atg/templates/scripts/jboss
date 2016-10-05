@@ -1,0 +1,480 @@
+#!/bin/sh
+#
+# This is jboss service startup script.
+#
+# chkconfig: 3 95 5
+# description: JBoss EAP 5 Service
+#
+# JBoss Control Script
+# To use this script run it as root (it will switch to the specified user) or as the JBoss user.
+#
+
+#JBOSS_HOME=${JBOSS_HOME:-#spindrift.script.postDeployment.DeployHome#/Jboss/jboss-as}
+JBOSS_USER=#spindrift.script.jboss.jbossUser#
+JBOSS_PARTITIONS="#spindrift.script.jboss.availableSlots#"
+JBOSS_LOG_FILES="boot.log console.log gc.log server.log"
+JBOSS_STOP_USER=admin
+JBOSS_STOP_PASSWORD=#spindrift.jboss.jmx-console-users.password#
+
+#spindrift.script.jboss.slotStartCommands#
+#spindrift.script.jboss.slotStopCommands#
+
+# Sleep time in seconds.
+ITERATION_SLEEP=0.5
+# Threshold before abandoning JBoss shutdown command
+ITERATIONS_BEFORE_ABANDON_SHUTDOWN=30
+# Threshold before resorting to kill when stopping JBoss
+ITERATIONS_BEFORE_KILLING=360
+# Threshold before logging slow startup when starting JBoss
+ITERATIONS_BEFORE_SLOW=360
+
+# Define the return code to use if errors are found on start-up
+RETURN_CODE_ON_STARTUP_ERRORS=0
+# Define the return code to use if start-up takes too long
+RETURN_CODE_ON_SLOW_STARTUP=0
+
+executeUserCommand()
+{
+	local cmd="$1"
+	if [ -z "${SUBIT}" ]; then
+		#echo "${cmd}"
+		eval "${cmd}"
+	else
+		#echo "${SUBIT} '${cmd}'"
+		eval "${SUBIT} '${cmd}'"
+	fi
+}
+
+
+# Usage: rotatePartitionLogs <instance>
+# Rotate old logs.
+rotatePartitionLogs()
+{
+	local instance=$1
+
+	logDir="\${JBOSS_HOME}/server/${instance}/log"
+	dateTime=`date +'%Y-%m-%d.%H:%M:%S'`
+	echo "INFO: Rotating logs in ${logDir}"
+	
+	for log in ${JBOSS_LOG_FILES}
+	do
+		logFile="${logDir}/${log}"
+		cmd="test -f ${logFile} >/dev/null 2>&1"
+        executeUserCommand "${cmd}"
+        if [ $? -eq 0 ]; then
+			# Rotate old log files.
+			cmd="mv ${logFile} ${logFile}.${dateTime}"
+			executeUserCommand "${cmd}"
+		fi
+	done
+}
+
+
+# Usage: startJBoss <instance>
+startJBoss()
+{
+	local instance=$1
+
+	# do some basic error checking
+	cmd="test -d \${JBOSS_HOME} >/dev/null 2>&1"
+	executeUserCommand "${cmd}"
+	if [ $? -ne 0 ]; then
+		echo "ERROR: JBOSS_HOME is not a valid directory" 1>&2
+		return 1
+	fi
+
+	# make sure the JBoss partition exists
+	jbossPartitionDir="\${JBOSS_HOME}/server/${instance}"
+	cmd="test -d ${jbossPartitionDir} >/dev/null 2>&1"
+	executeUserCommand "${cmd}"
+	if [ $? -ne 0 ]; then
+		echo "ERROR: ${instance} is not a valid partition : ${jbossPartitionDir} does not exist" 1>&2
+		return 1
+	fi
+
+	# make sure the log directory exists with appropriate permissions for JBOSS_USER
+	jbossPartitionLogDir="${jbossPartitionDir}/log"
+	cmd="test -d ${jbossPartitionLogDir} >/dev/null 2>&1"
+	executeUserCommand "${cmd}"
+	if [ $? -ne 0 ]; then
+		echo "INFO: Creating log directory : ${jbossPartitionLogDir}"
+		executeUserCommand "mkdir ${jbossPartitionLogDir}"
+		executeUserCommand "chmod 0755 ${jbossPartitionLogDir}"
+		executeUserCommand "chown ${JBOSS_USER} ${jbossPartitionLogDir}"
+	fi
+
+	if [ `isJBossRunning ${instance}` -ne 0 ]; then
+		jbossPid=`getPidForInstance ${instance}`
+		echo "INFO: JBoss ${instance} is already running for user ${JBOSS_USER} as PID ${jbossPid}" 1>&2
+		return 0
+	fi
+
+	# keep last version of the console log around
+	rotatePartitionLogs ${instance}
+
+	# JBoss is not running, start it up
+	sCmdStartVarName=`echo "CMD_START_${instance}" | tr '[a-z]' '[A-Z]'`
+	eval sCmdStart='$'"$sCmdStartVarName"
+	echo "INFO: Starting JBoss instance ${instance} as user ${JBOSS_USER}."
+	executeUserCommand "${sCmdStart}"
+	
+	# wait a few seconds then check if it started ok
+	sleep 5
+	if [ `isJBossRunning ${instance}` -ne 0 ]; then
+		echo "INFO: JBoss is starting"
+		sleep 20
+		checkForSuccessfulStartup ${instance}
+	else
+		echo "ERROR: JBoss failed to start" 1>&2
+		exit 1
+	fi
+}
+
+
+# Usage: checkForSuccessfulStartup <instance>
+checkForSuccessfulStartup()
+{
+	local instance="$1"
+	
+	count=0
+	isStarted=0
+	while [ $isStarted -eq 0 ]; do
+		if [ ${count} -eq 0 ]; then
+			printf "INFO: Waiting for startup to complete."
+		fi
+	
+		sleep ${ITERATION_SLEEP}
+		let count=count+1
+		printf "."
+		if [ ${count} -ge ${ITERATIONS_BEFORE_SLOW} ]; then
+			echo ""
+			printf "WARN: Instance is taking too long to start - giving up waiting. Please check the logs.\n"
+			return $RETURN_CODE_ON_SLOW_STARTUP
+		else
+			cmd="grep -c \"(main) JBoss ..* Started in \" \${JBOSS_HOME}/server/${instance}/log/server.log >/dev/null 2>&1"
+			executeUserCommand "${cmd}"
+			if [ $? -eq 0 ]; then
+				cmd="grep -c ERROR \${JBOSS_HOME}/server/${instance}/log/server.log >/dev/null 2>&1"
+				executeUserCommand "${cmd}"
+				if [ $? -eq 0 ]; then
+					echo ""
+					echo "WARN: Errors found during startup of ${instance} - please check the logs" 1>&2
+					return $RETURN_CODE_ON_STARTUP_ERRORS
+				else
+					echo ""
+					echo "INFO: Instance ${instance} started without errors."
+					isStarted=1
+				fi
+			fi
+		fi
+	done
+	echo ""
+	
+	return 0
+}
+
+
+# Usage: getPidForInstance <instance>
+getPidForInstance()
+{
+	local instance=$1
+
+	pid=`pgrep -u ${JBOSS_USER} -f atg\.dynamo\.server\.name=${instance}`
+
+	echo "${pid}"
+}
+
+
+# Usage: forceKillJBoss <instance>
+forceKillJBoss()
+{
+	local instance=$1
+
+	if [ `isJBossRunning ${instance}` -ne 0 ]; then
+		jbossPid=`getPidForInstance $instance`
+		echo "WARN: Forcibly killing: ${instance} (${jbossPid})"
+
+		sCmdKill="kill -KILL ${jbossPid}"
+		executeUserCommand "${sCmdKill}"
+
+		sleep 5
+		if [ `isJBossRunning ${instance}` -ne 0 ]; then
+			echo "ERROR: Cannot kill: ${instance} (${jbossPid}) - possible zombie?" 1>&2
+		fi
+	else
+	   echo "INFO: The jboss partition ${instance} is not running."
+	fi
+}
+
+
+# Usage: killJBoss <instance>
+killJBoss()
+{
+	local instance=$1
+
+	if [ `isJBossRunning ${instance}` -ne 0 ]; then
+		jbossPid=`getPidForInstance $instance`
+		echo "WARN: Killing: ${instance} (${jbossPid})"
+
+		sCmdKill="kill -TERM ${jbossPid}"
+		executeUserCommand "${sCmdKill}"
+
+		count=0
+		while [ `isJBossRunning ${instance}` -ne 0 ]; do
+			if [ ${count} -eq 0 ]; then
+				printf "INFO: Waiting to kill."
+			fi
+
+			sleep ${ITERATION_SLEEP}
+			let count=count+1
+			printf "."
+			if [ ${count} -ge ${ITERATIONS_BEFORE_KILLING} ]; then
+				printf " Instance was not killed.\n"
+				forceKillJBoss $instance
+				break
+			fi
+		done
+		printf "\n"
+	else
+		echo "INFO: The jboss partition ${instance} is not running."
+	fi
+}
+
+
+# Usage: stopJBoss <instance>
+stopJBoss()
+{
+	local instance=$1
+
+	if [ `isJBossRunning ${instance}` -ne 0 ]; then
+		echo "INFO: Stopping: ${instance}"
+		bAbandonedStop=0
+		sCmdStopArgsVarName=`echo "CMD_STOPARGS_${instance}" | tr '[a-z]' '[A-Z]'`
+		eval sCmdStopArgs='$'"$sCmdStopArgsVarName"
+		executeUserCommand "${CMD_STOP} ${sCmdStopArgs} &"
+		iStopPid=$!
+
+		numIterations=$ITERATIONS_BEFORE_ABANDON_SHUTDOWN
+		count=0
+		while [ `ps -p ${iStopPid} -o pid= | wc -l` -gt 0 ]; do
+			if [ ${count} -eq 0 ]; then
+				printf "INFO: Waiting for shutdown command to return."
+			fi
+
+			sleep ${ITERATION_SLEEP}
+			let count=count+1
+			printf "."
+			if [ ${count} -ge ${numIterations} ]; then
+				printf " Shutdown command could not be issued.\n"
+				# Kill PIDs of all shutdown commands for this instance
+				echo "WARN: Killing stop command for ${instance}"
+		
+				sCmdKill="pkill -TERM -u jboss -f \"org\.jboss\.Shutdown ${sCmdStopArgs}\""
+				executeUserCommand "${sCmdKill}"
+				bAbandonedStop=1
+				break
+			fi
+		done
+
+		iStopResult=`wait ${iStopPid}`
+
+
+		numIterations=$ITERATIONS_BEFORE_KILLING
+		
+		if [ $bAbandonedStop -ne 0 ]; then
+			# Stop command was abandoned, do not wait to continue
+			numIterations=2
+		elif [ $? -ne 0 ]; then
+			# Stop command exited with non-zero return code, so it probably didn't do anything
+			# but we'll give it a chance just in case - though won't wait as long as normal...
+			numIterations=60
+		fi
+		
+		count=0
+		while [ `isJBossRunning ${instance}` -ne 0 ]; do
+			if [ ${count} -eq 0 ]; then
+				printf "INFO: Waiting to shutdown."
+			fi
+			
+			sleep ${ITERATION_SLEEP}
+			let count=count+1
+			printf "."
+			if [ ${count} -ge ${numIterations} ]; then
+				printf " Instance did not stop.\n"
+				killJBoss $instance
+				break
+			fi
+		done
+
+		printf "\n"
+	else
+		echo "INFO: The jboss partition ${instance} is not running."
+	fi
+}
+
+
+#USAGE: stacktraceJBoss <instance>
+# Invoke a stacetrace for the given instance
+stacktraceJBoss()
+{
+	local instance=$1
+
+	if [ `isJBossRunning ${instance}` -ne 0 ]; then
+		echo "INFO: Ivoking stacktrace on ${instance}"
+		jbossPid=`getPidForInstance ${instance}`
+		sCmdStacktrace="kill -QUIT ${jbossPid}"
+		executeUserCommand "${sCmdStacktrace}"
+	else
+		echo "ERROR: The jboss partition ${instance} is not running." 1>&2
+	fi
+}
+
+
+#Usage: isJBossRunning <instance>
+# returns boolean-like return code indicating whether Jboss instance is running - 1=yes, 0=no
+isJBossRunning()
+{
+	local instance=$1
+	
+	jbossPid=`getPidForInstance ${instance}`
+	if [ "x${jbossPid}" = "x" ]; then
+		echo "0"
+	else
+		echo "1"
+	fi
+}
+
+
+#Usage: statusJBoss <instance>
+# returns non-zero return code if Jboss instance is not running
+statusJBoss()
+{
+	local instance=$1
+
+	if [ `isJBossRunning ${instance}` -ne 0 ]; then
+		jbossPid=`getPidForInstance ${instance}`
+		echo "INFO: The jboss partition ${instance} is running (pid: ${jbossPid})"
+	else
+		echo "INFO: The jboss partition ${instance} is not running."
+	fi
+}
+
+
+#USAGE: isUserOK
+# prints any problems on standard error and returns with a non-zero status
+# returns a 0 status if all is OK
+isUserOK()
+{
+	# check if the user exists
+	id ${JBOSS_USER} >/dev/null 2>&1
+	if [ $? -ne 0 ] ; then
+		echo "ERROR: The user ${JBOSS_USER} does not exist." 1>&2
+		return 1
+	fi
+
+	# check if we are the user
+	username=`whoami`
+	if [ "x${username}" = "x${JBOSS_USER}" ]; then
+		# We are the JBoss user
+		SUBIT=""
+	elif [ "x${EUID}" = "x0" ]; then
+		# We are root
+		SUBIT="su -l ${JBOSS_USER} -c";
+	else
+		echo "ERROR: Must be root or ${JBOSS_USER} to run this script." 1>&2
+		return 2	
+	fi
+
+	# user must have access to java
+	cmd="which java >/dev/null 2>&1"
+	executeUserCommand "${cmd}"
+	result1=$?
+	cmd="test -d \${JAVA_HOME} >/dev/null 2>&1"
+	executeUserCommand "${cmd}"
+	result2=$?
+	
+	if [ ! ${result1} -o ! ${result2} ]; then
+		echo "ERROR: The user \"${JBOSS_USER}\" does not have \$JAVA_HOME defined; either define \$JAVA_HOME for this user or ensure that a path to \"java\" exists." 1>&2
+		return 4
+	fi
+
+	# user looks good so far
+	return 0
+}
+
+
+#USAGE: checkPermitted
+# prints any problems on standard error and exits with a non-zero status
+# does nothing if all is OK
+checkPermitted()
+{
+	isUserOK
+	if [ $? -ne 0 ]; then
+		echo "ERROR: You are not permitted to run this command" 1>&2
+		exit 1
+	fi
+}
+
+
+case "$1" in
+	start)
+		checkPermitted
+		for instance in ${JBOSS_PARTITIONS}
+		do
+			startJBoss $instance
+		done
+		;;
+	start_slot*)
+		checkPermitted
+		instance=`echo "${1}" | sed 's/^start_//'`
+		startJBoss $instance
+		;;
+	stop)
+		checkPermitted
+		for instance in ${JBOSS_PARTITIONS}
+		do
+			stopJBoss $instance
+		done
+		;;
+	stop_slot*)
+		checkPermitted
+		instance=`echo "${1}" | sed 's/^stop_//'`
+		stopJBoss $instance
+		;;
+	restart)
+		checkPermitted
+		for instance in ${JBOSS_PARTITIONS}
+		do
+			stopJBoss $instance
+		done
+		
+		for instance in ${JBOSS_PARTITIONS}
+		do
+			startJBoss $instance
+		done
+		;;
+	restart_slot*)
+		checkPermitted
+		instance=`echo "${1}" | sed 's/^restart_//'`
+		stopJBoss $instance
+		startJBoss $instance
+		;;
+	status)
+		for instance in ${JBOSS_PARTITIONS}
+		do
+			statusJBoss $instance
+		done
+		;;
+	stacktrace_slot*)
+		checkPermitted
+		instance=`echo "${1}" | sed 's/^stacktrace_//'`
+		stacktraceJBoss $instance
+		;;
+	*)
+		echo "Usage: ${0} (start|start_slotx|stop|stop_slotx|restart|restart_slotx|status|stacktrace_slotx)" 1>&2
+		exit 1
+		;;
+esac
+
+exit $?
+# EOF

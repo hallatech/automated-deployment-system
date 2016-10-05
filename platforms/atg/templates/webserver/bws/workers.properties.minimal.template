@@ -1,0 +1,21 @@
+worker.list=jk-status
+worker.jk-status.type=status
+worker.jk-status.read_only=true
+worker.list=jk-manager
+worker.jk-manager.type=status
+
+###########################################################
+# Template configuration applicable to all workers
+###########################################################
+
+
+worker.template.type=ajp13
+worker.template.socket_connect_timeout=5000
+worker.template.socket_keepalive=true
+worker.template.ping_mode=A
+worker.template.ping_timeout=10000
+worker.template.connection_pool_minsize=0
+worker.template.connection_pool_timeout=600
+worker.template.reply_timeout=300000
+worker.template.recovery_options=3
+

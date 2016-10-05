@@ -1,0 +1,191 @@
+<substitutions>
+	<envsubstitutions application="LiveStoreFront">
+		<substitution filepath="localconfig/atg/dynamo/service/ClientLockManager.properties" type="modify">
+			<property name="lockServerAddress">
+				<env name="CI">NLATGDPAG01</env>
+				<env name="TEST">NLATGTPAG01</env>
+				<env name="ACCEPTANCE">NLATGESHR01,NLATGEDBS01</env>
+			</property>
+			<property name="lockServerPort">
+				<env name="ACCEPTANCE">9010,9010</env>
+			</property>
+		</substitution>
+	</envsubstitutions>
+	<envsubstitutions application="ContentAdmin">
+		<substitution filepath="localconfig/atg/dynamo/service/ClientLockManager.properties" type="modify">
+			<property name="lockServerAddress">
+				<env name="CI">NLATGDCAD01</env>
+				<env name="TEST">NLATGTCAD01</env>
+			</property>
+		</substitution>
+		<substitution filepath="localconfig/atg/dynamo/service/ClientLockManager_production.properties" type="modify">
+			<property name="lockServerAddress">
+				<env name="CI">NLATGDPAG01</env>
+				<env name="TEST">NLATGTPAG01</env>
+				<env name="ACCEPTANCE">NLATGESHR01,NLATGEDBS01</env>
+			</property>
+			<property name="lockServerPort">
+				<env name="ACCEPTANCE">9010,9010</env>
+			</property>
+		</substitution>
+	</envsubstitutions>
+	
+	<slotsubstitutions>
+		<substitution filepath="localconfig/atg/dynamo/Configuration.properties" type="modify">
+			<property name="adminPort">
+				<slot name="slot1">8180</slot>
+				<slot name="slot2">8280</slot>
+				<slot name="slot3">8380</slot>
+				<slot name="slot4">8480</slot>
+				<slot name="slot5">8580</slot>
+				<slot name="slot6">8680</slot>
+			</property>
+			<property name="drpPort">
+				<slot name="slot1">10150</slot>
+				<slot name="slot2">10250</slot>
+				<slot name="slot3">10350</slot>
+				<slot name="slot4">10450</slot>
+				<slot name="slot5">10550</slot>
+				<slot name="slot6">10650</slot>
+			</property>
+			<property name="fileDeploymentPort">
+				<slot name="slot1">10110</slot>
+				<slot name="slot2">10210</slot>
+				<slot name="slot3">10310</slot>
+				<slot name="slot4">10410</slot>
+				<slot name="slot5">10510</slot>
+				<slot name="slot6">10610</slot>
+			</property>
+			<property name="httpPort">
+				<slot name="slot1">8180</slot>
+				<slot name="slot2">8280</slot>
+				<slot name="slot3">8380</slot>
+				<slot name="slot4">8480</slot>
+				<slot name="slot5">8580</slot>
+				<slot name="slot6">8680</slot>
+			</property>
+			<property name="httpsPort">
+				<slot name="slot1">10143</slot>
+				<slot name="slot2">10243</slot>
+				<slot name="slot3">10343</slot>
+				<slot name="slot4">10443</slot>
+				<slot name="slot5">10543</slot>
+				<slot name="slot6">10643</slot>
+			</property>
+			<property name="rmiPort">
+				<slot name="slot1">10160</slot>
+				<slot name="slot2">10260</slot>
+				<slot name="slot3">10360</slot>
+				<slot name="slot4">10460</slot>
+				<slot name="slot5">10560</slot>
+				<slot name="slot6">10660</slot>
+			</property>
+			<property name="siteHttpServerPort">
+				<slot name="slot1">8180</slot>
+				<slot name="slot2">8280</slot>
+				<slot name="slot3">8380</slot>
+				<slot name="slot4">8480</slot>
+				<slot name="slot5">8580</slot>
+				<slot name="slot6">8680</slot>
+			</property>
+		</substitution>
+		<substitution filepath="localconfig/atg/epub/file/synchronization/FileSynchronizationDeployServer.properties" type="modify">
+			<property name="port">
+				<slot name="slot1">10115</slot>
+				<slot name="slot2">10215</slot>
+				<slot name="slot3">10315</slot>
+				<slot name="slot4">10415</slot>
+				<slot name="slot5">10515</slot>
+				<slot name="slot6">10615</slot>
+			</property>
+		</substitution>
+	</slotsubstitutions>
+	
+	<slottypesubstitutions>
+		<substitution filepath="localconfig/atg/dynamo/service/Initial.properties" type="modify">
+			<property name="initialServices+">
+				<slottype name="LMPrimary">/atg/dynamo/service/ServerLockManager</slottype>
+				<slottype name="LMSecondary">/atg/dynamo/service/ServerLockManager</slottype>
+			</property>
+		</substitution>
+		<substitution filepath="localconfig/atg/dynamo/service/Initial.properties" type="delete" slottype="PS,CtrlPrimary,CtrlSecondary"/>
+		<substitution filepath="localconfig/atg/dynamo/service/ServerLockManager.properties" type="delete" slottype="PS,CtrlPrimary,CtrlSecondary"/>
+	</slottypesubstitutions>
+	
+	<keysubstitutions>
+		<!-- A generic XML structure to hold key value pairs for entities in the build system -->
+		<envsubstitutions application="*">
+		</envsubstitutions>
+		<envsubstitutions application="LiveStoreFront">
+			<key name="atg.dynamo.scenario.scenarioManager.ProcessEditorServer">
+				<value for="CI">NLATGDPAG01:10250</value>
+				<value for="TEST">NLATGTPAG01:10250</value>
+				<value for="ACCEPTANCE">NLATGESHR01:10250</value>
+			</key>
+			<key name="atg.dynamo.scenario.scenarioManager.GlobalScenarioServer1">
+				<value for="CI">NLATGDPAG01:10250</value>
+				<value for="TEST">NLATGTPAG01:10250</value>
+				<value for="ACCEPTANCE">NLATGESHR01:10250</value>
+			</key>
+			<key name="atg.dynamo.scenario.scenarioManager.GlobalScenarioServer2">
+				<value for="CI">NLATGDPAG01:10250</value>
+				<value for="TEST">NLATGTPAG01:10250</value>
+				<value for="ACCEPTANCE">NLATGEDBS01:10250</value>
+			</key>
+		</envsubstitutions>
+		<envsubstitutions application="StagingStoreFront">
+			<key name="atg.dynamo.scenario.scenarioManager.ProcessEditorServer">
+				<value for="CI">NLATGDSTG01:10250</value>
+				<value for="TEST">NLATGTPAG01:10250</value>
+				<value for="ACCEPTANCE">NLATGDSTG02:10250</value>
+			</key>
+			<key name="atg.dynamo.scenario.scenarioManager.GlobalScenarioServer1">
+				<value for="CI">NLATGDSTG01:10250</value>
+				<value for="TEST">NLATGTSTG01:10250</value>
+				<value for="ACCEPTANCE">NLATGASTG01:10250</value>
+			</key>
+			<key name="atg.dynamo.scenario.scenarioManager.GlobalScenarioServer2">
+				<value for="CI">NLATGDSTG02:10250</value>
+				<value for="TEST">NLATGTSTG02:10250</value>
+				<value for="ACCEPTANCE">NLATGASTG02:10250</value>
+			</key>
+		</envsubstitutions>
+		<envsubstitutions application="ContentAdmin">
+			<key name="atg.epub.workflow..process.workflowProcessManager.ProcessEditorServer">
+				<value for="CI">NLATGDCAD01:10250</value>
+				<value for="TEST">NLATGTCAD01:10250</value>
+				<value for="ACCEPTANCE">NLATGESIS01:10150</value>
+			</key>
+			<key name="atg.dynamo.scenario.scenarioManager.ProcessEditorServer">
+				<value for="CI">NLATGDCAD01:10250</value>
+				<value for="TEST">NLATGTCAD01:10250</value>
+				<value for="ACCEPTANCE">NLATGESIS01:10150</value>
+			</key>
+			<key name="atg.dynamo.scenario.scenarioManager.GlobalScenarioServer1">
+				<value for="CI">NLATGDCAD01:10250</value>
+				<value for="TEST">NLATGTCAD01:10250</value>
+				<value for="ACCEPTANCE">NLATGESIS01:10150</value>
+			</key>
+			<key name="atg.dynamo.scenario.scenarioManager.GlobalScenarioServer2">
+				<value for="CI">NLATGDCAD01:10250</value>
+				<value for="TEST">NLATGTCAD01:10250</value>
+				<value for="ACCEPTANCE">NLATGESIS01:10150</value>
+			</key>
+			<key name="atg.dynamo.scenario.InternalScenarioManager.ProcessEditorServer">
+				<value for="CI">NLATGDCAD01:10250</value>
+				<value for="TEST">NLATGTCAD01:10250</value>
+				<value for="ACCEPTANCE">NLATGESIS01:10150</value>
+			</key>
+			<key name="atg.dynamo.scenario.InternalScenarioManager.GlobalScenarioServer1">
+				<value for="CI">NLATGDCAD01:10250</value>
+				<value for="TEST">NLATGTCAD01:10250</value>
+				<value for="ACCEPTANCE">NLATGESIS01:10150</value>
+			</key>
+			<key name="atg.dynamo.scenario.InternalScenarioManager.GlobalScenarioServer2">
+				<value for="CI">NLATGDCAD01:10250</value>
+				<value for="TEST">NLATGTCAD01:10250</value>
+				<value for="ACCEPTANCE">NLATGESIS01:10150</value>
+			</key>
+		</envsubstitutions>
+	</keysubstitutions>
+</substitutions>

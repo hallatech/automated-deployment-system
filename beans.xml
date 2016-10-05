@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE beans PUBLIC "-//SPRING//DTD BEAN//EN" "http://www.springframework.org/dtd/spring-beans.dtd">
+ 
+<beans>
+	<bean name="initializer" class="com.spindrift.autodeploy.atg.Initializer" singleton="true"/>
+	<bean name="xmlValidator" class="com.spindrift.autodeploy.common.XMLValidator" singleton="true"/>
+	<bean name="bindingsParser" class="com.spindrift.autodeploy.common.BindingsParser" singleton="true"/>
+	<bean name="jbossBindingsParser" class="com.spindrift.autodeploy.atg.parser.JbossConfigXmlParser" singleton="true"/>
+	<bean name="templateEngine" class="com.spindrift.autodeploy.common.TemplateEngine" singleton="true"/>
+	<bean name="releaseManager" class="com.spindrift.autodeploy.atg.ReleaseManager" singleton="true"/>
+	<bean name="jbossManager" class="com.spindrift.autodeploy.atg.JBossManager" singleton="true"/>
+    <bean name="webServerManager" class="com.spindrift.autodeploy.atg.WebServerManager" singleton="true">
+        <property name="bindingsParser">
+            <ref bean="jbossBindingsParser"/>
+        </property>
+        <property name="applicationsXmlParser">
+            <ref bean="applicationsXmlParser"/>
+        </property>
+    </bean>
+    <bean name="scriptManager" class="com.spindrift.autodeploy.atg.ScriptManager" singleton="true">
+	    <property name="templateEngine">
+			<ref bean="templateEngine"/>
+	    </property>
+    </bean>
+	<bean name="rsyncDeployManager" class="com.spindrift.autodeploy.atg.deployment.RSyncDeployManager" singleton="true"/>
+	<bean name="applicationsXmlParser" class="com.spindrift.autodeploy.atg.parser.ApplicationsXmlParser" singleton="true">
+		<constructor-arg type="java.lang.String">
+			<value>platforms/atg/config/application/applications.xml</value>
+		</constructor-arg>
+	</bean>
+	
+    <bean name="applicationsInputInjector" class="com.spindrift.autodeploy.atg.injector.ApplicationsInputInjector" singleton="true"/>
+    <bean name="atgConfigInjector" class="com.spindrift.autodeploy.atg.injector.AtgConfigInjector" singleton="true"/>  
+    <bean name="jBossConfigInjector" class="com.spindrift.autodeploy.atg.injector.JBossConfigInjector" singleton="true"/>  
+    
+    <bean name="auditManager" class="com.spindrift.autodeploy.common.AuditManager" singleton="true">
+		<constructor-arg type="java.lang.String">
+			<value>DATE,ENVIRONMENT,APPLICATION,RFC,AUTODEPLOY_VERSION,ATG_CONFIG_TFS_PATH,ATG_SIT_CONFIG_PATH,RELEASE_OUTPUT,RELEASE_INPUT,ACTION</value>
+		</constructor-arg>
+		<constructor-arg type="java.lang.String">
+			<value>auditlogs/AUTODEPLOY-AUDIT.CSV</value>
+		</constructor-arg>
+	</bean>
+	<bean name="auditMap" class="java.util.HashMap" singleton="true"/>
+	<bean name="atgAuditor" class="com.spindrift.autodeploy.atg.AtgAuditor" singleton="true"/>
+    <bean name="environmentNavigator" class="com.spindrift.autodeploy.atg.EnvironmentNavigator" singleton="true"/>
+    <bean name="tfsManager" class="com.spindrift.autodeploy.common.TfsManager" singleton="true"/>
+</beans>

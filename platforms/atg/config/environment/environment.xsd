@@ -1,0 +1,72 @@
+<?xml version="1.0" encoding="ISO-8859-1"?>
+<xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema">
+	<xs:element name="spindrift">
+		<xs:complexType>
+			<xs:sequence>
+				<xs:element name="environment" maxOccurs="unbounded">	
+					<xs:complexType>
+						<xs:sequence>
+							<xs:element name="servergroup" maxOccurs="unbounded">
+								<xs:complexType>
+									<xs:sequence>
+										<xs:element name="server" maxOccurs="unbounded">
+											<xs:complexType>
+												<xs:sequence>
+												  <xs:element name="slot" maxOccurs="unbounded">
+												    <xs:complexType>
+												    	<xs:sequence>
+												    		<xs:element name="jvm_opts" type="xs:string"/>
+												    	</xs:sequence>
+														<xs:attribute name="name" use="required">
+														<xs:simpleType>
+															<xs:restriction base="xs:string">
+																<xs:pattern value="slot[1-6]"/>
+  															</xs:restriction>
+														 </xs:simpleType>
+														</xs:attribute>
+														<xs:attribute name="type" use="required">
+														<xs:simpleType>
+															<xs:restriction base="xs:string">
+																<xs:enumeration value="LMPrimary"/>
+																<xs:enumeration value="LMSecondary"/>
+																<xs:enumeration value="LM2Primary"/>
+																<xs:enumeration value="LM2Secondary"/>
+																<xs:enumeration value="CtrlPrimary"/>
+																<xs:enumeration value="CtrlSecondary"/>
+																<xs:enumeration value="PS"/>
+  															</xs:restriction>
+														 </xs:simpleType>
+														 </xs:attribute>
+														<xs:attribute name="clustered" type="xs:boolean" use="optional"/>
+												     	<xs:attribute name="jbossDomain" type="xs:string" use="optional"/>
+														<xs:attribute name="jbossClusterMCastAddr" type="xs:string" use="required"/>
+													    <xs:attribute name="logFileRetentionDays" type="xs:integer" use="required"/>
+														<xs:attribute name="loadBearing" type="xs:boolean" use="optional" default="true"/>
+												    </xs:complexType>
+												  </xs:element>
+												</xs:sequence>
+												<xs:attribute name="name" type="xs:string" use="required"/>
+												<xs:attribute name="LM" type="xs:boolean" use="optional" default="false"/>
+											</xs:complexType>
+											<xs:unique name="SlotName">
+												<xs:selector xpath="slot"/>
+												<xs:field xpath="@name"/>
+    										</xs:unique>
+										</xs:element>
+									</xs:sequence>								
+									<xs:attribute name="application" type="xs:string" use="required"/>
+									<xs:attribute name="jbossCluster" type="xs:string" use="required"/>
+								</xs:complexType>
+							</xs:element>
+						</xs:sequence>
+						<xs:attribute name="name" type="xs:string" use="required"/>
+					</xs:complexType>
+    				<xs:unique name="ServerName">
+      					<xs:selector xpath="servergroup/server"/>
+      					<xs:field xpath="@name"/>
+    				</xs:unique>					
+				</xs:element>
+			</xs:sequence>
+		</xs:complexType>
+	</xs:element>
+</xs:schema>

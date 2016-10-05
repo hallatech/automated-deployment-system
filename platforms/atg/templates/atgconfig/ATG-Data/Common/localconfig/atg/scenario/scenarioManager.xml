@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="ISO-8859-1" ?>
+<process-manager-configuration>
+	 <!-- There should be only one process editor server across a cluster -->
+	<process-editor-server>
+		<server-name>#atg.dynamo.scenario.scenarioManager.ProcessEditorServer#</server-name>
+	</process-editor-server>
+	<!--Check that at least two global scenario server (GSS) instances are running per environment. The number of GSS instances is highly dependent on the number and profile of global scenarios. These GSS instances should ideally not be running on an instance that handles end-user sessions.  -->
+	<global-server>
+		<server-name>#atg.dynamo.scenario.scenarioManager.GlobalScenarioServer1#</server-name>
+	</global-server>
+	<global-server>
+		<server-name>#atg.dynamo.scenario.scenarioManager.GlobalScenarioServer2#</server-name>
+	</global-server>
+	
+</process-manager-configuration>

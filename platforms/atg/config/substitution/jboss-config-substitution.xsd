@@ -1,0 +1,136 @@
+<?xml version="1.0" encoding="utf-8"?>
+<xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema">
+	<xs:simpleType name="base_string">
+		<xs:restriction base="xs:string"/>
+	</xs:simpleType>
+	<xs:element name="env">
+		<xs:complexType>
+			<xs:simpleContent>
+				<xs:extension base="base_string">
+					<xs:attribute name="name" use="required">
+						<xs:simpleType>
+							<xs:restriction base="xs:string">
+								<xs:enumeration value="ALL"/>
+								<xs:enumeration value="LOCAL"/>
+								<xs:enumeration value="AVE"/>
+								<xs:enumeration value="CI"/>
+								<xs:enumeration value="TEST"/>
+								<xs:enumeration value="ACCEPTANCE"/>
+								<xs:enumeration value="PRODUCTION"/>
+							</xs:restriction>
+						</xs:simpleType>
+					</xs:attribute>
+				</xs:extension>
+			</xs:simpleContent>
+		</xs:complexType>
+	</xs:element>
+	<xs:element name="slot">
+		<xs:complexType>
+			<xs:simpleContent>
+				<xs:extension base="base_string">
+					<xs:attribute name="name" use="required">
+						<xs:simpleType>
+							<xs:restriction base="xs:string">
+								<xs:pattern value="ALL"/>
+								<xs:pattern value="slot[1-6]"/>
+							</xs:restriction>
+						</xs:simpleType>
+					</xs:attribute>
+				</xs:extension>
+			</xs:simpleContent>
+		</xs:complexType>
+	</xs:element>
+	<xs:element name="key">
+		<xs:complexType>
+			<xs:sequence>
+				<xs:element ref="env" maxOccurs="unbounded" minOccurs="0"/>
+			</xs:sequence>
+			<xs:attribute name="name" use="required">
+				<xs:simpleType>
+					<xs:restriction base="xs:string"/>
+				</xs:simpleType>
+			</xs:attribute>
+		</xs:complexType>
+	</xs:element>
+	<xs:element name="slotKey">
+		<xs:complexType>
+			<xs:sequence>
+				<xs:element ref="slot" maxOccurs="unbounded"/>
+			</xs:sequence>
+			<xs:attribute name="name" use="required">
+				<xs:simpleType>
+					<xs:restriction base="xs:string"/>
+				</xs:simpleType>
+			</xs:attribute>
+		</xs:complexType>
+	</xs:element>
+	<xs:element name="property">
+		<xs:complexType>
+			<xs:sequence>
+				<xs:element ref="env" maxOccurs="unbounded"/>
+			</xs:sequence>
+			<xs:attribute name="name" use="required">
+				<xs:simpleType>
+					<xs:restriction base="xs:string"/>
+				</xs:simpleType>
+			</xs:attribute>
+		</xs:complexType>
+	</xs:element>
+	<xs:element name="slotProperty">
+		<xs:complexType>
+			<xs:sequence>
+				<xs:element ref="slot" maxOccurs="unbounded"/>
+			</xs:sequence>
+			<xs:attribute name="name" use="required">
+				<xs:simpleType>
+					<xs:restriction base="xs:string"/>
+				</xs:simpleType>
+			</xs:attribute>
+		</xs:complexType>
+	</xs:element>
+	<xs:element name="datasource">
+		<xs:complexType>
+			<xs:sequence>
+				<xs:element ref="key" maxOccurs="unbounded" minOccurs="0"/>
+				<xs:element ref="slotKey" maxOccurs="unbounded" minOccurs="0"/>
+			</xs:sequence>
+			<xs:attribute name="name" use="required">
+				<xs:simpleType>
+					<xs:restriction base="xs:string"/>
+				</xs:simpleType>
+			</xs:attribute>
+			<xs:attribute name="template">
+				<xs:simpleType>
+					<xs:restriction base="xs:string"/>
+				</xs:simpleType>
+			</xs:attribute>
+		</xs:complexType>
+	</xs:element>
+	<xs:element name="application">
+		<xs:complexType>
+			<xs:sequence>
+				<xs:element ref="key" maxOccurs="unbounded" minOccurs="0"/>
+				<xs:element ref="slotKey" maxOccurs="unbounded" minOccurs="0"/>
+				<xs:element ref="datasource" maxOccurs="unbounded" minOccurs="0"/>
+			</xs:sequence>
+			<xs:attribute name="name" use="required">
+				<xs:simpleType>
+					<xs:restriction base="xs:string">
+						<xs:enumeration value="ALL"/>
+						<xs:enumeration value="LiveStoreFront"/>
+						<xs:enumeration value="StagingStoreFront"/>
+						<xs:enumeration value="ContentAdmin"/>
+						<xs:enumeration value="AdminPages"/>
+					</xs:restriction>
+				</xs:simpleType>
+			</xs:attribute>
+		</xs:complexType>
+	</xs:element>
+	<xs:element name="substitutions">
+		<xs:complexType>
+			<xs:sequence>
+				<xs:element ref="application" maxOccurs="unbounded"/>
+			</xs:sequence>
+		</xs:complexType>
+	</xs:element>
+</xs:schema>

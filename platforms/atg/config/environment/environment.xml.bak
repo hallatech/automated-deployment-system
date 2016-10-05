@@ -1,0 +1,166 @@
+<?xml version="1.0" encoding="ISO-8859-1"?>
+<spindrift xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+
+<environment name="Local">
+  <servergroup application="LiveStoreFront" jbossCluster="ATG_LIVE_LOCAL">
+    <server name="NLATGDPAG01">
+      <slot name="slot1" type="PS" jbossDomain="A1" logFileRetentionDays="20">
+        <jvm_opts>-server -Xms1024M -Xmx1024M -XX:PermSize=128m -XX:MaxPermSize=256m -Dsun.rmi.dgc.client.gcInterval=3600000 -Dsun.rmi.dgc.server.gcInterval=3600000</jvm_opts>
+      </slot>
+    </server>
+    <server name="NLATGDPAG02">
+      <slot name="slot1" type="PS" jbossDomain="A1" logFileRetentionDays="20">
+        <jvm_opts>-server -Xms1024M -Xmx1024M -XX:PermSize=128m -XX:MaxPermSize=256m -Dsun.rmi.dgc.client.gcInterval=3600000 -Dsun.rmi.dgc.server.gcInterval=3600000</jvm_opts>
+      </slot>
+    </server>
+  </servergroup>
+  <servergroup application="ContentAdmin" jbossCluster="ATG_CA_LOCAL">
+    <server name="NLATGDCAD01">
+      <slot name="slot1" type="PS" jbossDomain="A1" logFileRetentionDays="20">
+        <jvm_opts>-server -Xms1024M -Xmx1024M -XX:PermSize=128m -XX:MaxPermSize=256m -Dsun.rmi.dgc.client.gcInterval=3600000 -Dsun.rmi.dgc.server.gcInterval=3600000</jvm_opts>
+      </slot>
+    </server>
+  </servergroup>
+</environment>
+
+<environment name="CI">
+  <servergroup application="LiveStoreFront" jbossCluster="ATG_LIVE_CI">
+    <server name="NLATGDPAG01">
+      <slot name="slot1" type="LMPrimary" jbossDomain="LM1" logFileRetentionDays="20">
+        <jvm_opts>-server -Xms1024M -Xmx1024M -XX:PermSize=128m -XX:MaxPermSize=256m -Dsun.rmi.dgc.client.gcInterval=3600000 -Dsun.rmi.dgc.server.gcInterval=3600000</jvm_opts>
+      </slot>
+      <slot name="slot2" type="CtrlPrimary" jbossDomain="CTRL1" logFileRetentionDays="20">
+        <jvm_opts>-server -Xms1024M -Xmx1024M -XX:PermSize=128m -XX:MaxPermSize=256m -Dsun.rmi.dgc.client.gcInterval=3600000 -Dsun.rmi.dgc.server.gcInterval=3600000</jvm_opts>
+      </slot>
+      <slot name="slot3" type="PS" jbossDomain="A1" logFileRetentionDays="5">
+        <jvm_opts>-server -Xms1024M -Xmx1024M -XX:PermSize=128m -XX:MaxPermSize=256m -Dsun.rmi.dgc.client.gcInterval=3600000 -Dsun.rmi.dgc.server.gcInterval=3600000</jvm_opts>
+      </slot>          
+      <slot name="slot4" type="PS" jbossDomain="A1" logFileRetentionDays="5">
+        <jvm_opts>-server -Xms1024M -Xmx1024M -XX:PermSize=128m -XX:MaxPermSize=256m -Dsun.rmi.dgc.client.gcInterval=3600000 -Dsun.rmi.dgc.server.gcInterval=3600000</jvm_opts>
+      </slot>          
+    </server>
+  </servergroup>
+  <servergroup application="StagingStoreFront" jbossCluster="ATG_STAGE_CI">
+    <server name="NLATGDSTG01">
+      <slot name="slot1" type="LMPrimary" jbossDomain="LM1" logFileRetentionDays="20">
+        <jvm_opts>-server -Xms1024M -Xmx1024M -XX:PermSize=128m -XX:MaxPermSize=256m -Dsun.rmi.dgc.client.gcInterval=3600000 -Dsun.rmi.dgc.server.gcInterval=3600000</jvm_opts>
+      </slot>
+      <slot name="slot2" type="CtrlPrimary" jbossDomain="CTRL1" logFileRetentionDays="20">
+        <jvm_opts>-server -Xms1024M -Xmx1024M -XX:PermSize=128m -XX:MaxPermSize=256m -Dsun.rmi.dgc.client.gcInterval=3600000 -Dsun.rmi.dgc.server.gcInterval=3600000</jvm_opts>
+      </slot>
+      <slot name="slot3" type="PS" jbossDomain="A1" logFileRetentionDays="5">
+        <jvm_opts>-server -Xms1024M -Xmx1024M -XX:PermSize=128m -XX:MaxPermSize=256m -Dsun.rmi.dgc.client.gcInterval=3600000 -Dsun.rmi.dgc.server.gcInterval=3600000</jvm_opts>
+      </slot>          
+      <slot name="slot4" type="PS" jbossDomain="A1" logFileRetentionDays="5">
+        <jvm_opts>-server -Xms1024M -Xmx1024M -XX:PermSize=128m -XX:MaxPermSize=256m -Dsun.rmi.dgc.client.gcInterval=3600000 -Dsun.rmi.dgc.server.gcInterval=3600000</jvm_opts>
+      </slot>          
+    </server>
+  </servergroup>
+  <servergroup application="ContentAdmin" jbossCluster="ATG_CA_CI">
+    <server name="NLATGDCAD01">
+      <slot name="slot1" type="LMPrimary" jbossDomain="LM1" logFileRetentionDays="20">
+        <jvm_opts>-server -Xms1024M -Xmx1024M -XX:PermSize=128m -XX:MaxPermSize=256m -Dsun.rmi.dgc.client.gcInterval=3600000 -Dsun.rmi.dgc.server.gcInterval=3600000</jvm_opts>
+      </slot>
+      <slot name="slot2" type="CtrlPrimary" jbossDomain="CTRL1" logFileRetentionDays="20">
+        <jvm_opts>-server -Xms1024M -Xmx1024M -XX:PermSize=128m -XX:MaxPermSize=256m -Dsun.rmi.dgc.client.gcInterval=3600000 -Dsun.rmi.dgc.server.gcInterval=3600000</jvm_opts>
+      </slot>
+      <slot name="slot3" type="PS" jbossDomain="A1" logFileRetentionDays="5">
+        <jvm_opts>-server -Xms1024M -Xmx1024M -XX:PermSize=128m -XX:MaxPermSize=256m -Dsun.rmi.dgc.client.gcInterval=3600000 -Dsun.rmi.dgc.server.gcInterval=3600000</jvm_opts>
+      </slot>          
+      <slot name="slot4" type="PS" jbossDomain="A1" logFileRetentionDays="5">
+        <jvm_opts>-server -Xms1024M -Xmx1024M -XX:PermSize=128m -XX:MaxPermSize=256m -Dsun.rmi.dgc.client.gcInterval=3600000 -Dsun.rmi.dgc.server.gcInterval=3600000</jvm_opts>
+      </slot>          
+    </server>
+  </servergroup>
+</environment>  
+<environment name="TEST">
+  <servergroup application="LiveStoreFront" jbossCluster="ATG_LIVE_TEST">
+    <server name="NLATGTPAG01">
+      <slot name="slot1" type="LMPrimary" jbossDomain="LM1" logFileRetentionDays="20">
+        <jvm_opts>-server -Xms1024M -Xmx1024M -XX:PermSize=128m -XX:MaxPermSize=256m -Dsun.rmi.dgc.client.gcInterval=3600000 -Dsun.rmi.dgc.server.gcInterval=3600000</jvm_opts>
+      </slot>
+      <slot name="slot2" type="CtrlPrimary" jbossDomain="CTRL1" logFileRetentionDays="20">
+        <jvm_opts>-server -Xms1024M -Xmx1024M -XX:PermSize=128m -XX:MaxPermSize=256m -Dsun.rmi.dgc.client.gcInterval=3600000 -Dsun.rmi.dgc.server.gcInterval=3600000</jvm_opts>
+      </slot>
+      <slot name="slot3" type="PS" jbossDomain="A1" logFileRetentionDays="5">
+        <jvm_opts>-server -Xms1024M -Xmx1024M -XX:PermSize=128m -XX:MaxPermSize=256m -Dsun.rmi.dgc.client.gcInterval=3600000 -Dsun.rmi.dgc.server.gcInterval=3600000</jvm_opts>
+      </slot>
+      <slot name="slot4" type="PS" jbossDomain="A1" logFileRetentionDays="5">
+        <jvm_opts>-server -Xms1024M -Xmx1024M -XX:PermSize=128m -XX:MaxPermSize=256m -Dsun.rmi.dgc.client.gcInterval=3600000 -Dsun.rmi.dgc.server.gcInterval=3600000</jvm_opts>
+      </slot>
+    </server>
+  </servergroup>
+  <servergroup application="StagingStoreFront" jbossCluster="ATG_STAGE_TEST">
+    <server name="NLATGTSTG01">
+      <slot name="slot1" type="LMPrimary" jbossDomain="LM1" logFileRetentionDays="20">
+        <jvm_opts>-server -Xms1024M -Xmx1024M -XX:PermSize=128m -XX:MaxPermSize=256m -Dsun.rmi.dgc.client.gcInterval=3600000 -Dsun.rmi.dgc.server.gcInterval=3600000</jvm_opts>
+      </slot>
+      <slot name="slot2" type="CtrlPrimary" jbossDomain="CTRL1" logFileRetentionDays="20">
+        <jvm_opts>-server -Xms1024M -Xmx1024M -XX:PermSize=128m -XX:MaxPermSize=256m -Dsun.rmi.dgc.client.gcInterval=3600000 -Dsun.rmi.dgc.server.gcInterval=3600000</jvm_opts>
+      </slot>
+      <slot name="slot3" type="PS" jbossDomain="A1" logFileRetentionDays="5">
+        <jvm_opts>-server -Xms1024M -Xmx1024M -XX:PermSize=128m -XX:MaxPermSize=256m -Dsun.rmi.dgc.client.gcInterval=3600000 -Dsun.rmi.dgc.server.gcInterval=3600000</jvm_opts>
+      </slot>
+      <slot name="slot4" type="PS" jbossDomain="A1" logFileRetentionDays="5">
+        <jvm_opts>-server -Xms1024M -Xmx1024M -XX:PermSize=128m -XX:MaxPermSize=256m -Dsun.rmi.dgc.client.gcInterval=3600000 -Dsun.rmi.dgc.server.gcInterval=3600000</jvm_opts>
+      </slot>
+    </server>
+  </servergroup>
+  <servergroup application="ContentAdmin" jbossCluster="ATG_CA_TEST">
+    <server name="NLATGTCAD01">
+      <slot name="slot1" type="LMPrimary" jbossDomain="LM1" logFileRetentionDays="20">
+        <jvm_opts>-server -Xms1024M -Xmx1024M -XX:PermSize=128m -XX:MaxPermSize=256m -Dsun.rmi.dgc.client.gcInterval=3600000 -Dsun.rmi.dgc.server.gcInterval=3600000</jvm_opts>
+      </slot>
+      <slot name="slot2" type="CtrlPrimary" jbossDomain="CTRL1" logFileRetentionDays="20">
+        <jvm_opts>-server -Xms1024M -Xmx1024M -XX:PermSize=128m -XX:MaxPermSize=256m -Dsun.rmi.dgc.client.gcInterval=3600000 -Dsun.rmi.dgc.server.gcInterval=3600000</jvm_opts>
+      </slot>
+      <slot name="slot3" type="PS" jbossDomain="A1" logFileRetentionDays="5">
+        <jvm_opts>-server -Xms1024M -Xmx1024M -XX:PermSize=128m -XX:MaxPermSize=256m -Dsun.rmi.dgc.client.gcInterval=3600000 -Dsun.rmi.dgc.server.gcInterval=3600000</jvm_opts>
+      </slot>
+      <slot name="slot4" type="PS" jbossDomain="A1" logFileRetentionDays="5">
+        <jvm_opts>-server -Xms1024M -Xmx1024M -XX:PermSize=128m -XX:MaxPermSize=256m -Dsun.rmi.dgc.client.gcInterval=3600000 -Dsun.rmi.dgc.server.gcInterval=3600000</jvm_opts>
+      </slot>
+    </server>
+  </servergroup>
+</environment>
+<environment name="ACCEPTANCE">
+  <servergroup application="LiveStoreFront" jbossCluster="ATG_LIVE_DEVTEST">
+    <server name="NLATGESHR01">
+      <slot name="slot1" type="LMPrimary" jbossDomain="A1" logFileRetentionDays="20">
+        <jvm_opts>-server -Xms1024M -Xmx1024M -XX:PermSize=128m -XX:MaxPermSize=256m -Dsun.rmi.dgc.client.gcInterval=3600000 -Dsun.rmi.dgc.server.gcInterval=3600000</jvm_opts>
+      </slot>
+      <slot name="slot2" type="CtrlPrimary" jbossDomain="A1" logFileRetentionDays="20">
+        <jvm_opts>-server -Xms1024M -Xmx1024M -XX:PermSize=128m -XX:MaxPermSize=256m -Dsun.rmi.dgc.client.gcInterval=3600000 -Dsun.rmi.dgc.server.gcInterval=3600000</jvm_opts>
+      </slot>
+      <slot name="slot3" type="PS" jbossDomain="A1" logFileRetentionDays="20">
+        <jvm_opts>-server -Xms1024M -Xmx1024M -XX:PermSize=128m -XX:MaxPermSize=256m -Dsun.rmi.dgc.client.gcInterval=3600000 -Dsun.rmi.dgc.server.gcInterval=3600000</jvm_opts>
+      </slot>
+      <slot name="slot4" type="PS" jbossDomain="A1" logFileRetentionDays="20">
+        <jvm_opts>-server -Xms1024M -Xmx1024M -XX:PermSize=128m -XX:MaxPermSize=256m -Dsun.rmi.dgc.client.gcInterval=3600000 -Dsun.rmi.dgc.server.gcInterval=3600000</jvm_opts>
+      </slot>
+    </server>
+    <server name="NLATGEDBS01">
+      <slot name="slot1" type="LMSecondary" jbossDomain="A1" logFileRetentionDays="20">
+        <jvm_opts>-server -Xms1024M -Xmx1024M -XX:PermSize=128m -XX:MaxPermSize=256m -Dsun.rmi.dgc.client.gcInterval=3600000 -Dsun.rmi.dgc.server.gcInterval=3600000</jvm_opts>
+      </slot>
+      <slot name="slot2" type="CtrlSecondary" jbossDomain="A1" logFileRetentionDays="20">
+        <jvm_opts>-server -Xms1024M -Xmx1024M -XX:PermSize=128m -XX:MaxPermSize=256m -Dsun.rmi.dgc.client.gcInterval=3600000 -Dsun.rmi.dgc.server.gcInterval=3600000</jvm_opts>
+      </slot>
+      <slot name="slot3" type="PS" jbossDomain="A1" logFileRetentionDays="20">
+        <jvm_opts>-server -Xms1024M -Xmx1024M -XX:PermSize=128m -XX:MaxPermSize=256m -Dsun.rmi.dgc.client.gcInterval=3600000 -Dsun.rmi.dgc.server.gcInterval=3600000</jvm_opts>
+      </slot>
+      <slot name="slot4" type="PS" jbossDomain="A1" logFileRetentionDays="20">
+        <jvm_opts>-server -Xms1024M -Xmx1024M -XX:PermSize=128m -XX:MaxPermSize=256m -Dsun.rmi.dgc.client.gcInterval=3600000 -Dsun.rmi.dgc.server.gcInterval=3600000</jvm_opts>
+      </slot>
+    </server>
+  </servergroup>
+
+  <servergroup application="ContentAdmin" jbossCluster="ATG_CA_DEVTEST">
+    <server name="NLATGESIS01">
+      <slot name="slot1" type="PS" jbossDomain="A1" logFileRetentionDays="20">
+        <jvm_opts>-server -Xms1024M -Xmx1024M -XX:PermSize=128m -XX:MaxPermSize=256m -Dsun.rmi.dgc.client.gcInterval=3600000 -Dsun.rmi.dgc.server.gcInterval=3600000</jvm_opts>
+      </slot>
+    </server>
+  </servergroup>
+</environment>
+</spindrift>

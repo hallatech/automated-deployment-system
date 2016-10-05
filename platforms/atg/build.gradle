@@ -1,0 +1,574 @@
+apply plugin: 'ATGInitializer'
+
+def initializer=factory.getBean("initializer")
+def xmlValidator=factory.getBean("xmlValidator")
+def environment=factory.getBean("environmentNavigator")
+def jbossManager = factory.getBean("jbossManager")
+def scriptManager = factory.getBean("scriptManager")
+def releaseManager=factory.getBean("releaseManager")
+def webServerManager = factory.getBean("webServerManager")
+def atgConfigInjector = factory.getBean("atgConfigInjector")
+def jBossConfigInjector = factory.getBean("jBossConfigInjector")
+def applicationsInputInjector = factory.getBean("applicationsInputInjector")
+// def tfsManager = factory.getBean("tfsManager")
+
+// ===============================================================================
+// Spindrift automated build system
+//
+// This is the key build file that controls automated build and deployment
+// of ATG applications. This file should be modified by authorised personnel only.
+// ===============================================================================
+assert new File("version.conf").exists(),"version.conf is required at the root folder."
+VERSION=new File("version.conf").getText().trim()
+
+logger.info(Logging.QUIET, "\n")
+logger.info(Logging.QUIET, "--------------------------------Spindrift-------------------------------------")
+logger.info(Logging.QUIET, "------------------------- Automated Build System------------------------------")
+logger.info(Logging.QUIET, "-----------------------Version: ${project.VERSION}----------------------------")
+logger.info(Logging.QUIET, "------------------------------------------------------------------------------")
+logger.info(Logging.QUIET, "\n")
+logger.info(Logging.QUIET, "Build Started at " + new Date().toString())
+logger.info(Logging.QUIET, "\n")
+
+// =========================================================================
+// The following variables hold the Applcations and Environments to be built.
+// ==========================================================================
+appsToBuild = project.AtgApplications.tokenize(',')
+envToBuild = project.Environment
+
+// ===================================================
+// Delete releases that are older than the number of
+// days indicated by project property AGE.
+// ===================================================
+task deleteReleases() << {
+	releaseManager.deleteReleases(project)
+}
+deleteReleases.description = "Deletes the contents of the release directory: " + ReleaseFolder
+
+// ===================================================
+// Locks a release indicated by project property ReleaseID
+// ===================================================
+task lockRelease() << {
+	releaseManager.lockRelease(project, ReleaseID)
+}
+lockRelease.description = "Locks a release to prevent deletion"
+
+// ===================================================
+// Unlocks a release indicated by project property ReleaseID
+// ===================================================
+task unlockRelease() << {
+	releaseManager.unlockRelease(project, ReleaseID)
+}
+unlockRelease.description = "Unkocks a release to allow deletion"
+
+// ======================================================================================
+// validate environmentXML file
+// ======================================================================================
+
+task validateXML() << {
+	xmlValidator.validate(project.atg.applicationXsd,project.atg.applicationXml)
+	xmlValidator.validate(project.atg.environmentXsd,project.atg.environmentXml)
+	xmlValidator.validate(project.atg.atgConfigSubstitutionXsd,project.atg.atgConfigSubstitutionXml)
+	xmlValidator.validate(project.atg.jbossConfigSubstitutionXsd,project.atg.jbossConfigSubstitutionXml)
+}
+
+// ======================================================================================
+// Run checks to ensure that the environment, filesets and folders are ready for a successfull
+// build.
+// ======================================================================================
+task preBuildVerification(dependsOn: [validateXML]) << {
+	assert initializer.preBuildVerification(project), "Aborting build due to failed pre-build verification."
+}
+
+// ======================================================================================
+// Delete the temporary working directory
+// ======================================================================================
+task deleteWorkingConfigDirectory() << {
+	ant.delete(dir:"${project.AtgConfigTemp}")
+}
+
+// ======================================================================================
+// generate a unique release number
+// ======================================================================================
+task generateReleaseNumber(dependsOn: [preBuildVerification,validateXML]) << {
+	project.setProperty("ReleaseID",releaseManager.generateReleaseId(project))
+}
+
+
+// ======================================================================================
+// Run checks to ensure that the environment, filesets and folders are ready for a successfull
+// deployment.
+// ======================================================================================
+task preDeployVerification(dependsOn: [validateXML]) << {
+	assert initializer.preDeployVerification(project), "Aborting deployment due to failed pre-deploy verification."
+}
+
+// ======================================================================================
+// The purpose of this task is copy ATG licences.
+// Scope: Public.
+// ======================================================================================
+task copyAtgLicenses(dependsOn: [generateReleaseNumber]) << {
+	environment.eachServer(project) {
+		String env, String app, String server, Project project -> L:{
+			def destination="${ReleaseFolder}/${ReleaseID}/${env}/${app}/${server}/ATG-Data/localconfig"
+			//def source="${ADROOT}/Input/ATGLicenses/${env}/${server}/"
+			//A temporary way to copy licenses from root directory
+			def source="${ADROOT}/Input/ATGLicenses/"
+			logger.info(Logging.QUIET, "from ${source}  to ${destination}" + "\n")
+			ant.copy(todir:destination) {
+				fileset(dir:source)
+			}
+		}
+	}
+	logger.info(Logging.QUIET, "atg_licences ended at " + new Date().toString() + "\n")
+}
+copyAtgLicenses.description = "Copy ATG licences into place for each server."
+
+// ===============================================================================================
+// createReleaseDirectories Task will loop around each element in the envToBuild and serverToBuild array
+// the MakeDirs Method from the ReleaseDirsPlugin will be called for each env and server type
+// this will create empty directories on the file share specified in the gradle properties ReleaseFolder
+//
+// Scope: Private.
+// ===============================================================================================
+task createReleaseDirectories(dependsOn: [preBuildVerification,generateReleaseNumber]) << {
+	environment.eachServer(project) {
+		String env, String app, String server, Project project ->
+		releaseManager.createServerRootFolder(env,app,server,project)
+	}
+}
+createReleaseDirectories.description = "Creates a directory for each server defined in the release."
+
+// ========================================================================================
+// Purpose: processATGConfig ATG configuration files that are need for the build
+// and deployment process
+//
+// Scope: Private.
+// ========================================================================================
+task processATGConfig(dependsOn: [preBuildVerification,deleteWorkingConfigDirectory]) << {
+	environment.eachSlot(project)
+	{
+		String env, String app, String server, String slot, Project project ->
+		atgConfigInjector.process(env,app,server,slot,project)
+	}
+}
+processATGConfig.description = "Process ATG configuration files needed for build and deployment process"
+
+
+// ===============================================================================
+// Once the JBoss archieve is extracted from TFS it needs to be extracted
+//
+// Scope:Private.
+// ===============================================================================
+task extractJBoss(dependsOn: [createReleaseDirectories,deleteWorkingConfigDirectory]) << {
+	logger.info(Logging.QUIET, "extractJBoss : Start.")
+	logger.info(Logging.QUIET, "============================================================")
+
+	// project.setProperty("JBossInstallLocation","${project.ReleaseFolder}/${project.ReleaseID}/${project.atg.jbossAppserverVersion}")
+	// Extract locally for performance reasons
+	project.setProperty("JBossInstallLocation","${AtgConfigTemp}")
+
+	ant.mkdir(dir:"${project.ReleaseFolder}/${project.ReleaseID}")
+	//ant.unjar(src:"${project.ADHOME}/${project.atg.jbossAppserverSource}", dest:"${project.JBossInstallLocation}")
+	
+	//The unjar command doesn't keep file permissions
+	def rsyncArgs = "${project.ADHOME}/${project.atg.jbossAppserverSource} -d ${project.JBossInstallLocation}"
+	project.ant.exec(dir:".", executable:"unzip", failonerror:"true"){
+		arg(line:rsyncArgs)
+	}
+
+	logger.info(Logging.QUIET, "extractJBoss : End.")
+	logger.info(Logging.QUIET, "------------------------------------------------------------")
+	logger.info(Logging.QUIET, "\n")
+}
+extractJBoss.description = "Extracts the JBoss source"
+
+// ===============================================================================
+// Patch Jboss
+//
+// Scope:Private.
+// ===============================================================================
+task patchJBoss(dependsOn: [extractJBoss]) << {
+	 logger.info(Logging.QUIET, "patchJBoss : Start.")
+	 logger.info(Logging.QUIET, "============================================================")
+
+	 def target = "${AtgConfigTemp}/${project.atg.jbossAppserverVersion}/"
+	 def source = "${project.ADHOME}/${project.atg.jbossPatchDir}"
+	 project.ant.copy(todir: target) {
+	        fileset(dir: source)
+	 }
+
+	 logger.info(Logging.QUIET, "patchJBoss : End.")
+	 logger.info(Logging.QUIET, "------------------------------------------------------------")
+	 logger.info(Logging.QUIET, "\n")
+
+}
+patchJBoss.description = "Patch the JBoss source"
+
+
+// ===============================================================================
+// Once the JBoss templates are extracted from TFS this needs to be copied over to
+// the release folders. That is the purpose of this task.
+//
+// Scope:Private.
+// ===============================================================================
+
+task copyJbossToRelease(dependsOn: [extractJBoss,patchJBoss]) << {
+	logger.info(Logging.QUIET, "copyJbossToRelease : Start.")
+	logger.info(Logging.QUIET, "============================================================")
+	environment.eachServer(project) {
+		String env, String app, String server, Project project ->
+		
+		def sourcePath = "${project.JBossInstallLocation}/${project.atg.jbossAppserverVersion}/jboss-as"
+		def destinationPath = "${project.ReleaseFolder}/${project.ReleaseID}/${env}/${app}/${server}/Jboss/"
+		ant.mkdir(dir:destinationPath)
+		def rsyncArgs = "-r $sourcePath $destinationPath"
+		project.ant.exec(dir:".", executable:"cp", failonerror:"true"){
+			arg(line:rsyncArgs)
+		}
+			
+	}
+
+	logger.info(Logging.QUIET, "copyJbossToRelease : End.")
+	logger.info(Logging.QUIET, "------------------------------------------------------------")
+	logger.info(Logging.QUIET, "\n")
+}
+copyJbossToRelease.description = "Copies JBoss in to each server directory involved in the release using com.spindrift.plugin.JBossDirsPlugin"
+
+copyJbossToRelease.doLast {
+	// Clean up the temp JBoss files as we don't need them any more
+	ant.delete(dir:"${project.JBossInstallLocation}/${project.atg.jbossAppserverVersion}")
+}
+
+// ========================================================================================
+// The purpose of this task is to create JBoss slots (a.k.a instances) within the
+// release directories.This task should run after the release directories are created
+// and JBoss files are copied into the release directories.
+//
+// Scope: Private. (The "private" scope means that this task will only be invoked by other
+// dependant tasks within the build system.)
+// ========================================================================================
+task makeJbossSlots(dependsOn: [copyJbossToRelease]) << {
+	environment.eachSlot(project) {
+		String env, String app, String server, String slot, Project project ->
+		jbossManager.createSlot(env,app,server,slot,project)
+	}
+}
+makeJbossSlots.description = "Creates JBoss slots."
+
+
+// ===============================================================================
+// Once the JBoss archieve is extracted from TFS it needs to be extracted
+//
+// Scope:Private.
+// ===============================================================================
+task copyJDKToRelease(dependsOn: [createReleaseDirectories]) << {
+	logger.info(Logging.QUIET, "copyJDKToRelease : Start.")
+	logger.info(Logging.QUIET, "============================================================")
+
+	environment.eachServer(project) {
+		String env, String app, String server, Project project ->
+		ant.mkdir(dir:"${project.ReleaseFolder}/${project.ReleaseID}/${env}/${app}/${server}/JDK")
+		ant.copy(file:"${project.ADHOME}/${project.atg.jdkSource}",todir:"${project.ReleaseFolder}/${project.ReleaseID}/${env}/${app}/${server}/JDK")
+	}
+
+	logger.info(Logging.QUIET, "copyJDKToRelease : End.")
+	logger.info(Logging.QUIET, "------------------------------------------------------------")
+	logger.info(Logging.QUIET, "\n")
+}
+copyJDKToRelease.description = "Copies JDK to release directory"
+
+// ========================================================================================
+// Purpose: copy scripts to the JBoss Release folder.
+//
+// Scope: Private.
+// ========================================================================================
+task copyScriptsFolder(dependsOn: [createReleaseDirectories]) << {
+	logger.info(Logging.QUIET, "copyScriptsFolder : Start.")
+	logger.info(Logging.QUIET, "*************************************")
+	
+	environment.eachServer(project) {
+		String env, String app, String server, Project project ->
+		def source = "${project.AtgHome}/scripts"
+		def target = "${project.ReleaseFolder}/${project.ReleaseID}/${env}/${app}/${server}/scripts"
+		project.ant.copy(todir: target) {
+			fileset(dir: source)
+		}
+	}
+	logger.info(Logging.QUIET, "copyScriptsFolder : End.")
+	logger.info(Logging.QUIET, "----------------------------")
+	logger.info(Logging.QUIET, "\n")
+}
+copyScriptsFolder.description = "Add scripts to the Release folder."
+
+// ========================================================================================
+// Purpose: copy smoke test scripts to the Release folder.
+//
+// Scope: Private.
+// ========================================================================================
+task copySmokeTestsFolder(dependsOn: [createReleaseDirectories]) << {
+	logger.info(Logging.QUIET, "copySmokeTestsFolder : Start.")
+	logger.info(Logging.QUIET, "*************************************")
+
+	environment.eachServer(project) {
+		String env, String app, String server, Project project ->
+		def source = "${project.AtgEarFiles}/smokeTests"
+		def target = "${project.ReleaseFolder}/${project.ReleaseID}/buildInfo/smokeTests"
+		ant.copy(todir: target) {
+			fileset(dir: source)
+		}
+	}
+	logger.info(Logging.QUIET, "copySmokeTestsFolder : End.")
+	logger.info(Logging.QUIET, "----------------------------")
+	logger.info(Logging.QUIET, "\n")
+}
+copySmokeTestsFolder.description = "Add smoke test script to the Release folder."
+
+// ========================================================================================
+// Purpose: Will generate jboss start stop script so the jboss will start as part of boot
+//
+// Scope: Private.
+// ========================================================================================
+task generateJbossStartStopScript(dependsOn: [createReleaseDirectories]) << {
+	logger.info(Logging.QUIET, "generateJbossStartStopScript : Start.")
+	logger.info(Logging.QUIET, "============================================================")
+	environment.eachServer(project)
+	{
+		String env, String app, String server, Project project ->
+		scriptManager.generateJbossStartStopScript(env,app,server,project)
+	}
+	logger.info(Logging.QUIET, "generateJbossStartStopScript : End.")
+	logger.info(Logging.QUIET, "------------------------------------------------------------")
+	logger.info(Logging.QUIET, "\n")
+}
+generateJbossStartStopScript.description = "Creates jboss start stop scrcipt"
+
+// ========================================================================================
+// Purpose: Will generate custom scripts
+//
+// Scope: Private.
+// ========================================================================================
+task generateCustomScripts(dependsOn: [createReleaseDirectories]) << {
+	logger.info(Logging.QUIET, "generateCustomScripts : Start.")
+	logger.info(Logging.QUIET, "============================================================")
+	environment.eachServer(project)
+	{
+		String env, String app, String server, Project project ->
+		scriptManager.generatePruneJbossLogsScript(env,app,server,project)
+		scriptManager.generatePostDeploymentScript(env,app,server,project)
+	}
+	logger.info(Logging.QUIET, "\ngenerateCustomScripts : End.")
+	logger.info(Logging.QUIET, "------------------------------------------------------------")
+}
+generateCustomScripts.description = "Creates custom Scripts"
+
+
+// =========================================================================
+// Based on what is specified in environment.xml, delete a number of files
+// from the newly created slots.
+// =========================================================================
+task deleteFromSlot(dependsOn: [makeJbossSlots]) << {
+	environment.eachSlot(project)
+	{
+		String env, String app, String server, String slot, Project project ->
+		jbossManager.deleteFromSlot(env,app,server,slot,project)
+	}
+}
+deleteFromSlot.description = "Delete specific file from JBoss slots."
+
+// =================================================================================
+// Copy the environment specific ATG Configuration to ATG-Data in the release folder
+// =================================================================================
+task injectAtgConfigToRelease(dependsOn: [processATGConfig]) << {
+	environment.eachSlot(project)
+	{
+		String env, String app, String server, String slot, Project project ->
+		atgConfigInjector.copyWorkingAtgConfigToRelease(env,app,server,slot,project)
+	}
+}
+injectAtgConfigToRelease.description = "Copy environment specific ATG-Configuration data to release."
+
+// =========================================================================
+// Based on what is specified in joboss-custom-config.xml,
+// apply jboss bindings to jboss templates and copy them across
+// to the correct locations.
+// =========================================================================
+task processJBossConfig(dependsOn: [preBuildVerification,deleteWorkingConfigDirectory]) << {
+	environment.eachSlot(project)
+	{
+		String env, String app, String server, String slot, Project project ->
+		jBossConfigInjector.process(env,app,server,slot,project)
+	}
+}
+processJBossConfig.description = "Apply bindings to jboss config files and copy them across to release."
+
+// =========================================================================
+// Copy jboss configurations files (such as jdbc drivers and login-conf.xml)
+// to each slot.
+// =========================================================================
+task injectJBossConfigToRelease(dependsOn: [makeJbossSlots, processJBossConfig]) << {
+	environment.eachSlot(project)
+	{
+		String env, String app, String server, String slot, Project project ->
+		jBossConfigInjector.injectJBossConfigToRelease(env,app,server,slot,project)
+	}
+}
+injectJBossConfigToRelease.description = "Copy jboss configurations files (such as jdbc drivers and login-conf.xml) to each slot."
+
+// =========================================================================
+// Based on what is specified in applications.xml,
+// copy engineering deliverables to the release folder.
+// =========================================================================
+task injectApplicationInput(dependsOn: [makeJbossSlots]) << {
+	environment.eachServer(project)
+	{
+		String env, String app, String server, Project project ->
+		applicationsInputInjector.injectInputToServer(env,app,server,project)
+	}
+	environment.eachSlot(project)
+	{
+		String env, String app, String server, String slot, Project project -> L:{
+			applicationsInputInjector.injectInputToSlot(env,app,server,slot,project)
+			applicationsInputInjector.injectInputToAtgData(env,app,server,slot,project)
+		}
+	}
+}
+injectApplicationInput.description = "Based on what is specified in applications.xml, copy deliverables from engineering to the release folder."
+
+// ====================================================================================
+// According to the environment definition, prepare jboss slots for each server in each
+// server group
+// ====================================================================================
+task prepareJBossSlots(dependsOn: [makeJbossSlots,injectAtgConfigToRelease,injectJBossConfigToRelease,injectApplicationInput]) << {
+}
+prepareJBossSlots.description = "Prepare each JBoss slot ready for deployment."
+
+// ======================================================================================
+// The purpose of this task is to generate the Workers.properties file based on inputs provided
+// and the evironnments.xml
+// Scope: Public.
+// ======================================================================================
+task createWorkerProperties(dependsOn: [createReleaseDirectories]) << {
+
+	logger.info(Logging.QUIET, "createWorkerProperties : Start.")
+	logger.info(Logging.QUIET, "============================================================")
+
+	def envXmlParser = new com.spindrift.autodeploy.atg.parser.EnvXmlParser(atg.environmentXml)
+	def source=""
+	def destination =""
+
+	logger.info(Logging.QUIET, "\n==========================================================================")
+	logger.info(Logging.QUIET, "\nProcessing worker.properties file for environment: ${envToBuild}")
+	logger.info(Logging.QUIET, "\n==========================================================================")
+	logger.info(Logging.QUIET, "\n\n")
+	source="${project.AtgHome}/templates/webserver/fws"
+	destination="${project.ReleaseFolder}/${project.ReleaseID}/${project.envToBuild}/WebserverConfig/fws"
+	webServerManager.configureWorkers(project, envToBuild, source, destination, "Both")
+
+	// Uncomment below lines in order to generate FRONT and BACK worker.propertyfiles seperately.
+
+	//webServerManager.configureWorkers(project, envToBuild, source, destination, "FRONT")
+	//source="${project.AtgHome}/templates/webserver/bws"
+	//destination="${project.ReleaseFolder}/${project.ReleaseID}/${envToBuild}/WebserverConfig/bws"
+	//webServerManager.configureWorkers(project, envToBuild, source, destination, "BACK")
+
+	logger.info(Logging.QUIET, "createWorkerProperties : End.")
+	logger.info(Logging.QUIET, "------------------------------------------------------------")
+	logger.info(Logging.QUIET, "\n")
+
+}
+createWorkerProperties.description = "Create Workers.properties files for each environment based on inputs provided and environment.xml"
+
+// ========================================================================================
+// Purpose: Copy the environment.xml to the releasefolder\buildInfo.
+// This is just to keep a copy of the current state of the environment xml.
+//
+// Scope: Private.
+// ========================================================================================
+task copyBuildInfo(dependsOn: [copyAtgLicenses,copyScriptsFolder,copySmokeTestsFolder,createWorkerProperties,copyJDKToRelease,generateJbossStartStopScript,generateCustomScripts,prepareJBossSlots]) << {
+	logger.info(Logging.QUIET, "copyBuildInfo : Start.")
+	logger.info(Logging.QUIET, "============================================================")
+	envToBuild.each()
+	{
+		def toDir="${ReleaseFolder}/${ReleaseID}/buildInfo"
+
+		def sourceFile= project.atg.environmentXml
+		ant.mkdir(dir:toDir)
+		ant.copy(file:sourceFile, toDir:toDir)
+		
+		sourceFile= project.atg.applicationXml
+		ant.copy(file:sourceFile, toDir:toDir)
+		
+		sourceFile= project.atg.atgConfigSubstitutionXml
+		ant.copy(file:sourceFile, toDir:toDir)
+		
+		sourceFile= project.atg.jbossConfigSubstitutionXml
+		ant.copy(file:sourceFile, toDir:toDir)
+	}
+	logger.info(Logging.QUIET, "copyBuildInfo : End.")
+	logger.info(Logging.QUIET, "------------------------------------------------------------")
+	logger.info(Logging.QUIET, "\n")
+}
+copyBuildInfo.description = "Keep a copy of the configuration files in the release folder."
+copyBuildInfo.doLast
+{
+	def atgAuditor=factory.getBean("atgAuditor")
+	atgAuditor.auditBuild(project)
+}
+
+//===========================================================================
+//Checks and sets DeployReleaseId if required.
+//Scope: Private.
+//===========================================================================
+task checkRelease() << {
+	logger.info(Logging.QUIET, "checkRelease: Start.")
+	project.setProperty("DeployReleaseId",releaseManager.validateReleaseId(project, DeployReleaseId))
+}
+checkRelease.description = "Sets DeployReleaseId if parameter is set to latest"
+
+//===========================================================================
+//Initiate rsync deploy task 
+//Scope: Private.
+//===========================================================================
+task deployRelease(dependsOn: [checkRelease]) << {
+	logger.info(Logging.QUIET, "deployRelease : Start.")
+	logger.info(Logging.QUIET, "============================================================")
+
+	def rsyncDeployManager=factory.getBean("rsyncDeployManager")
+
+	rsyncDeployManager.deployRelease(project)
+
+	logger.info(Logging.QUIET, "deployRelease : End.")
+	logger.info(Logging.QUIET, "------------------------------------------------------------")
+	logger.info(Logging.QUIET, "\n")
+}
+deployRelease.description = "Deploys the contents of a built release directory to the target servers using rsync"
+deployRelease.doLast {
+	scriptManager.linkSmokeTests(project.envToBuild, project.DeployReleaseId, project);
+	
+	def atgAuditor=factory.getBean("atgAuditor")
+	atgAuditor.auditDeploy(project)
+}
+
+//===========================================================================
+//Control jboss instances
+//Scope: Public
+//===========================================================================
+task controlJboss() << {
+	logger.info(Logging.QUIET, "controlJboss : Start.")
+	logger.info(Logging.QUIET, "============================================================")
+
+	jbossManager.controlJboss(project)
+	
+
+	logger.info(Logging.QUIET, "controlJboss : End.")
+	logger.info(Logging.QUIET, "------------------------------------------------------------")
+	logger.info(Logging.QUIET, "\n")
+}
+
+task getLatestSource() << {
+	//tfsManager.initialise("tf", "m685", "Passw0rd", "NLOTRA", "http://vm018024:8080")
+	//tfsManager.getLatest()
+}
+getLatestSource.description = "Downloads the lastest source from TFS"
+

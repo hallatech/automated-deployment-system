@@ -1,0 +1,280 @@
+<?xml version="1.0" encoding="ISO-8859-1"?>
+<substitutions xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="jboss-config-substitution.xsd">
+
+	<application name="ALL">
+		<key name="spindrift.jboss.service.jta.transactiontimeout">
+			<env name="ALL">300000</env>
+		</key>
+		
+		<key name="spindrift.jboss.deployers.webxml.sessiontimeout">
+			<env name="ALL">30</env>
+		</key>
+		
+		<key name="spindrift.jboss.jmx-console-users.password">
+			<env name="ALL">admin</env>
+		</key>
+		<!-- java -cp "jboss-messaging-client.jar" org.jboss.messaging.util.SecurityUtil admin -->
+		<key name="spindrift.jboss.message-sucker.password">
+			<env name="ALL">-6b84f5b088a9497d</env>
+		</key>
+
+		<slotKey name="spindrift.jboss.slot.number">
+			<slot name="slot1">1</slot>
+			<slot name="slot2">2</slot>
+			<slot name="slot3">3</slot>
+			<slot name="slot4">4</slot>
+			<slot name="slot5">5</slot>
+			<slot name="slot6">6</slot>
+		</slotKey>
+		
+		<slotKey name="spindrift.jboss.webdeployer.server.ajp.connector.port">
+			<slot name="slot1">8109</slot>
+			<slot name="slot2">8209</slot>
+			<slot name="slot3">8309</slot>
+			<slot name="slot4">8409</slot>
+			<slot name="slot5">8509</slot>
+			<slot name="slot6">8609</slot>
+		</slotKey>
+
+		<datasource name="ALL">
+			<key name="spindrift.datasource.url">
+				<env name="LOCAL">jdbc:oracle:thin:@VBOXNET0.LOCAL:1521:XE</env>
+				<env name="AVE">jdbc:oracle:thin:@ssf-ave-2:1521:SSFAVEDB</env>
+			</key>
+		</datasource>
+	</application>
+
+	<application name="LiveStoreFront">
+		
+		<datasource name="livea">
+			<key name="spindrift.datasource.user">
+				<env name="LOCAL">livea</env>
+				<env name="AVE">livea</env>
+			</key>
+			<key name="spindrift.datasource.password">
+				<env name="LOCAL">livea</env>
+				<env name="AVE">livea</env>
+			</key>
+		</datasource>
+		
+		<datasource name="liveb">
+			<key name="spindrift.datasource.user">
+				<env name="LOCAL">liveb</env>
+				<env name="AVE">liveb</env>
+			</key>
+			<key name="spindrift.datasource.password">
+				<env name="LOCAL">liveb</env>
+				<env name="AVE">liveb</env>
+			</key>
+		</datasource>
+		
+		<datasource name="liverw">
+			<key name="spindrift.datasource.user">
+				<env name="LOCAL">liverw</env>
+				<env name="AVE">liverw</env>
+			</key>
+			<key name="spindrift.datasource.password">
+				<env name="LOCAL">liverw</env>
+				<env name="AVE">liverw</env>
+			</key>
+		</datasource>
+
+		<datasource name="jbossmsg" template="jbossmsg_template-ds.xml">
+			<key name="spindrift.datasource.user">
+				<env name="LOCAL">liverw</env>
+				<env name="AVE">liverw</env>
+			</key>
+			<key name="spindrift.datasource.password">
+				<env name="LOCAL">liverw</env>
+				<env name="AVE">liverw</env>
+			</key>
+		</datasource>
+	</application>
+	
+	<application name="StagingStoreFront">
+		<datasource name="stagea">
+			<key name="spindrift.datasource.user">
+				<env name="LOCAL">stagea</env>
+				<env name="AVE">stagea</env>
+			</key>
+			<key name="spindrift.datasource.password">
+				<env name="LOCAL">stagea</env>
+				<env name="AVE">stagea</env>
+			</key>
+		</datasource>
+		
+		<datasource name="stageb">
+			<key name="spindrift.datasource.user">
+				<env name="LOCAL">stageb</env>
+				<env name="AVE">stageb</env>
+			</key>
+			<key name="spindrift.datasource.password">
+				<env name="LOCAL">stageb</env>
+				<env name="AVE">stageb</env>
+			</key>
+		</datasource>
+		
+		<datasource name="stagerw">
+			<key name="spindrift.datasource.user">
+				<env name="LOCAL">stagerw</env>
+				<env name="AVE">stagerw</env>
+			</key>
+			<key name="spindrift.datasource.password">
+				<env name="LOCAL">stagerw</env>
+				<env name="AVE">stagerw</env>
+			</key>
+		</datasource>
+
+		<datasource name="jbossmsg" template="jbossmsg_template-ds.xml">
+			<key name="spindrift.datasource.user">
+				<env name="LOCAL">stagerw</env>
+				<env name="AVE">stagerw</env>
+			</key>
+			<key name="spindrift.datasource.password">
+				<env name="LOCAL">stagerw</env>
+				<env name="AVE">stagerw</env>
+			</key>
+		</datasource>
+	</application>
+	
+	<application name="ContentAdmin">
+		<key name="spindrift.jboss.service.jta.transactiontimeout">
+			<env name="ALL">600000</env>
+		</key>
+
+		<datasource name="livea">
+			<key name="spindrift.datasource.user">
+				<env name="LOCAL">livea</env>
+				<env name="AVE">livea</env>
+			</key>
+			<key name="spindrift.datasource.password">
+				<env name="LOCAL">livea</env>
+				<env name="AVE">livea</env>
+			</key>
+		</datasource>
+		
+		<datasource name="liveb">
+			<key name="spindrift.datasource.user">
+				<env name="LOCAL">liveb</env>
+				<env name="AVE">liveb</env>
+			</key>
+			<key name="spindrift.datasource.password">
+				<env name="LOCAL">liveb</env>
+				<env name="AVE">liveb</env>
+			</key>
+		</datasource>
+		
+		<datasource name="liverw">
+			<key name="spindrift.datasource.user">
+				<env name="LOCAL">liverw</env>
+				<env name="AVE">liverw</env>
+			</key>
+			<key name="spindrift.datasource.password">
+				<env name="LOCAL">liverw</env>
+				<env name="AVE">liverw</env>
+			</key>
+		</datasource>
+		
+		<datasource name="stagea">
+			<key name="spindrift.datasource.user">
+				<env name="LOCAL">stagea</env>
+				<env name="AVE">stagea</env>
+			</key>
+			<key name="spindrift.datasource.password">
+				<env name="LOCAL">stagea</env>
+				<env name="AVE">stagea</env>
+			</key>
+		</datasource>
+		
+		<datasource name="stageb">
+			<key name="spindrift.datasource.user">
+				<env name="LOCAL">stageb</env>
+				<env name="AVE">stageb</env>
+			</key>
+			<key name="spindrift.datasource.password">
+				<env name="LOCAL">stageb</env>
+				<env name="AVE">stageb</env>
+			</key>
+		</datasource>
+		
+		<datasource name="stagerw">
+			<key name="spindrift.datasource.user">
+				<env name="LOCAL">stagerw</env>
+				<env name="AVE">stagerw</env>
+			</key>
+			<key name="spindrift.datasource.password">
+				<env name="LOCAL">stagerw</env>
+				<env name="AVE">stagerw</env>
+			</key>
+		</datasource>
+		
+		<datasource name="ca">
+			<key name="spindrift.datasource.user">
+				<env name="LOCAL">ca</env>
+				<env name="AVE">ca</env>
+			</key>
+			<key name="spindrift.datasource.password">
+				<env name="LOCAL">ca</env>
+				<env name="AVE">ca</env>
+			</key>
+		</datasource>
+
+		<datasource name="jbossmsg" template="jbossmsg_template-ds.xml">
+			<key name="spindrift.datasource.user">
+				<env name="LOCAL">ca</env>
+				<env name="AVE">ca</env>
+			</key>
+			<key name="spindrift.datasource.password">
+				<env name="LOCAL">ca</env>
+				<env name="AVE">ca</env>
+			</key>
+		</datasource>
+	</application>
+	
+	<application name="AdminPages">
+		<datasource name="livea">
+			<key name="spindrift.datasource.user">
+				<env name="LOCAL">livea</env>
+				<env name="AVE">livea</env>
+			</key>
+			<key name="spindrift.datasource.password">
+				<env name="LOCAL">livea</env>
+				<env name="AVE">livea</env>
+			</key>
+		</datasource>
+		
+		<datasource name="liveb">
+			<key name="spindrift.datasource.user">
+				<env name="LOCAL">liveb</env>
+				<env name="AVE">liveb</env>
+			</key>
+			<key name="spindrift.datasource.password">
+				<env name="LOCAL">liveb</env>
+				<env name="AVE">liveb</env>
+			</key>
+		</datasource>
+		
+		<datasource name="liverw">
+			<key name="spindrift.datasource.user">
+				<env name="LOCAL">liverw</env>
+				<env name="AVE">liverw</env>
+			</key>
+			<key name="spindrift.datasource.password">
+				<env name="LOCAL">liverw</env>
+				<env name="AVE">liverw</env>
+			</key>
+		</datasource>
+		
+		<datasource name="ca">
+			<key name="spindrift.datasource.user">
+				<env name="LOCAL">ca</env>
+				<env name="AVE">ca</env>
+			</key>
+			<key name="spindrift.datasource.password">
+				<env name="LOCAL">ca</env>
+				<env name="AVE">ca</env>
+			</key>
+		</datasource>
+	</application>
+
+</substitutions>
